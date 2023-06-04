@@ -1,7 +1,9 @@
 import {useState, useEffect} from 'react'; 
+import { Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 import ListTeacher from './components/ListTeacher';
-
+import Header1 from './components/Header1';
+import Footer1 from './components/Footer1';
 function App() {
   const [teachers, setTeachers] = useState([]);
 
@@ -21,7 +23,11 @@ function App() {
   
   return (
     <div className="App">
-      <ListTeacher teachers={teachers} />
+      <Header1 />
+      <Routes>
+     <Route path="/search" element = {<ListTeacher teachers={teachers} />}  />
+      </Routes>
+      <Footer1 />
     </div>
   );
 }
