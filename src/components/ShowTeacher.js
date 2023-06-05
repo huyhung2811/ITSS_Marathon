@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 
-function Teacher({ currentTeacher, indexTeacher }) {
+function ShowTeacher({ currentTeacher}) {
     return (
         <Row xs={1} md={4} className="g-4">
             {currentTeacher.map((teacher, idx) => (
@@ -12,9 +12,9 @@ function Teacher({ currentTeacher, indexTeacher }) {
                         <Card.Body>
                             <Card.Title>{teacher.name}</Card.Title>
                             <Card.Text>
-                                Achievements: {teacher.achievements}<br />
-                                Graduate: {teacher.graduate}<br />
-                                Experience: {teacher.experience}
+                                level: {teacher.level}<br />
+                                Study from: {teacher.study_form}<br />
+                                Time slot: {teacher.time_slot}
                             </Card.Text>
                         </Card.Body>
                     </Card>
@@ -24,4 +24,4 @@ function Teacher({ currentTeacher, indexTeacher }) {
     )
 }
 
-export default Teacher;
+export default ShowTeacher;
