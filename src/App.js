@@ -1,8 +1,10 @@
+
 // import {useState, useEffect} from 'react'; 
 // import axios from 'axios';
 import ListTeacher from './components/ListTeacher';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import teacherTest from "./data/teacherTest";
+
 
 function App() {
   // const [teachers, setTeachers] = useState([]);
@@ -23,6 +25,7 @@ function App() {
 
   return (
     <div className="App">
+
       <BrowserRouter>
         <Routes>
           <Route path="/list-teacher" element={<ListTeacher teachers={teacherTest} />}></Route>
@@ -30,6 +33,7 @@ function App() {
         </Routes>
       </BrowserRouter>
       
+
     </div>
   );
 }
