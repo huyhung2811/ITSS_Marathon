@@ -10,7 +10,7 @@ export default function SearchTeacher({ teachers, setSearchData, setIsSearch, pa
   
         if (trimmedSearch) {
           const listTeacher = teachers.filter((teacher) => {
-            if(teacher.name.toLowerCase().includes(search.toLowerCase())){
+            if(teacher.user_info.name.toLowerCase().includes(search.toLowerCase())){
                 return true;
             }else{
                 return false;

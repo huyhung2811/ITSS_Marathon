@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Pagination, Select } from "antd";
 import ShowTeacher from "./ShowTeacher";
 import SearchTeacher from "../search/SearchTeacher";
+import Header1 from "./Header1"
+import Footer1 from "./Footer1"
 
 const { Option } = Select;
 
@@ -44,16 +46,35 @@ function ListTeacher({teachers}) {
     setIsSearch(true);
     setCurrentPage(1);
   };
-
-  const filteredStudyForm = teachers.filter((teacher) => {
-    if (studyFromValue === "All") {
-      return true;
-    }
-    return teacher.study_form === studyFromValue;
+// hình thức dạy học online/offline
+const handleStudyForm = () => {
+  var filteredStudyForm = [];
+  teachers.forEach(teacher => {
+        var check = teacher.classes.filter((lop) => {
+            if (studyFromValue === "All") {
+              return true;
+            }
+            return lop.type === studyFromValue;
+        });
+        if(check.length > 0){
+          filteredStudyForm.push(teacher);
+        }
   });
   if (filteredStudyForm.length > 0) {
     showData = filteredStudyForm;
-  }
+  };
+};
+handleStudyForm();
+  // const filteredStudyForm = teachers.filter((teacher) => {
+  //   if (studyFromValue === "All") {
+  //     return true;
+  //   }
+  //   return teacher.study_form === studyFromValue;
+  // });
+  
+
+// cấp độ dạy học A1 A2 B1 ...
+  
   const filteredLevel = showData.filter((teacher) => {
     if (levelValue === "All") {
       return true;
@@ -63,26 +84,51 @@ function ListTeacher({teachers}) {
   if (filteredLevel.length > 0) {
     showData = filteredLevel;
   }
-  const filteredTimeSlot = showData.filter((teacher) => {
-    if (timeSlotValue === "All") {
-      return true;
+
+// kíp học: kíp 1 - 14
+const handleTimeSlot = () => {
+  var filteredTimeSlot = [];
+  showData.forEach(teacher => {
+    var check = [];
+    teacher.classes.forEach(lop => {
+      var timeSlot = lop.schedule_list.filter((slot) => {
+          if (timeSlotValue === "All") {
+            return true;
+          }
+          return slot.time_slot === timeSlotValue;
+      });
+      if(timeSlot.length > 0){
+        check.push(lop);
+      }
+    });
+    if(check.length > 0){
+      filteredTimeSlot.push(teacher);
     }
-    return teacher.time_slot === timeSlotValue;
   });
   if (filteredTimeSlot.length > 0) {
     showData = filteredTimeSlot;
   }
+}
+handleTimeSlot();
+  // const filteredTimeSlot = showData.filter((teacher) => {
+  //   if (timeSlotValue === "All") {
+  //     return true;
+  //   }
+  //   return teacher.time_slot === timeSlotValue;
+  // });
+  
 
   const currentTeacher = showData.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-  const totalItems = isSearch ? searchData.length : filteredTimeSlot.length;
+  const totalItems = isSearch ? searchData.length : showData.length;
   const currentTeacherSearch = searchData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-console.log(showData);
+
 
   return (
     <div>
+      <Header1 />
       <div
         style={{
           display: "flex",
@@ -99,17 +145,7 @@ console.log(showData);
             paginate={handlePageChange}
           />
         </div>
-        <p
-          style={{
-            flex: 1,
-            textAlign: "center",
-            position: "fixed",
-            top: "0",
-            right: "0",
-          }}
-        >
-          {totalItems}
-        </p>
+        
         <div
           style={{
             flex: 1,
@@ -198,8 +234,8 @@ console.log(showData);
             onChange={handleFilterChange}
           >
             <Option value="All">All</Option>
-            <Option value="1">offline</Option>
-            <Option value="0">online</Option>
+            <Option value="online">online</Option>
+            <Option value="offline">offline</Option>
           </Select>
         </div>
       </div>
@@ -224,6 +260,8 @@ console.log(showData);
           onChange={handlePageChange}
         />
       </div>
+      <Footer1 />
+      
     </div>
   );
 }
