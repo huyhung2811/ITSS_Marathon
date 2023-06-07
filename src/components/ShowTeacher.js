@@ -1,21 +1,34 @@
 import Card from 'react-bootstrap/Card';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+
 
 // currentTeacher là danh sách các giáo viên cần in
-function ShowTeacher({ currentTeacher}) {
+function ShowTeacher({ currentTeacher }) {
     return (
-        <Row xs={1} md={4} className="g-4">
+        <Row xs={2} md={4} className="g-4">
             {currentTeacher.map((teacher, idx) => (
                 <Col key={idx}>
                     <Card>
-                        <Card.Img variant="top" src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR68SQ-owyKTbsf-VdMcmO0c3BvJl3HaSzrWg&usqp=CAU"} />
-                        <Card.Body>
-                            <Card.Title>{teacher.user_id}</Card.Title>
+                        <Card.Img variant="top" src={"https://img.lovepik.com/element/40143/7392.png_860.png"} />
+                        <Card.Body style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                            <Card.Title>{teacher.user_info.name}</Card.Title>
                             <Card.Text>
-                                name: {teacher.user_info.name}<br />
-                                address: {teacher.address}<br />
-                                phone: {teacher.phone}
+                                <strong>レベル:</strong> {teacher.level}<br />
+                                <div>
+                                    <strong>授業時間: </strong>
+                                    {teacher.classes.map((classItem, index) => (
+                                        classItem.schedule_list.map((schedule, subIndex) => (
+                                            <span key={subIndex}>
+                                                {schedule.day_of_week} - レッスンの時間枠 {schedule.time_slot}<br/>
+                                            </span>
+                                        ))
+                                    ))}
+                                </div>
+
+                                <strong>評価:</strong> {teacher.rating} <FontAwesomeIcon icon={faStar} style={{ color: "#ffd500", }} />
                             </Card.Text>
                         </Card.Body>
                     </Card>

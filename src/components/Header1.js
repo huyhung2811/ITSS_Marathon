@@ -15,8 +15,10 @@ function Header1() {
     return (
       <header>
         <div className="header-container">
-          <div className="logo">
-            <img src="marathon-edu-logo.png" alt="Marathon edu Logo"/>
+          <div className="logo" >
+            <Link to ="/">
+              <img src="marathon-edu-logo.png" alt="Marathon edu Logo"/>
+            </Link>
           </div>
   
           <div className="navigation">
@@ -25,7 +27,7 @@ function Header1() {
           className={activeButton === 'search' ? 'active' : 'navigation-options'}
           onClick={() => handleClickedOption('search')}
         >
-          <Link to="/search">Search</Link>
+          <Link to="/list-teacher">Search</Link>
         </button>
         <button
           className={activeButton === 'prices' ? 'active' : 'navigation-options'}

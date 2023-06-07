@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Pagination, Select } from "antd";
 import ShowTeacher from "./ShowTeacher";
 import SearchTeacher from "../search/SearchTeacher";
-import Header1 from "./Header1"
-import Footer1 from "./Footer1"
 
 const { Option } = Select;
 
@@ -128,7 +126,6 @@ handleTimeSlot();
 
   return (
     <div>
-      <Header1 />
       <div
         style={{
           display: "flex",
@@ -260,7 +257,7 @@ handleTimeSlot();
           onChange={handlePageChange}
         />
       </div>
-      <Footer1 />
+
       
     </div>
   );
