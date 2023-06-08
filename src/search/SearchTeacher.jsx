@@ -35,7 +35,7 @@ export default function SearchTeacher({ teachers, setSearchData, setIsSearch, pa
   return (
     
       <Input.Search
-        placeholder="Tìm kiếm name"
+        placeholder="Search"
         onSearch={searchTeacher}
         onChange={(e) => setSearch(e.target.value)}
         value={search}
