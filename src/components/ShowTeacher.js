@@ -22,7 +22,7 @@ function ShowTeacher({ currentTeacher }) {
                                     {teacher.classes.map((classItem, index) => (
                                         classItem.schedule_list.map((schedule, subIndex) => (
                                             <span key={subIndex}>
-                                                {schedule.day_of_week} - レッスンの時間枠 {schedule.time_slot}<br/>
+                                                {schedule.day_of_week} - タイムスロット {schedule.time_slot}<br/>
                                             </span>
                                         ))
                                     ))}

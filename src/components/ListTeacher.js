@@ -164,20 +164,20 @@ handleTimeSlot();
             onChange={handleFilterTimeSlotChange}
           >
             <Option value="All">All</Option>
-            <Option value="1">kip 1</Option>
-            <Option value="2">kip 2</Option>
-            <Option value="3">kip 3</Option>
-            <Option value="4">kip 4</Option>
-            <Option value="5">kip 5</Option>
-            <Option value="6">kip 6</Option>
-            <Option value="7">kip 7</Option>
-            <Option value="8">kip 8</Option>
-            <Option value="9">kip 9</Option>
-            <Option value="10">kip 10</Option>
-            <Option value="11">kip 11</Option>
-            <Option value="12">kip 12</Option>
-            <Option value="13">kip 13</Option>
-            <Option value="14">kip 14</Option>
+            <Option value="1">タイムスロット 1</Option>
+            <Option value="2">タイムスロット 2</Option>
+            <Option value="3">タイムスロット 3</Option>
+            <Option value="4">タイムスロット 4</Option>
+            <Option value="5">タイムスロット 5</Option>
+            <Option value="6">タイムスロット 6</Option>
+            <Option value="7">タイムスロット 7</Option>
+            <Option value="8">タイムスロット 8</Option>
+            <Option value="9">タイムスロット 9</Option>
+            <Option value="10">タイムスロット 10</Option>
+            <Option value="11">タイムスロット 11</Option>
+            <Option value="12">タイムスロット 12</Option>
+            <Option value="13">タイムスロット 13</Option>
+            <Option value="14">タイムスロット 14</Option>
           </Select>
         </div>
         <div
