@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Pagination, Select } from "antd";
 import ShowTeacher from "./ShowTeacher";
 import SearchTeacher from "../search/SearchTeacher";
+import FilterComponent from './FilterComponent';
+
+import "./ListTeacher.css"
 
 const { Option } = Select;
 
@@ -16,7 +19,7 @@ function ListTeacher({teachers}) {
   var showData = teachers;
 
 
-  const pageSize = 8;
+  const pageSize = 6;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
@@ -124,141 +127,45 @@ handleTimeSlot();
   const currentTeacherSearch = searchData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
 
+  const handleFilterSubmit = filterData => {
+    // Xử lý logic khi nhận được các giá trị filter
+    // Gọi API hoặc thực hiện các tác vụ liên quan
+    console.log(filterData); // Ví dụ: In ra dữ liệu filter trong console
+
+    // Sau khi xử lý xong, có thể cập nhật dữ liệu kết quả vào state "results"
+  };
+
   return (
-    <div>
-      <div
+    <div className="listTeacher-container">
+       <div className="filter-container">
+        <FilterComponent onSubmit={handleFilterSubmit} />
+      </div>
+      
+      <div className="list-paginate">
+      <div className = "filter-results"
         style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          marginBottom: "20px",
         }}
       >
-        <div style={{ flex: 1 }}>
-          <SearchTeacher
-            teachers={showData}
-            setSearchData={handleSearchDataChange}
-            setIsSearch={setIsSearch}
-            paginate={handlePageChange}
-          />
-        </div>
-        
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <label
-            style={{ marginRight: "10px", fontWeight: "bold" }}
-            htmlFor="timeSlot"
-          >
-            タイムスロット:
-          </label>
-          <Select
-            id="timeSlot"
-            style={{ width: "200px" }}
-            value={timeSlotValue}
-            onChange={handleFilterTimeSlotChange}
-          >
-            <Option value="All">All</Option>
-            <Option value="1">タイムスロット 1</Option>
-            <Option value="2">タイムスロット 2</Option>
-            <Option value="3">タイムスロット 3</Option>
-            <Option value="4">タイムスロット 4</Option>
-            <Option value="5">タイムスロット 5</Option>
-            <Option value="6">タイムスロット 6</Option>
-            <Option value="7">タイムスロット 7</Option>
-            <Option value="8">タイムスロット 8</Option>
-            <Option value="9">タイムスロット 9</Option>
-            <Option value="10">タイムスロット 10</Option>
-            <Option value="11">タイムスロット 11</Option>
-            <Option value="12">タイムスロット 12</Option>
-            <Option value="13">タイムスロット 13</Option>
-            <Option value="14">タイムスロット 14</Option>
-          </Select>
-        </div>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <label
-            style={{ marginRight: "10px", fontWeight: "bold" }}
-            htmlFor="level"
-          >
-            レベル:
-          </label>
-          <Select
-            id="level"
-            style={{ width: "200px" }}
-            value={levelValue}
-            onChange={handleFilterLevelChange}
-          >
-            <Option value="All">All</Option>
-            <Option value="A1">A1</Option>
-            <Option value="A2">A2</Option>
-            <Option value="B1">B1</Option>
-            <Option value="B2">B2</Option>
-            <Option value="C1">C1</Option>
-            <Option value="C2">C2</Option>
-          </Select>
-        </div>
-
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <label
-            style={{ marginRight: "10px", fontWeight: "bold" }}
-            htmlFor="filter"
-          >
-            式:
-          </label>
-          <Select
-            id="filter"
-            style={{ width: "200px" }}
-            value={studyFromValue}
-            onChange={handleFilterChange}
-          >
-            <Option value="All">All</Option>
-            <Option value="online">online</Option>
-            <Option value="offline">offline</Option>
-          </Select>
-        </div>
-      </div>
-      { isSearch ?(
+        { isSearch ?(
                 <ShowTeacher currentTeacher={ currentTeacherSearch } />
                 ):(
                     <ShowTeacher currentTeacher={ currentTeacher } />
                 )
             }
-      
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Pagination
+       
+      </div>
+      <div className = "paginate-numbers">
+      <Pagination
           current={currentPage}
           pageSize={pageSize}
           total={totalItems}
           onChange={handlePageChange}
         />
-      </div>
-
-      
+        </div>
+    </div>
     </div>
   );
 }
