@@ -1,22 +1,13 @@
 import React, { useState } from "react";
-import { Pagination, Select } from "antd";
+import { Pagination } from "antd";
 import ShowTeacher from "./ShowTeacher";
-import SearchTeacher from "../search/SearchTeacher";
 import FilterComponent from './FilterComponent';
 
 import "./ListTeacher.css"
 
-const { Option } = Select;
 
 function ListTeacher({teachers}) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [studyFromValue, setStudyFromValue] = useState("All");
-  const [levelValue, setLevelValue] = useState("All");
-  const [timeSlotValue, setTimeSlotValue] = useState("All");
-  const [searchData, setSearchData] = useState(teachers);
-  const [isSearch, setIsSearch] = useState(false);
-
-  var showData = teachers;
 
 
   const pageSize = 6;
@@ -25,106 +16,12 @@ function ListTeacher({teachers}) {
     setCurrentPage(page);
   };
 
-  const handleFilterChange = (value) => {
-    setStudyFromValue(value);
-    setIsSearch(false);
-    setCurrentPage(1);
-  };
 
-  const handleFilterLevelChange = (value) => {
-    setLevelValue(value);
-    setIsSearch(false);
-    setCurrentPage(1);
-  };
-  const handleFilterTimeSlotChange = (value) => {
-    setTimeSlotValue(value);
-    setIsSearch(false);
-    setCurrentPage(1);
-  };
-
-  const handleSearchDataChange = (data) => {
-    setSearchData(data);
-    setIsSearch(true);
-    setCurrentPage(1);
-  };
-// hình thức dạy học online/offline
-const handleStudyForm = () => {
-  var filteredStudyForm = [];
-  teachers.forEach(teacher => {
-        var check = teacher.classes.filter((lop) => {
-            if (studyFromValue === "All") {
-              return true;
-            }
-            return lop.type === studyFromValue;
-        });
-        if(check.length > 0){
-          filteredStudyForm.push(teacher);
-        }
-  });
-  if (filteredStudyForm.length > 0) {
-    showData = filteredStudyForm;
-  };
-};
-handleStudyForm();
-  // const filteredStudyForm = teachers.filter((teacher) => {
-  //   if (studyFromValue === "All") {
-  //     return true;
-  //   }
-  //   return teacher.study_form === studyFromValue;
-  // });
-  
-
-// cấp độ dạy học A1 A2 B1 ...
-  
-  const filteredLevel = showData.filter((teacher) => {
-    if (levelValue === "All") {
-      return true;
-    }
-    return teacher.level === levelValue;
-  });
-  if (filteredLevel.length > 0) {
-    showData = filteredLevel;
-  }
-
-// kíp học: kíp 1 - 14
-const handleTimeSlot = () => {
-  var filteredTimeSlot = [];
-  showData.forEach(teacher => {
-    var check = [];
-    teacher.classes.forEach(lop => {
-      var timeSlot = lop.schedule_list.filter((slot) => {
-          if (timeSlotValue === "All") {
-            return true;
-          }
-          return slot.time_slot === timeSlotValue;
-      });
-      if(timeSlot.length > 0){
-        check.push(lop);
-      }
-    });
-    if(check.length > 0){
-      filteredTimeSlot.push(teacher);
-    }
-  });
-  if (filteredTimeSlot.length > 0) {
-    showData = filteredTimeSlot;
-  }
-}
-handleTimeSlot();
-  // const filteredTimeSlot = showData.filter((teacher) => {
-  //   if (timeSlotValue === "All") {
-  //     return true;
-  //   }
-  //   return teacher.time_slot === timeSlotValue;
-  // });
-  
-
-  const currentTeacher = showData.slice(
+  const currentTeacher = teachers.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-  const totalItems = isSearch ? searchData.length : showData.length;
-  const currentTeacherSearch = searchData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+  const totalItems = teachers.length;
 
 
   const handleFilterSubmit = filterData => {
@@ -149,13 +46,7 @@ handleTimeSlot();
           alignItems: "center",
         }}
       >
-        { isSearch ?(
-                <ShowTeacher currentTeacher={ currentTeacherSearch } />
-                ):(
-                    <ShowTeacher currentTeacher={ currentTeacher } />
-                )
-            }
-       
+        <ShowTeacher currentTeacher={ currentTeacher } />
       </div>
       <div className = "paginate-numbers">
       <Pagination
