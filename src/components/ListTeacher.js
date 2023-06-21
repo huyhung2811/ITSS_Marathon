@@ -21,6 +21,7 @@ function ListTeacher({teachers}) {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
   const totalItems = teachers.length;
 
 
@@ -36,8 +37,7 @@ function ListTeacher({teachers}) {
     <div className="listTeacher-container">
        <div className="filter-container">
         <FilterComponent onSubmit={handleFilterSubmit} />
-      </div>
-      
+      </div>   
       <div className="list-paginate">
       <div className = "filter-results"
         style={{

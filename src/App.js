@@ -7,9 +7,6 @@ import Footer1 from './components/Footer1';
 import TeacherDetails from './components/TeacherDetails';
 import "./App.css"
 
-// import teacherTest from './data/teacherTest';
-
-//import teacherTest from "./data/teacherTest";
 
 function App() {
   const [teachers, setTeachers] = useState([]);
@@ -27,6 +24,7 @@ function App() {
     }
     fetchTeacher();
   }, []);
+
   return (
     <div className="App">
       <BrowserRouter>
