@@ -15,7 +15,9 @@ function ShowTeacher({ currentTeacher}) {
   return (
     <Row xs={3} md={3} className="g-4">
       {currentTeacher.map((teacher, idx) => (
+         
         <Col key={idx}>
+          <Link to={`/teacher/${idx + 1 + indexOfFirstStudent}`}>
           <Card >
             <div className="card">
             <Card.Img
@@ -46,13 +48,13 @@ function ShowTeacher({ currentTeacher}) {
                     ))
                   )}
                 </div>
-                <strong>評価:</strong> {teacher.rating}{" "}
+                <strong>評価:</strong> {teacher.vote}{" "}
                 <FontAwesomeIcon icon={faStar} style={{ color: "#ffd500" }} />
               </Card.Text>
             </Card.Body>
             </div>
           </Card>
-          <Link to={`/teacher/${idx +1}`}>chitiet</Link>
+        </Link>
         </Col>
       ))}
     </Row>
