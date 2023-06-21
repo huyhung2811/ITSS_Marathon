@@ -9,7 +9,7 @@ import "./ListTeacher.css"
 
 
 // currentTeacher là danh sách các giáo viên cần in
-function ShowTeacher({ currentTeacher}) {
+function ShowTeacher({ currentTeacher, indexOfFirstStudent}) {
 
   console.log(currentTeacher);
   return (
@@ -17,7 +17,7 @@ function ShowTeacher({ currentTeacher}) {
       {currentTeacher.map((teacher, idx) => (
          
         <Col key={idx}>
-          <Link to={`/teacher/${idx + 1 + indexOfFirstStudent}`}>
+          <Link to={`/teacher/${teacher.id}`}>
           <Card >
             <div className="card">
             <Card.Img
