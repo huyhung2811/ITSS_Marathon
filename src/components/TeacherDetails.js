@@ -10,8 +10,6 @@ import axios from 'axios';
 import Slider from 'react-slick';
 
 
-
-
 function TeacherDetails({ teachers }) {
   const [commentText, setCommentText] = useState("");
   const [rating, setRating] = useState(0);
@@ -105,6 +103,7 @@ function TeacherDetails({ teachers }) {
       // Clear the form fields
       setCommentText("");
       setRating(0);
+      setComments([...comments, formData]);
     } catch (error) {
       console.log(error);
     }
@@ -118,55 +117,55 @@ function TeacherDetails({ teachers }) {
         <Modal.Header closeButton onClick={handleClose} />
         <Modal.Body>
           <Row>
-            <Col md={12} style={{ marginRight: "10px", width: "100%" }}>
-              <Card>
-                <Card.Body style={{
-                  textAlign: "left",
-                  color: "#000066",
-                  backgroundColor: "#FF9966",
-                  width: "100%",
-                  borderRadius: "5px"
-                }}>
-                  <Card.Title style={{
-                    textAlign: "center",
-                    fontSize: "30px"
-                  }}><strong>先生:</strong> {teacher.name}</Card.Title>
-                  <Card.Text>
-                    <strong style={{ marginLeft: "4%" }}>名前<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {teacher.name} - {teacher.age}<br /><br />
-                    <strong style={{ marginLeft: "4%" }}>住所<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {teacher.address}<br /><br />
-                    <strong style={{ marginLeft: "4%" }}>性別<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>{teacher.sex}<br /><br />
-                    <strong style={{ marginLeft: "4%" }}>電話番号<span style={{ margin: '0 50px 0 70px' }}>: </span></strong> 0{teacher.phone}<br /><br />
-                    <strong style={{ marginLeft: "4%" }}>レベル<span style={{ margin: '0 50px 0 85px' }}>: </span></strong> {teacher.level}<br /><br />
-                    <span><strong style={{ marginLeft: "4%" }}>クラス <span style={{ margin: '0 50px 0 80px' }}>: </span></strong>{teacher.classes.length}</span><br /><br />
-                    <span><strong style={{ marginLeft: "4%" }}>評価<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>
-                      <Rating name="half-rating-read" defaultValue={teacher.vote} precision={0.001} readOnly style={{ backgroundColor: "#fff" }} /></span><br /><br />
-                    <div className="slider-wrapper">
-                      <Slider {...settings}>
-                        {teacher.classes.map((classItem) => (
-                          <div style={{ width: "90%", marginRight: "10px", backgroundColor: "#fff", height: "30%" }}>
-                            <Card style={{
-                              width: '100px!important',
-                              marginLeft: "5%",
-                              marginRight: "5%",
-                              marginBottom: "10px",
-                              backgroundColor: "#fff"
-                            }}>
-                              <Card.Body style={{ color: "#000066" , height: "10px"}}>
-                                <Card.Text>
-                                  <strong>クラス:</strong> {classItem.name}<br />
-                                  <strong>開始日 - 終了日:</strong> {classItem.start_date} - {classItem.end_date}<br />
-                                  <strong>料金:</strong> {classItem.end_date}<br />
-                                  <strong>レベル:</strong> {classItem.level}<br />
-                                </Card.Text>
-                              </Card.Body>
-                            </Card>
-                          </div>
-                        ))}
-                      </Slider>
-                    </div>
-                    <br></br>
-                  </Card.Text>
-                </Card.Body>
+            <Col md={12} style={{ marginRight: "10px" }}>
+              <Card style={{ width: '100%' ,textAlign: "left",color: "#000066",backgroundColor: "#FF9966",borderRadius: "5px"}}>
+                <Card.Title style={{textAlign: "center",fontSize: "30px"}}>
+                  <strong>先生:</strong> {teacher.name}
+                </Card.Title>
+                <br />
+                <Card.Text>
+                  <strong style={{ marginLeft: "4%" }}>名前<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {teacher.name} - {teacher.age}<br /><br />
+                  <strong style={{ marginLeft: "4%" }}>住所<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {teacher.address}<br /><br />
+                  <strong style={{ marginLeft: "4%" }}>性別<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>{teacher.sex}<br /><br />
+                  <strong style={{ marginLeft: "4%" }}>電話番号<span style={{ margin: '0 50px 0 70px' }}>: </span></strong> 0{teacher.phone}<br /><br />
+                  <strong style={{ marginLeft: "4%" }}>レベル<span style={{ margin: '0 50px 0 85px' }}>: </span></strong> {teacher.level}<br /><br />
+                  <span><strong style={{ marginLeft: "4%" }}>クラス <span style={{ margin: '0 50px 0 80px' }}>: </span></strong>{teacher.classes.length}</span><br /><br />
+                  <span><strong style={{ marginLeft: "4%" }}>評価<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>
+                    <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.001} readOnly style={{ backgroundColor: "#fff" }} /></span><br /><br />
+                </Card.Text>
+                <div>
+                  <Slider {...settings}>
+                    {teacher.classes.map((classItem) => {
+                      const startDate = new Date(classItem.start_date);
+                      const endDate = new Date(classItem.end_date);
+                      
+                      const startMonth = startDate.getMonth('default', { month: 'short' });
+                      const startDay = startDate.getDate();
+                      
+                      const endMonth = endDate.getMonth('default', { month: 'short' });
+                      const endDay = endDate.getDate();
+                      return(
+                      <div style={{ width: "90%", marginRight: "10px", backgroundColor: "#fff", height: "30%" }}>
+                        <Card style={{
+                          height: '100px!important',
+                          marginLeft: "5%",
+                          marginRight: "5%",
+                          marginBottom: "10px",
+                          backgroundColor: "#fff"
+                        }}>
+                          <Card.Body style={{ color: "#000066", height: "10px" }}>
+                            <Card.Text>
+                              <strong>クラス: {classItem.name}</strong> <br /><br/>
+                              <strong>開始日 - 終了日: {startDay}/{startMonth} - {endDay}/{endMonth}</strong> <br /><br/>
+                              <strong>料金: {classItem.end_date}</strong> <br /><br/>
+                              <strong>レベル: {classItem.level}</strong><br /><br/>
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      </div>
+                      )})}
+                  </Slider>
+                </div>
               </Card>
             </Col>
             <Col md={11}>
@@ -180,11 +179,11 @@ function TeacherDetails({ teachers }) {
                   <div className="scrollable" style={{ maxHeight: "268px", overflowX: "auto" }}>
                     <ListGroup variant="flush">
                       {comments.map((comment) => {
-                        const user = users.find((user) => user.user_id === comment.user_id);
-                        return(
+                        const user = users.find((user) => user.user_id === user_id);
+                        return (
                           <ListGroup.Item key={comment.id} style={{ borderColor: "#000" }}>
-                          <span style={{ marginBottom: "10px" }}><strong>{user.name}:</strong> </span><Rating name="half-rating-read" value={comment.rating} precision={0.1} readOnly /> <br /><br />{comment.comment}
-                        </ListGroup.Item>
+                            <span style={{ marginBottom: "10px" }}><strong>{user.name}:</strong> </span><Rating name="half-rating-read" value={comment.rating} precision={0.1} readOnly /> <br /><br />{comment.comment}
+                          </ListGroup.Item>
                         );
                       })}
                     </ListGroup>
@@ -197,7 +196,7 @@ function TeacherDetails({ teachers }) {
                       <Form.Label className="mr-2"><strong>評価</strong></Form.Label><br />
                       <Rating
                         name="rating"
-                        value={rating}
+                        value={parseFloat(rating)}
                         precision={1}
                         onChange={(event, value) => setRating(value)}
                       />

@@ -23,6 +23,7 @@ function ListTeacher({teachers}) {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+
   if (points !== null){
     var currentTeacherPoint = points.slice(
       (currentPage - 1) * pageSize,
@@ -32,6 +33,8 @@ function ListTeacher({teachers}) {
   }
   
 
+  const indexOfLastStudent = currentPage * pageSize;
+  const indexOfFirstStudent = indexOfLastStudent - pageSize;
   const totalItems = teachers.length;
 
 
@@ -70,10 +73,11 @@ function ListTeacher({teachers}) {
         }}
       >
         { points !== null ? (
-        <ShowTeacher currentTeacher={ currentTeacherPoint } />
+        <ShowTeacher currentTeacher={ currentTeacherPoint } indexOfFirstStudent={indexOfFirstStudent} />
         ):(
-        <ShowTeacher currentTeacher={ currentTeacher } />
+        <ShowTeacher currentTeacher={ currentTeacher } indexOfFirstStudent={indexOfFirstStudent} />
         )}
+
       </div>
       <div className = "paginate-numbers">
       <Pagination
