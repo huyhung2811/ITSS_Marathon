@@ -30,7 +30,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                 justifyContent: "center",
               }}
             >
-              <Card.Title>{teacher.user_info.name}</Card.Title>
+              <Card.Title>{teacher.name}</Card.Title>
               <Card.Text>
                 <strong>レベル:</strong> {teacher.level}
                 <br />

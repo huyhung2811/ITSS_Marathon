@@ -118,14 +118,14 @@ function TeacherDetails({ teachers }) {
         <Modal.Header closeButton onClick={handleClose} />
         <Modal.Body>
           <Row>
-            <Col md={12} style={{ marginRight: "10px" }}>
+            <Col md={12} style={{ marginRight: "10px", width: "100%" }}>
               <Card>
                 <Card.Body style={{
                   textAlign: "left",
-                  width: "100%",
                   color: "#000066",
-                  backgroundColor: "#FF9966"
-                  // marginLeft: "10%",
+                  backgroundColor: "#FF9966",
+                  width: "100%",
+                  borderRadius: "5px"
                 }}>
                   <Card.Title style={{
                     textAlign: "center",
@@ -143,7 +143,7 @@ function TeacherDetails({ teachers }) {
                     <div className="slider-wrapper">
                       <Slider {...settings}>
                         {teacher.classes.map((classItem) => (
-                          <div style={{ width: "90%", marginRight: "10px", backgroundColor: "#fff" }}>
+                          <div style={{ width: "90%", marginRight: "10px", backgroundColor: "#fff", height: "30%" }}>
                             <Card style={{
                               width: '100px!important',
                               marginLeft: "5%",
@@ -151,15 +151,12 @@ function TeacherDetails({ teachers }) {
                               marginBottom: "10px",
                               backgroundColor: "#fff"
                             }}>
-                              <Card.Body style={{ color: "#000066" }}>
-                                <Card.Title style={{ textAlign: "center", }}>{classItem.name}</Card.Title>
+                              <Card.Body style={{ color: "#000066" , height: "10px"}}>
                                 <Card.Text>
-                                  <strong>Type:</strong> {classItem.type}<br />
-                                  <strong>Start Date:</strong> {classItem.start_date}<br />
-                                  <strong>End Date:</strong> {classItem.end_date}<br />
-                                  <strong>Max Students:</strong> {classItem.max_student}<br />
-                                  <strong>Day of Week:</strong> {classItem.day_of_week}<br />
-                                  <strong>Time Slot:</strong> {classItem.time_slot}
+                                  <strong>クラス:</strong> {classItem.name}<br />
+                                  <strong>開始日 - 終了日:</strong> {classItem.start_date} - {classItem.end_date}<br />
+                                  <strong>料金:</strong> {classItem.end_date}<br />
+                                  <strong>レベル:</strong> {classItem.level}<br />
                                 </Card.Text>
                               </Card.Body>
                             </Card>
