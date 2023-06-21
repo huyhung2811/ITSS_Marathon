@@ -4,10 +4,12 @@ import ShowTeacher from "./ShowTeacher";
 import FilterComponent from './FilterComponent';
 
 import "./ListTeacher.css"
+import axios from "axios";
 
 
 function ListTeacher({teachers}) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [points, setPoints] = useState(null);
 
 
   const pageSize = 6;
@@ -21,16 +23,37 @@ function ListTeacher({teachers}) {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+  if (points !== null){
+    var currentTeacherPoint = points.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    );
+  
+  }
+  
 
   const totalItems = teachers.length;
 
 
-  const handleFilterSubmit = filterData => {
-    // Xử lý logic khi nhận được các giá trị filter
-    // Gọi API hoặc thực hiện các tác vụ liên quan
-    console.log(filterData); // Ví dụ: In ra dữ liệu filter trong console
-
-    // Sau khi xử lý xong, có thể cập nhật dữ liệu kết quả vào state "results"
+  const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
+    console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
+    axios.post('http://127.0.0.1:8000/api/matching', { 
+      salary: fee, address: location,
+      sex: sex, age: age,
+      goal: goal, level: level,
+      day_of_week: day, time_slot: timeSlot,
+      dem: dem
+    })
+    .then(response => {
+      setPoints(response.data);
+      
+    console.log('thanh cong');
+    })
+    .catch(error => {
+      console.log("loi");
+    });
+    setCurrentPage(1);
+    
   };
 
   return (
@@ -46,7 +69,11 @@ function ListTeacher({teachers}) {
           alignItems: "center",
         }}
       >
+        { points !== null ? (
+        <ShowTeacher currentTeacher={ currentTeacherPoint } />
+        ):(
         <ShowTeacher currentTeacher={ currentTeacher } />
+        )}
       </div>
       <div className = "paginate-numbers">
       <Pagination
