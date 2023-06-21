@@ -1,17 +1,42 @@
 import React, { useState } from "react";
 
 const FilterComponent = ({ onSubmit }) => {
-  const [location, setLocation] = useState("");
-  const [level, setLevel] = useState("");
-  const [day, setDay] = useState("");
-  const [timeSlot, setTimeSlot] = useState("");
-  const [fee, setFee] = useState("");
-  const [sex, setSex] = useState("");
-  const [age, setAge] = useState("");
-  const [goal, setGoal] = useState("");
+  const [location, setLocation] = useState("All");
+  const [level, setLevel] = useState("All");
+  const [day, setDay] = useState("All");
+  const [timeSlot, setTimeSlot] = useState("All");
+  const [fee, setFee] = useState(null);
+  const [sex, setSex] = useState("All");
+  const [age, setAge] = useState(null);
+  const [goal, setGoal] = useState("All");
 
   const handleSubmit = () => {
-    onSubmit();
+    var dem = 0;
+    if(location !== "All"){
+      dem =dem+1;
+    }
+    if(level !== "All"){
+      dem =dem+1;
+    }
+    if(day !== "All"){
+      dem =dem+1;
+    }
+    if(timeSlot !== "All"){
+      dem =dem+1;
+    }
+    if(fee !== null){
+      dem =dem+1;
+    }
+    if(sex !== "All"){
+      dem =dem+1;
+    }
+    if(age !== null){
+      dem =dem+1;
+    }
+    if(goal !== "All"){
+      dem =dem+1;
+    }
+    onSubmit(location, level, day, timeSlot, fee, sex, age, goal, dem);
   };
 
   return (
@@ -70,11 +95,42 @@ const FilterComponent = ({ onSubmit }) => {
         <li>
           <label className="filter-component">
             場所
-            <input
-              type="text"
+            <select
               value={location}
               onChange={(e) => setLocation(e.target.value)}
-            />
+            >
+              <option value="All">All</option>
+              <option value="Ba Dinh">Ba Dinh</option>
+              <option value="Hoan Kiem">Hoan Kiem</option>
+              <option value="Hai Ba Trung">Hai Ba Trung</option>
+              <option value="Dong Da">Dong Da</option>
+              <option value="Tay Ho">Tay Ho</option>
+              <option value="Cau Giay">Cau Giay</option>
+              <option value="Thanh Xuan">Thanh Xuan</option>
+              <option value="Hoang Mai">Hoang Mai</option>
+              <option value="Long Bien">Long Bien</option>
+              <option value="Bac Tu Liem">Bac Tu Liem</option>
+              <option value="Nam Tu Liem">Nam Tu Liem</option>
+              <option value="Ha Dong">Ha Dong</option>
+              <option value="Son Tay">Son Tay</option>
+              <option value="Ba Vi">Ba Vi</option>
+              <option value="Phuc Tho">Phuc Tho</option>
+              <option value="Dan Phuong">Dan Phuong</option>
+              <option value="Hoai Duc">Hoai Duc</option>
+              <option value="Thach That">Thach That</option>
+              <option value="Quoc Oai">Quoc Oai</option>
+              <option value="Chuong My">Chuong My</option>
+              <option value="Thanh Oai">Thanh Oai</option>
+              <option value="Thuong Tin">Thuong Tin</option>
+              <option value="Phu Xuyen">Phu Xuyen</option>
+              <option value="Me Linh">Me Linh</option>
+              <option value="Dong Anh">Dong Anh</option>
+              <option value="Gia Lam">Gia Lam</option>
+              <option value="Soc Son">Soc Son</option>
+              <option value="Thanh Tri">Thanh Tri</option>
+              <option value="My Duc">My Duc</option>
+              <option value="Ung Hoa">Ung Hoa</option>
+            </select>
           </label>
         </li>
         <li>
