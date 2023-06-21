@@ -120,6 +120,8 @@ handleTimeSlot();
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
+  const indexOfLastStudent = currentPage * pageSize;
+  const indexOfFirstStudent = indexOfLastStudent - pageSize;
   const totalItems = isSearch ? searchData.length : showData.length;
   const currentTeacherSearch = searchData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
@@ -239,7 +241,7 @@ handleTimeSlot();
       { isSearch ?(
                 <ShowTeacher currentTeacher={ currentTeacherSearch } />
                 ):(
-                    <ShowTeacher currentTeacher={ currentTeacher } />
+                    <ShowTeacher currentTeacher={ currentTeacher } indexOfFirstStudent={indexOfFirstStudent} />
                 )
             }
       
