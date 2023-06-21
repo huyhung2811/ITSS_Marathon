@@ -10,6 +10,7 @@ import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
 function ListTeacher({ teachers }) {
     const [currentPage, setCurrentPage] = useState(1);
+    const [showFilter, setShowFilter] = useState(true);
 
 
     const pageSize = 6;
@@ -37,14 +38,27 @@ function ListTeacher({ teachers }) {
     return (
         <div>
             <div className="m-0 py-1 my-1" style={{ backgroundColor: '#ADD8E1' }}>
-                <p className="fw-bold fs-4 m-0"><FontAwesomeIcon className="mx-5" icon={faFilter} style={{ color: '#1A9360'}} />条件に合わせて<span className="text-danger">最適な教師</span>を見つける！</p>
+                <p className="fw-bold fs-4 m-0">
+                    <FontAwesomeIcon
+                        className="mx-5"
+                        icon={faFilter}
+                        style={{ color: '#1A9360' }}
+                        role="button"
+                        onClick={() => setShowFilter(!showFilter)}
+                    />
+                    条件に合わせて
+                    <span className="text-danger">最適な教師</span>
+                    を見つける！
+                </p>
             </div>
             <div className="listTeacher-container">
-                <div className="filter-container">
-                    <FilterComponent onSubmit={handleFilterSubmit} />
-                </div>
+                {showFilter &&
+                    <div className="filter-container">
+                        <FilterComponent onSubmit={handleFilterSubmit} />
+                    </div>
+                }
 
-                <div className="list-paginate">
+                <div className="list-paginate" style={{ width: showFilter ? '100%' : '70%' }}>
                     <div className="filter-results"
                         style={{
                             display: "flex",

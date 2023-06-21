@@ -15,7 +15,7 @@ function ShowTeacher({ currentTeacher }) {
         <Row xs={3} md={3} className="g-4">
             {currentTeacher.map((teacher, idx) => (
                 <Col key={idx} className="my-4">
-                    <Card >
+                    <Card className="mx-auto" >
                         <Link to={`/teacher/${idx + 1}`} style={{ textDecoration: 'none' }}>
                             <div className="card">
                                 <Image
