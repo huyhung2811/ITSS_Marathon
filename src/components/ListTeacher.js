@@ -37,7 +37,7 @@ function ListTeacher({teachers}) {
 
   const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
     console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
-    axios.post('http://127.0.0.1:8000/api/matching', { 
+    axios.post('https://be-marathonwebsite-ruler-production-93fe.up.railway.app/api/matching', { 
       salary: fee, address: location,
       sex: sex, age: age,
       goal: goal, level: level,
