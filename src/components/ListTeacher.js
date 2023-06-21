@@ -21,7 +21,8 @@ function ListTeacher({teachers}) {
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-
+  const indexOfLastStudent = currentPage * pageSize;
+  const indexOfFirstStudent = indexOfLastStudent - pageSize;
   const totalItems = teachers.length;
 
 
@@ -46,7 +47,7 @@ function ListTeacher({teachers}) {
           alignItems: "center",
         }}
       >
-        <ShowTeacher currentTeacher={ currentTeacher } />
+        <ShowTeacher currentTeacher={ currentTeacher } indexOfFirstStudent={indexOfFirstStudent}/>
       </div>
       <div className = "paginate-numbers">
       <Pagination
