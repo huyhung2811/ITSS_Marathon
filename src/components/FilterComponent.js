@@ -157,8 +157,9 @@ const FilterComponent = ({ onSubmit }) => {
                     </div>
                 </li>
                 <li className="my-3">
-                    <div className="row d-flex justify-content-center">
-                        <button className="col-3 rounded border-0 text-center mt-2 p-2" onClick={handleSubmit}>Submit</button>
+                    <div className="d-flex justify-content-center">
+                        <button className="rounded border-0 text-center mt-2 mx-2 p-2 bg-white text-success" onClick={handleSubmit}>申し込み</button>
+                        <button className="rounded border-0 text-center mt-2 mx-2 p-2 bg-white text-danger">キャンセル</button>
                     </div>
                 </li>
             </ul>
