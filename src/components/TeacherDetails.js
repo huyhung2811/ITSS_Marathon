@@ -179,7 +179,7 @@ function TeacherDetails({ teachers }) {
                   <div className="scrollable" style={{ maxHeight: "268px", overflowX: "auto" }}>
                     <ListGroup variant="flush">
                       {comments.map((comment) => {
-                        const user = users.find((user) => user.user_id === user_id);
+                        const user = users.find((user) => user.user_id === comment.user_id);
                         return (
                           <ListGroup.Item key={comment.id} style={{ borderColor: "#000" }}>
                             <span style={{ marginBottom: "10px" }}><strong>{user.name}:</strong> </span><Rating name="half-rating-read" value={comment.rating} precision={0.1} readOnly /> <br /><br />{comment.comment}

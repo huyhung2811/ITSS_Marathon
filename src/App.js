@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header1 from './components/Header1';
 import Footer1 from './components/Footer1';
 import TeacherDetails from './components/TeacherDetails';
+import Profile from './components/Profile';
 import "./App.css"
 
 
@@ -36,6 +37,7 @@ function App() {
           <Route path="/list-teacher" element={<ListTeacher teachers={teachers} />}></Route>
           <Route path="/teacher/:id" element={<TeacherDetails teachers={teachers} />} />
           <Route path="/" element={<h1>hello</h1>}></Route>
+          <Route path="/profile" element={<Profile/>}></Route>
         </Routes>
       </div>
       <div className="App-footer">
