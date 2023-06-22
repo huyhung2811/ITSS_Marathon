@@ -131,7 +131,7 @@ function TeacherDetails({ teachers }) {
                   <strong style={{ marginLeft: "4%" }}>レベル<span style={{ margin: '0 50px 0 85px' }}>: </span></strong> {teacher.level}<br /><br />
                   <span><strong style={{ marginLeft: "4%" }}>クラス <span style={{ margin: '0 50px 0 80px' }}>: </span></strong>{teacher.classes.length}</span><br /><br />
                   <span><strong style={{ marginLeft: "4%" }}>評価<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>
-                    <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.001} readOnly style={{ backgroundColor: "#fff" }} /></span><br /><br />
+                    <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.01} readOnly style={{ backgroundColor: "#fff" }} /></span><br /><br />
                 </Card.Text>
                 <div>
                   <Slider {...settings}>

@@ -3,12 +3,10 @@ import { Card, Row, Col, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
 import ListGroup from 'react-bootstrap/ListGroup';
-import Tabs from 'react-bootstrap/Tabs';
+import Nav from 'react-bootstrap/Nav';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faMapLocationDot, faFlag, faUpload } from '@fortawesome/free-solid-svg-icons';
 import PortraitIcon from '@mui/icons-material/Portrait';
-
-
 
 const classStuding = [
     {
@@ -76,75 +74,6 @@ const classStuding = [
     }
 ];
 
-const RegistrationClass = [
-    {
-        "id": 1,
-        "name": "Thu",
-        "type": "online",
-        "fee": 100000,
-        "level": "A1",
-        "start_date": "2023-07-05",
-        "end_date": "2023-08-16",
-        "max_student": 23,
-        "day_of_week": "Tuesday",
-        "schedule_list": [
-            {
-                "day_of_week": "Tuesday",
-                "time_slot": "5"
-            },
-            {
-                "day_of_week": "Tuesday",
-                "time_slot": "6"
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "name": "Minh",
-        "type": "online",
-        "fee": 80000,
-        "level": "A2",
-        "start_date": "2023-06-08",
-        "end_date": "2023-08-17",
-        "max_student": 27,
-        "day_of_week": "Monday",
-        "schedule_list": [
-            {
-                "day_of_week": "Tuesday",
-                "time_slot": "2"
-            },
-            {
-                "day_of_week": "Monday",
-                "time_slot": "11"
-            }
-        ]
-    },
-    {
-        "id": 3,
-        "name": "Anh",
-        "type": "online",
-        "fee": 150000,
-        "level": "B1",
-        "start_date": "2023-06-07",
-        "end_date": "2023-08-15",
-        "max_student": 22,
-        "day_of_week": "Sunday",
-        "schedule_list": [
-            {
-                "day_of_week": "Thursday",
-                "time_slot": "7"
-            },
-            {
-                "day_of_week": "Sunday",
-                "time_slot": "14"
-            }
-        ]
-    }
-];
-
-
-
-
 const Profile = () => {
     const [showInfo, setShowInfo] = useState(true);
     const [showClass, setShowClass] = useState(false);
@@ -165,8 +94,6 @@ const Profile = () => {
         desired_goal: '勉強',
         desired_level: 'B2'
     };
-
-
 
     const handleShowInfo = () => {
         setShowInfo(true);
@@ -234,10 +161,10 @@ const Profile = () => {
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
                                                 <input type="file" accept="image/*" style={{ display: 'none' }} id="avatar-input" />
                                                 <label htmlFor="avatar-input" style={{ marginRight: '10px', cursor: 'pointer', border: '1px solid #000', borderRadius: "10px", background: '#d1d1d1', color: '#000', padding: '5px 10px' }}>
-                                                <PortraitIcon/>プロフィール アバター <FontAwesomeIcon icon={faUpload} />
+                                                    <PortraitIcon />プロフィール アバター <FontAwesomeIcon icon={faUpload} />
                                                 </label>
                                                 {userInfo.avatar && (
-                                                    <img src={userInfo.avatar} alt="Avatar" style={{ marginLeft:"156px", width: '120px', height: '120px', borderRadius: '20%', float: "right" }} />
+                                                    <img src={userInfo.avatar} alt="Avatar" style={{ marginLeft: "156px", width: '120px', height: '120px', borderRadius: '20%', float: "right" }} />
                                                 )}
                                             </div>
                                         </Form.Group><br />
@@ -306,31 +233,94 @@ const Profile = () => {
                             {showClass && (
                                 <div>
                                     <br />
-                                    <Tabs
-                                        defaultActiveKey="profile"
-                                        id="justify-tab-example"
-                                        className="mb-3"
-                                        justify
-                                    >
-                                        <Tab eventKey="home" title="Home" style={{backgroundColor:"#fff"}}>
-                                            <div style={{ border: "1px solid #000", borderRadius: "5px", padding: "10px", margin: "2px", backgroundColor:"#fff" }}>
-                                                <div className="scrollable" style={{ maxHeight: "268px", overflowX: "auto" }}>
-                                                    <ListGroup variant="flush">
-                                                        {classStuding.map((classStuding) => {
-                                                            return (
-                                                                <ListGroup.Item key={classStuding.id} style={{ borderColor: "#000" }}>
-                                                                    <span style={{ marginBottom: "10px" }}><strong>{classStuding.name}:</strong> </span><br /><br />{classStuding.type}
-                                                                </ListGroup.Item>
-                                                            );
-                                                        })}
-                                                    </ListGroup>
-                                                </div>
-                                            </div>
-                                        </Tab>
-                                        <Tab eventKey="profile" title="Profile">
-                                            Tab content for Profile
-                                        </Tab>
-                                    </Tabs>
+                                    <Tab.Container id="left-tabs-example" defaultActiveKey="first" style={{ backgroundColor: "#fff" }}>
+                                        <Row className="flex-column">
+                                            <Col sm={{ span: 12 }}>
+                                                <Nav variant="pills" className="justify-content-center">
+                                                    <Nav.Item>
+                                                        <Nav.Link eventKey="first"
+                                                        >受講しているクラス
+                                                        </Nav.Link>
+                                                    </Nav.Item>
+                                                    <Nav.Item>
+                                                        <Nav.Link eventKey="second">クラスは承認待ち</Nav.Link>
+                                                    </Nav.Item>
+                                                </Nav>
+                                            </Col>
+                                        </Row><br />
+                                        <Row>
+                                            <Col >
+                                                <Tab.Content style={{ width: "550px" }}>
+                                                    <Tab.Pane style={{ backgroundColor: "#fff" }} eventKey="first">
+                                                        <div style={{ marginRight: "5px", backgroundColor: "#fff" }}>
+                                                            <div className="scrollable" style={{ maxHeight: "300px", overflowX: "auto" }}>
+                                                                <ListGroup variant="flush">
+                                                                    {classStuding.map((classStuding) => {
+                                                                        return (
+                                                                            <ListGroup.Item key={classStuding.id} style={{ color: "#000", backgroundColor: "#d0facf", border: "1px solid #dce7dc", borderRadius: "5px", marginBottom: "10px" }}>
+                                                                                <Card.Text style={{ marginLeft: "10px" }}>
+                                                                                    <strong>クラス:<span style={{ margin: '0 50px 0 30px', color: "#000" }}></span></strong> {classStuding.name}<br />
+                                                                                    <strong>教師:<span style={{ margin: '0 50px 0 50px', color: "#000" }}> </span></strong> {classStuding.name}<br />
+                                                                                    <strong style={{ display: "inline-block" }}>レベル:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 85px', color: "#000" }}>{classStuding.level}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>目的:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.desired_goal}</span><br />
+                                                                                    <strong style={{ display: "inline-block" }}>開始日:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 35px', color: "#000" }}>{classStuding.start_date}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>終了日:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.end_date}</span><br/>
+                                                                                    <strong style={{ display: "inline-block" }}>学費:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 30px', color: "#000" }}>{classStuding.fee}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>曜日:</strong>
+                                                                                    <span style={{ margin: '0 30px 0 30px', color: "#000" }}>{classStuding.day_of_week}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>時間:</strong>
+                                                                                    <span style={{ margin: '0 30px 0 30px', color: "#000" }}>{classStuding.schedule_list[1].time_slot}</span>
+
+                                                                                </Card.Text>
+                                                                            </ListGroup.Item>
+                                                                        );
+                                                                    })}
+                                                                </ListGroup>
+                                                            </div>
+                                                        </div>
+                                                    </Tab.Pane>
+                                                    <Tab.Pane style={{ backgroundColor: "#fff" }} eventKey="second">
+                                                    <div style={{ marginRight: "5px", backgroundColor: "#fff" }}>
+                                                            <div className="scrollable" style={{ maxHeight: "300px", overflowX: "auto" }}>
+                                                                <ListGroup variant="flush">
+                                                                    {classStuding.map((classStuding) => {
+                                                                        return (
+                                                                            <ListGroup.Item key={classStuding.id} style={{ color: "#000", backgroundColor: "#d0facf", border: "1px solid #dce7dc", borderRadius: "5px", marginBottom: "10px" }}>
+                                                                                <Card.Text style={{ marginLeft: "10px" }}>
+                                                                                    <strong>クラス:<span style={{ margin: '0 50px 0 85px', color: "#000" }}></span></strong> {classStuding.name}<br />
+                                                                                    <strong>教師:<span style={{ margin: '0 50px 0 100px', color: "#000" }}> </span></strong> {classStuding.name}<br />
+                                                                                    <strong style={{ display: "inline-block" }}>レベル:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 85px', color: "#000" }}>{classStuding.level}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>目的:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.desired_goal}</span><br />
+                                                                                    <strong style={{ display: "inline-block" }}>開始日:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 35px', color: "#000" }}>{classStuding.start_date}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>終了日:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.end_date}</span><br/>
+                                                                                    <strong style={{ display: "inline-block" }}>学費:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{classStuding.fee}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>曜日:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.day_of_week}</span>
+                                                                                    <strong style={{ display: "inline-block" }}>時間:</strong>
+                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.schedule_list}</span>
+
+                                                                                </Card.Text>
+                                                                            </ListGroup.Item>
+                                                                        );
+                                                                    })}
+                                                                </ListGroup>
+                                                            </div>
+                                                        </div>
+                                                    </Tab.Pane>
+                                                </Tab.Content>
+                                            </Col>
+                                        </Row>
+                                    </Tab.Container>
                                 </div>
                             )}
                         </Card>
