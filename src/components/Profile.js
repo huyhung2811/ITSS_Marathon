@@ -261,21 +261,34 @@ const Profile = () => {
                                                                                 <Card.Text style={{ marginLeft: "10px" }}>
                                                                                     <strong>クラス:<span style={{ margin: '0 50px 0 30px', color: "#000" }}></span></strong> {classStuding.name}<br />
                                                                                     <strong>教師:<span style={{ margin: '0 50px 0 50px', color: "#000" }}> </span></strong> {classStuding.name}<br />
-                                                                                    <strong style={{ display: "inline-block" }}>レベル:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 85px', color: "#000" }}>{classStuding.level}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>目的:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.desired_goal}</span><br />
-                                                                                    <strong style={{ display: "inline-block" }}>開始日:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 35px', color: "#000" }}>{classStuding.start_date}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>終了日:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.end_date}</span><br/>
-                                                                                    <strong style={{ display: "inline-block" }}>学費:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 30px', color: "#000" }}>{classStuding.fee}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>曜日:</strong>
-                                                                                    <span style={{ margin: '0 30px 0 30px', color: "#000" }}>{classStuding.day_of_week}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>時間:</strong>
-                                                                                    <span style={{ margin: '0 30px 0 30px', color: "#000" }}>{classStuding.schedule_list[1].time_slot}</span>
 
+                                                                                    <table>
+                                                                                        <tr>
+                                                                                            <td><strong style={{ display: "inline-block" }}>レベル :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.level}</span></td>
+                                                                                    <td style={{ width: "50px" }}></td>
+                                                                                            <td><strong style={{ display: "inline-block" }}>目的 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{userInfo.desired_goal}</span><br /></td>
+                                                                                            <td></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong style={{ display: "inline-block" }}>開始日 :</strong>
+                                                                                    <span style={{ marginLeft: "10px",  color: "#000" }}>{classStuding.start_date}</span></td>
+                                                                                            <td></td>
+                                                                                            <td> <strong style={{ display: "inline-block" }}>終了日 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.end_date}</span><br/></td>
+                                                                                            <td></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong style={{ display: "inline-block" }}>学費 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.fee}</span></td>
+                                                                                            <td></td>
+                                                                                            <td><strong style={{ display: "inline-block" }}>曜日 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.day_of_week}</span></td>
+                                                                                            <td><strong style={{ display: "inline-block" }}>時間 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.schedule_list[1].time_slot}</span></td>
+                                                                                        </tr>
+                                                                                    </table>
                                                                                 </Card.Text>
                                                                             </ListGroup.Item>
                                                                         );
@@ -292,22 +305,35 @@ const Profile = () => {
                                                                         return (
                                                                             <ListGroup.Item key={classStuding.id} style={{ color: "#000", backgroundColor: "#d0facf", border: "1px solid #dce7dc", borderRadius: "5px", marginBottom: "10px" }}>
                                                                                 <Card.Text style={{ marginLeft: "10px" }}>
-                                                                                    <strong>クラス:<span style={{ margin: '0 50px 0 85px', color: "#000" }}></span></strong> {classStuding.name}<br />
-                                                                                    <strong>教師:<span style={{ margin: '0 50px 0 100px', color: "#000" }}> </span></strong> {classStuding.name}<br />
-                                                                                    <strong style={{ display: "inline-block" }}>レベル:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 85px', color: "#000" }}>{classStuding.level}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>目的:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.desired_goal}</span><br />
-                                                                                    <strong style={{ display: "inline-block" }}>開始日:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 35px', color: "#000" }}>{classStuding.start_date}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>終了日:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.end_date}</span><br/>
-                                                                                    <strong style={{ display: "inline-block" }}>学費:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{classStuding.fee}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>曜日:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.day_of_week}</span>
-                                                                                    <strong style={{ display: "inline-block" }}>時間:</strong>
-                                                                                    <span style={{ margin: '0 50px 0 50px', color: "#000" }}>{userInfo.schedule_list}</span>
+                                                                                <strong>クラス:<span style={{ margin: '0 50px 0 30px', color: "#000" }}></span></strong> {classStuding.name}<br />
+                                                                                    <strong>教師:<span style={{ margin: '0 50px 0 50px', color: "#000" }}> </span></strong> {classStuding.name}<br />
+                                                                                    <table>
+                                                                                        <tr>
+                                                                                            <td><strong style={{ display: "inline-block" }}>レベル :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.level}</span></td>
+                                                                                    <td style={{ width: "50px" }}></td>
+                                                                                            <td><strong style={{ display: "inline-block" }}>目的 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{userInfo.desired_goal}</span><br /></td>
+                                                                                            <td></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong style={{ display: "inline-block" }}>開始日 :</strong>
+                                                                                    <span style={{ marginLeft: "10px",  color: "#000" }}>{classStuding.start_date}</span></td>
+                                                                                            <td></td>
+                                                                                            <td> <strong style={{ display: "inline-block" }}>終了日 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.end_date}</span><br/></td>
+                                                                                            <td></td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td><strong style={{ display: "inline-block" }}>学費 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.fee}</span></td>
+                                                                                            <td></td>
+                                                                                            <td><strong style={{ display: "inline-block" }}>曜日 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.day_of_week}</span></td>
+                                                                                            <td><strong style={{ display: "inline-block" }}>時間 :</strong>
+                                                                                    <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.schedule_list[1].time_slot}</span></td>
+                                                                                        </tr>
+                                                                                    </table>
 
                                                                                 </Card.Text>
                                                                             </ListGroup.Item>
