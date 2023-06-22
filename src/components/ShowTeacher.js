@@ -15,7 +15,6 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
   return (
     <Row xs={3} md={3} className="g-4">
       {currentTeacher.map((teacher, idx) => (
-         
         <Col key={idx}>
           <Link to={`/teacher/${idx + 1 + indexOfFirstStudent}`}>
           <Card >
