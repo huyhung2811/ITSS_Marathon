@@ -1,8 +1,10 @@
 import Card from "react-bootstrap/Card";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faStar } from "@fortawesome/free-regular-svg-icons";
+
 import { Link } from "react-router-dom";
 
 import "./ListTeacher.css";
@@ -19,8 +21,11 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
   return (
     <Row xs={3} md={3} className="g-4" style={{ marginTop: "5px" }}>
       {currentTeacher.map((teacher, idx) => (
+
         <Col key={idx}>
           <Card>
+
+
             <div className="card">
               <Link to={`/teacher/${teacher.id}`} className="link-no-underline">
                 <Card.Img
@@ -73,6 +78,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
         </Col>
       ))}
     </Row>
+
   );
 }
 
