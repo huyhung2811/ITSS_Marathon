@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 import "./ListTeacher.css";
 import { useState } from "react";
+import Rating from "@mui/material/Rating";
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
@@ -56,8 +57,8 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                   <br />
                   {teacher.address + ", Ha Noi"}
                   <br />
-                  <strong>評価:</strong> {teacher.vote}{" "}
-                  <FontAwesomeIcon icon={faStar} style={{ color: "#ffd500" }} />
+                  <span>
+                    <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.01} readOnly style={{ backgroundColor: "#fff" }} /></span>
                   {clickHeart ? (
                     <FontAwesomeIcon
                       icon={faHeart}
