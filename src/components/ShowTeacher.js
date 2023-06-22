@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 
 import "./ListTeacher.css"
+import "./ShowTeacher.css"
 import { useState } from "react";
 
 
@@ -29,6 +30,8 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
           <Link to={`/teacher/${teacher.id}` } className="link-no-underline">
           <Card >
             <div className="card">
+            <div className="avatar-background"></div>
+            <div className="avatar-wrapper">
             <Card.Img
               variant="top"
               src={teacher.avatar}
@@ -39,6 +42,8 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                 objectFit: 'cover',
             }}
             />
+            
+            </div>
             <Card.Body
               style={{
                 display: "flex",
