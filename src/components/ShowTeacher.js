@@ -31,11 +31,11 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                   variant="top"
                   src={teacher.avatar}
                   style={{
-                    width: "200px",
-                    height: "200px",
+                    width: "70%",
+                    height: "70%",
                     borderRadius: "50%",
                     objectFit: "cover",
-                    marginLeft: "10%"
+                    marginLeft: "15%"
                   }}
                 />
               </Link>
