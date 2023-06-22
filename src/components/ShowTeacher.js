@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faStar } from "@fortawesome/free-regular-svg-icons";
+import { faHeart} from "@fortawesome/free-regular-svg-icons";
 
 import { Link } from "react-router-dom";
 
@@ -25,18 +25,17 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
 
         <Col key={idx}>
           <Card>
-
-
             <div className="card">
               <Link to={`/teacher/${teacher.id}`} className="link-no-underline">
                 <Card.Img
                   variant="top"
                   src={teacher.avatar}
                   style={{
-                    width: "100%",
-                    height: "250px",
+                    width: "200px",
+                    height: "200px",
                     borderRadius: "50%",
                     objectFit: "cover",
+                    marginLeft: "10%"
                   }}
                 />
               </Link>
@@ -49,7 +48,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                   justifyContent: "center",
                 }}
               >
-                <Card.Title>{teacher.name}</Card.Title>
+                <Card.Title>{teacher.name} - {teacher.age}</Card.Title>
                 <Card.Text>
                   {teacher.point && Math.round(teacher.point * 100) + a}
                   <br />

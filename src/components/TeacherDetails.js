@@ -127,7 +127,7 @@ function TeacherDetails({ teachers }) {
                   <strong style={{ marginLeft: "4%" }}>名前<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {teacher.name} - {teacher.age}<br /><br />
                   <strong style={{ marginLeft: "4%" }}>住所<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {teacher.address}<br /><br />
                   <strong style={{ marginLeft: "4%" }}>性別<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>{teacher.sex}<br /><br />
-                  <strong style={{ marginLeft: "4%" }}>電話番号<span style={{ margin: '0 50px 0 70px' }}>: </span></strong> 0{teacher.phone}<br /><br />
+                  <strong style={{ marginLeft: "4%" }}>電話番号<span style={{ margin: '0 50px 0 70px' }}>: </span></strong> {teacher.phone}<br /><br />
                   <strong style={{ marginLeft: "4%" }}>レベル<span style={{ margin: '0 50px 0 85px' }}>: </span></strong> {teacher.level}<br /><br />
                   <span><strong style={{ marginLeft: "4%" }}>クラス <span style={{ margin: '0 50px 0 80px' }}>: </span></strong>{teacher.classes.length}</span><br /><br />
                   <span><strong style={{ marginLeft: "4%" }}>評価<span style={{ margin: '0 50px 0 100px' }}>: </span></strong>
@@ -157,7 +157,7 @@ function TeacherDetails({ teachers }) {
                             <Card.Text>
                               <strong>クラス: {classItem.name}</strong> <br /><br/>
                               <strong>開始日 - 終了日: {startDay}/{startMonth} - {endDay}/{endMonth}</strong> <br /><br/>
-                              <strong>料金: {classItem.end_date}</strong> <br /><br/>
+                              <strong>料金: {classItem.fee}</strong> <br /><br/>
                               <strong>レベル: {classItem.level}</strong><br /><br/>
                             </Card.Text>
                           </Card.Body>
