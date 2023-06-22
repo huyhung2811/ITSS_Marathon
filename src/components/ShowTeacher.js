@@ -43,6 +43,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                 marginLeft: '5%'
             }}
             />
+            </div>
               </Link>
 
               <Card.Body
