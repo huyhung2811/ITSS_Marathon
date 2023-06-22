@@ -7,7 +7,10 @@ import { faHeart} from "@fortawesome/free-regular-svg-icons";
 
 import { Link } from "react-router-dom";
 
-import "./ListTeacher.css";
+
+import "./ListTeacher.css"
+import "./ShowTeacher.css"
+
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
 
@@ -26,18 +29,20 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
         <Col key={idx}>
           <Card>
             <div className="card">
+              <div className="avatar-background"></div>
               <Link to={`/teacher/${teacher.id}`} className="link-no-underline">
-                <Card.Img
-                  variant="top"
-                  src={teacher.avatar}
-                  style={{
-                    width: "70%",
-                    height: "70%",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    marginLeft: "15%"
-                  }}
-                />
+            <div className="avatar-wrapper">
+            <Card.Img
+              variant="top"
+              src={teacher.avatar}
+              style={{
+                width: '90%',
+                height: '230px',
+                borderRadius: '50%',
+                objectFit: 'cover',
+                marginLeft: '5%'
+            }}
+            />
               </Link>
 
               <Card.Body

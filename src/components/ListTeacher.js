@@ -107,6 +107,7 @@ function ListTeacher({ teachers }) {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              width: "100%",
             }}
           >
             {points !== null ? (
