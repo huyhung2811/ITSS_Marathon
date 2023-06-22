@@ -1,0 +1,34 @@
+.filter-ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #000;
+    border-radius: 5px;
+    width: 100%;
+    height: 140%;
+    text-align: left;
+    color: #96f17e;
+    background-color: #8f8e86;
+  }
+  
+  .filter-component {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .filter-component label {
+    margin-right: 10px;
+  }
+  
+  .filter-input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .filter-button {
+    margin-left: 30%;
+    margin-bottom: 5px;
+  }
+  
