@@ -78,8 +78,8 @@ function ListTeacher({ teachers }) {
   };
 
   return (
-    <>
-      <div className="m-0 py-1 my-1" style={{ backgroundColor: "#ADD8E1" }}>
+    <div style={{alignContent:"center"}}>
+      <div className="m-0 py-1 my-1" style={{ backgroundColor: "#ADD8E1", alignContent:"center"}}>
         <p className="fw-bold fs-4 m-0">
           <FontAwesomeIcon
             className="mx-5"
@@ -122,7 +122,7 @@ function ListTeacher({ teachers }) {
               />
             )}
           </div>
-          <div className="paginate-numbers">
+          <div className="paginate-numbers" >
             <Pagination
               current={currentPage}
               pageSize={pageSize}
@@ -132,7 +132,7 @@ function ListTeacher({ teachers }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
