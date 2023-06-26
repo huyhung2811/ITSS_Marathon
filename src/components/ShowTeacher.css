@@ -8,6 +8,6 @@
     left: 0;
     width: 100%;
     height: 30%;
-    background-color: rgb(164, 159, 159); /* Thay thế <màu nền> bằng mã màu hoặc giá trị màu tùy chọn */
+    background-color: #ebe8e8; /* Thay thế <màu nền> bằng mã màu hoặc giá trị màu tùy chọn */
     /* Các thuộc tính CSS khác cho background */
   }

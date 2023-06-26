@@ -27,7 +27,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
       {currentTeacher.map((teacher, idx) => (
 
         <Col key={idx}>
-          <Card>
+          <Card style={{border:"1px solid #000"}}>
             <div className="card">
               <div className="avatar-background"></div>
               <Link to={`/teacher/${teacher.id}`} className="link-no-underline">

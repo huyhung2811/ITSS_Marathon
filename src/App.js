@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ListTeacher from './components/ListTeacher';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header1 from './components/Header1';
+import Header from './components/Header1';
 import Footer1 from './components/Footer1';
 import TeacherDetails from './components/TeacherDetails';
 import Profile from './components/Profile';
@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
       <div className='App-header'>
-        <Header1 />
+        <Header />
       </div>
       <div className='App-body'>
         <Routes>
