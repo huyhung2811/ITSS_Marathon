@@ -1,264 +1,137 @@
 import React, { useState } from "react";
-import { Pagination, Select } from "antd";
+import { Pagination } from "antd";
 import ShowTeacher from "./ShowTeacher";
-import SearchTeacher from "../search/SearchTeacher";
+import FilterComponent from "./FilterComponent";
 
-const { Option } = Select;
+import "./ListTeacher.css";
+import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter } from "@fortawesome/free-solid-svg-icons";
 
-function ListTeacher({teachers}) {
+function ListTeacher({ teachers }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [studyFromValue, setStudyFromValue] = useState("All");
-  const [levelValue, setLevelValue] = useState("All");
-  const [timeSlotValue, setTimeSlotValue] = useState("All");
-  const [searchData, setSearchData] = useState(teachers);
-  const [isSearch, setIsSearch] = useState(false);
+  const [points, setPoints] = useState(null);
+  const [buttonClick, setButtonClick] = useState(false);
 
-  var showData = teachers;
+  const handleShowFilter = () => {
+    setButtonClick(!buttonClick);
+  };
 
-
-  const pageSize = 8;
+  const pageSize = 6;
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
 
-  const handleFilterChange = (value) => {
-    setStudyFromValue(value);
-    setIsSearch(false);
-    setCurrentPage(1);
-  };
-
-  const handleFilterLevelChange = (value) => {
-    setLevelValue(value);
-    setIsSearch(false);
-    setCurrentPage(1);
-  };
-  const handleFilterTimeSlotChange = (value) => {
-    setTimeSlotValue(value);
-    setIsSearch(false);
-    setCurrentPage(1);
-  };
-
-  const handleSearchDataChange = (data) => {
-    setSearchData(data);
-    setIsSearch(true);
-    setCurrentPage(1);
-  };
-// hình thức dạy học online/offline
-const handleStudyForm = () => {
-  var filteredStudyForm = [];
-  teachers.forEach(teacher => {
-        var check = teacher.classes.filter((lop) => {
-            if (studyFromValue === "All") {
-              return true;
-            }
-            return lop.type === studyFromValue;
-        });
-        if(check.length > 0){
-          filteredStudyForm.push(teacher);
-        }
-  });
-  if (filteredStudyForm.length > 0) {
-    showData = filteredStudyForm;
-  };
-};
-handleStudyForm();
-  // const filteredStudyForm = teachers.filter((teacher) => {
-  //   if (studyFromValue === "All") {
-  //     return true;
-  //   }
-  //   return teacher.study_form === studyFromValue;
-  // });
-  
-
-// cấp độ dạy học A1 A2 B1 ...
-  
-  const filteredLevel = showData.filter((teacher) => {
-    if (levelValue === "All") {
-      return true;
-    }
-    return teacher.level === levelValue;
-  });
-  if (filteredLevel.length > 0) {
-    showData = filteredLevel;
-  }
-
-// kíp học: kíp 1 - 14
-const handleTimeSlot = () => {
-  var filteredTimeSlot = [];
-  showData.forEach(teacher => {
-    var check = [];
-    teacher.classes.forEach(lop => {
-      var timeSlot = lop.schedule_list.filter((slot) => {
-          if (timeSlotValue === "All") {
-            return true;
-          }
-          return slot.time_slot === timeSlotValue;
-      });
-      if(timeSlot.length > 0){
-        check.push(lop);
-      }
-    });
-    if(check.length > 0){
-      filteredTimeSlot.push(teacher);
-    }
-  });
-  if (filteredTimeSlot.length > 0) {
-    showData = filteredTimeSlot;
-  }
-}
-handleTimeSlot();
-  // const filteredTimeSlot = showData.filter((teacher) => {
-  //   if (timeSlotValue === "All") {
-  //     return true;
-  //   }
-  //   return teacher.time_slot === timeSlotValue;
-  // });
-  
-
-  const currentTeacher = showData.slice(
+  const currentTeacher = teachers.slice(
     (currentPage - 1) * pageSize,
     currentPage * pageSize
   );
-  const totalItems = isSearch ? searchData.length : showData.length;
-  const currentTeacherSearch = searchData.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
+  if (points !== null) {
+    var currentTeacherPoint = points.slice(
+      (currentPage - 1) * pageSize,
+      currentPage * pageSize
+    );
+  }
+
+  const indexOfLastStudent = currentPage * pageSize;
+  const indexOfFirstStudent = indexOfLastStudent - pageSize;
+  const totalItems = teachers.length;
+
+  const handleFilterSubmit = (
+    location,
+    level,
+    day,
+    timeSlot,
+    fee,
+    sex,
+    age,
+    goal,
+    dem
+  ) => {
+    console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
+    axios
+      .post(
+        "https://be-marathonwebsite-ruler-production-93fe.up.railway.app/api/matching",
+        {
+          salary: fee,
+          address: location,
+          sex: sex,
+          age: age,
+          goal: goal,
+          level: level,
+          day_of_week: day,
+          time_slot: timeSlot,
+          dem: dem,
+        }
+      )
+      .then((response) => {
+        setPoints(response.data);
+
+        console.log("thanh cong");
+      })
+      .catch((error) => {
+        console.log("loi");
+      });
+    setCurrentPage(1);
+  };
 
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          marginBottom: "20px",
-        }}
-      >
-        <div style={{ flex: 1 }}>
-          <SearchTeacher
-            teachers={showData}
-            setSearchData={handleSearchDataChange}
-            setIsSearch={setIsSearch}
-            paginate={handlePageChange}
+    <div style={{alignContent:"center"}}>
+      <div className="m-0 py-1 my-1" style={{ backgroundColor: "#ADD8E1", alignContent:"center"}}>
+        <p className="fw-bold fs-4 m-0">
+          <FontAwesomeIcon
+            className="mx-5"
+            icon={faFilter}
+            style={{ color: "#1A9360" }}
+            role="button"
+            onClick={handleShowFilter}
           />
-        </div>
-        
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <label
-            style={{ marginRight: "10px", fontWeight: "bold" }}
-            htmlFor="timeSlot"
-          >
-            タイムスロット:
-          </label>
-          <Select
-            id="timeSlot"
-            style={{ width: "200px" }}
-            value={timeSlotValue}
-            onChange={handleFilterTimeSlotChange}
-          >
-            <Option value="All">All</Option>
-            <Option value="1">タイムスロット 1</Option>
-            <Option value="2">タイムスロット 2</Option>
-            <Option value="3">タイムスロット 3</Option>
-            <Option value="4">タイムスロット 4</Option>
-            <Option value="5">タイムスロット 5</Option>
-            <Option value="6">タイムスロット 6</Option>
-            <Option value="7">タイムスロット 7</Option>
-            <Option value="8">タイムスロット 8</Option>
-            <Option value="9">タイムスロット 9</Option>
-            <Option value="10">タイムスロット 10</Option>
-            <Option value="11">タイムスロット 11</Option>
-            <Option value="12">タイムスロット 12</Option>
-            <Option value="13">タイムスロット 13</Option>
-            <Option value="14">タイムスロット 14</Option>
-          </Select>
-        </div>
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <label
-            style={{ marginRight: "10px", fontWeight: "bold" }}
-            htmlFor="level"
-          >
-            レベル:
-          </label>
-          <Select
-            id="level"
-            style={{ width: "200px" }}
-            value={levelValue}
-            onChange={handleFilterLevelChange}
-          >
-            <Option value="All">All</Option>
-            <Option value="A1">A1</Option>
-            <Option value="A2">A2</Option>
-            <Option value="B1">B1</Option>
-            <Option value="B2">B2</Option>
-            <Option value="C1">C1</Option>
-            <Option value="C2">C2</Option>
-          </Select>
-        </div>
+          条件に合わせて
+          <span className="text-danger">最適な教師</span>
+          を見つける！
+        </p>
+      </div>
+      <div className="listTeacher-container">
+        {buttonClick && (
+          <div className="filter-container">
+            <FilterComponent onSubmit={handleFilterSubmit} handleShowFilter={handleShowFilter}/>
+          </div>
+        )}
 
-        <div
-          style={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <label
-            style={{ marginRight: "10px", fontWeight: "bold" }}
-            htmlFor="filter"
+        <div className="list-paginate">
+          <div
+            className="filter-results"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
           >
-            式:
-          </label>
-          <Select
-            id="filter"
-            style={{ width: "200px" }}
-            value={studyFromValue}
-            onChange={handleFilterChange}
-          >
-            <Option value="All">All</Option>
-            <Option value="online">online</Option>
-            <Option value="offline">offline</Option>
-          </Select>
+            {points !== null ? (
+              <ShowTeacher
+                currentTeacher={currentTeacherPoint}
+                indexOfFirstStudent={indexOfFirstStudent}
+              />
+            ) : (
+              <ShowTeacher
+                currentTeacher={currentTeacher}
+                indexOfFirstStudent={indexOfFirstStudent}
+              />
+            )}
+          </div>
+          <div className="paginate-numbers" >
+            <Pagination
+              current={currentPage}
+              pageSize={pageSize}
+              total={totalItems}
+              onChange={handlePageChange}
+            />
+          </div>
         </div>
       </div>
-      { isSearch ?(
-                <ShowTeacher currentTeacher={ currentTeacherSearch } />
-                ):(
-                    <ShowTeacher currentTeacher={ currentTeacher } />
-                )
-            }
-      
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={totalItems}
-          onChange={handlePageChange}
-        />
-      </div>
-
-      
     </div>
   );
 }
