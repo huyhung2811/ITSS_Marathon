@@ -1,0 +1,185 @@
+.sign-up, .signin {
+    display:flex;
+}
+.right-column {
+    display: flex;
+    width: 45%;
+    margin-left: 15%;
+}
+
+.signup-form, .login-form {
+    width:60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  
+    
+}
+
+.left-column { 
+    width: 30%;
+    margin-left: 7%;
+}
+
+.sign-up-container, .sign-in-container {
+    margin-top: 20px;
+}
+.sign-up-container input[type="text"], input[type="password"], input[type="email"] {
+    width: 300px;
+    padding-left: 20px;
+    position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    
+}
+.sign-in-container input[type="text"], input[type="password"], input[type="email"] {
+    width: 300px;
+    padding-left: 20px;
+    position: relative;
+    display: inline-block;
+    border-radius: 8px;
+    
+}
+.sign-up-container input[type="text"] {
+
+    padding-left: 40px; /* Khoảng cách từ bên trái để làm chỗ cho icon */
+    background-image: url("/public/user-icon.png");
+    background-repeat: no-repeat;
+    background-position: 5px center; /* Vị trí của icon */
+    background-size: 25px; /* Kích thước của icon */
+    
+}
+
+.sign-up-container input[type="email"] {
+
+    padding-left: 40px; /* Khoảng cách từ bên trái để làm chỗ cho icon */
+    background-image: url("/public/mail-icon.png");
+    background-repeat: no-repeat;
+    background-position: 5px center; /* Vị trí của icon */
+    background-size: 24px; /* Kích thước của icon */
+}
+.sign-in-container input[type="email"] {
+
+    padding-left: 40px; /* Khoảng cách từ bên trái để làm chỗ cho icon */
+    background-image: url("/public/mail-icon.png");
+    background-repeat: no-repeat;
+    background-position: 5px center; /* Vị trí của icon */
+    background-size: 24px; /* Kích thước của icon */
+}
+.sign-up-container input[type="password"] {
+
+    padding-left: 40px; /* Khoảng cách từ bên trái để làm chỗ cho icon */
+    background-image: url("/public/lock-icon.png");
+    background-repeat: no-repeat;
+    background-position: 5px center; /* Vị trí của icon */
+    background-size: 25px; /* Kích thước của icon */
+}
+
+.sign-in-container input[type="password"] {
+
+    padding-left: 40px; /* Khoảng cách từ bên trái để làm chỗ cho icon */
+    background-image: url("/public/lock-icon.png");
+    background-repeat: no-repeat;
+    background-position: 5px center; /* Vị trí của icon */
+    background-size: 25px; /* Kích thước của icon */
+}
+
+.sign-in-container img {
+    width: 128px;
+    height:128px
+}
+.gender {
+    margin-right: 30px;
+}
+.sign-up-title, .login-title {
+
+    margin-bottom: 10px;
+    color: red;
+    font-weight: bold;
+    
+}
+
+.sign-up-container button {
+    background-color: red;
+    border-radius: 20px;
+    padding: 8px;
+    color: white;
+    border: none;
+}
+
+.sign-in-container button {
+    background-color: red;
+    border-radius: 20px;
+    padding: 8px;
+    color: white;
+    border: none;
+}
+.link-login, .link-signup {
+    color: red;
+    text-decoration: underline;
+    text-decoration-color: red;
+}
+.alert-part {
+    width: 30%;
+}
+
+.popup {
+    padding:20px;
+    width: 30%;
+    height: 200px;
+    background-color: rgb(244, 244, 234);
+    border-radius: 15px;
+    width: 300px;
+    height: 100px;
+}
+
+.success {
+    color: green;
+}
+.error {
+    color: red;
+}
+
+.avatar-preview img{
+
+    width: 100px;
+    height: 100px;
+    margin-left: 5px;
+    border-radius: 5px;
+    border: 2px solid #f6eded;
+
+}
+.sign-up-container .gender-options {
+    padding-left: 15px;
+}
+.sign-up-container .upload-container {
+border: 2px solid;
+width: 220px;
+max-height: 30px;
+padding-left: 10px;
+position: relative;
+display: inline-block;
+border-radius: 8px;
+padding-right:2px;
+padding-top: 1px;
+padding-bottom:1px;
+margin-top: 70px;
+margin-left: 25px;
+}
+.user-avatar-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+.avatar-container {
+    display: flex;
+}
+
+.upload-icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+.upload-text {
+    font-size: 14px;
+}

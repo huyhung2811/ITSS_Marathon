@@ -5,10 +5,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from './components/Header1';
 import Footer1 from './components/Footer1';
 import TeacherDetails from './components/TeacherDetails';
+import SignIn from './components/SignIn';
+import SignUp from './components/SignUp';
 import Profile from './components/Profile';
 import "./App.css"
-
-
 function App() {
   const [teachers, setTeachers] = useState([]);
 
@@ -37,6 +37,8 @@ function App() {
           <Route path="/list-teacher" element={<ListTeacher teachers={teachers} />}></Route>
           <Route path="/teacher/:id" element={<TeacherDetails teachers={teachers} />} />
           <Route path="/" element={<h1>hello</h1>}></Route>
+          <Route path="/signin" element={<SignIn />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
         </Routes>
       </div>
