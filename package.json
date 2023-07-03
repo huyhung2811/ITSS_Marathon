@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "version",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -22,13 +23,12 @@
     "react-bootstrap-carousel": "^4.1.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
     "react-star-ratings": "^2.3.0",
     "sass": "^1.63.6",
     "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4",
-    "@babel/plugin-proposal-private-property-in-object": "version"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
