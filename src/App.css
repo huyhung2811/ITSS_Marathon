@@ -14,6 +14,7 @@
 }
 
 .App-body {
-  padding-top: 20px;
+  /* padding-top: 20px; */
   min-height: 80vh;
+  background-color: #f7f6f9;
 }

@@ -6,6 +6,8 @@ import Header from './components/Header1';
 import Footer1 from './components/Footer1';
 import TeacherDetails from './components/TeacherDetails';
 import Profile from './components/Profile';
+import Sidebar from './admin/Sidebar';
+// import TeacherAdd from './admin/TeacherAdd';
 import "./App.css"
 
 
@@ -38,6 +40,7 @@ function App() {
           <Route path="/teacher/:id" element={<TeacherDetails teachers={teachers} />} />
           <Route path="/" element={<h1>hello</h1>}></Route>
           <Route path="/profile" element={<Profile/>}></Route>
+          <Route path="/admin" element={<Sidebar/>}></Route>
         </Routes>
       </div>
       <div className="App-footer">
