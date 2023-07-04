@@ -1,3 +1,4 @@
+import Question from '../components/Question';
 import ListTeacher from "../components/ListTeacher";
 import Profile from "../components/Profile";
 import TeacherDetails from "../components/TeacherDetails";
@@ -11,6 +12,7 @@ export const publicRoutes = [
     { path: '/teacher/:id', element: TeacherDetails, layout: DefaultLayout },
     { path: '/profile', element: Profile, layout: DefaultLayout },
     { path: '/', element: Home, layout: DefaultLayout },
+    { path: '/question', element: Question, layout: DefaultLayout },
     { path: '/signin', element: SignIn, layout: DefaultLayout},
     { path: '/signup', element: SignUp, layout: DefaultLayout},
-];
+

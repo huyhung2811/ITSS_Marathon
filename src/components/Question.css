@@ -1,0 +1,12 @@
+.inputField {
+    padding: 6px 12px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.inputField::placeholder {
+    color: gray;
+    font-weight: 750;
+    padding-left: 12px;
+    /* Các thuộc tính CSS khác tùy chỉnh cho placeholder */
+}
