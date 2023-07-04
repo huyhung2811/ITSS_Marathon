@@ -35,6 +35,9 @@ const TeacherTable = () => {
             )
         );
     };
+    const handleDeleteTeacher = () => {
+        
+    };
     console.log(teachers);
 
     const handleAddTeacher = () => {
@@ -89,7 +92,7 @@ const TeacherTable = () => {
                                         </label>
                                     </td>
                                     <td>
-                                        <button><FontAwesomeIcon icon={faTrash} style={{color: "#FEAF00",}} /></button>
+                                        <button onClick={handleDeleteTeacher}><FontAwesomeIcon icon={faTrash} style={{color: "#FEAF00",}} /></button>
                                     </td>
                                 </tr>
                             ))}

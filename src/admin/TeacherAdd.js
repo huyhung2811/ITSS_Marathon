@@ -4,6 +4,8 @@ import Form from 'react-bootstrap/Form';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { DatePicker } from 'antd';
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const TeacherAdd = () => {
     const [teacherData, setTeacherData] = useState({
@@ -18,7 +20,6 @@ const TeacherAdd = () => {
         additionalInfo: '',
         avatar: null,
     });
-
     const districts = [
         "Ba Dinh",
         "Hoan Kiem",
@@ -72,11 +73,25 @@ const TeacherAdd = () => {
     };
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
-        setTeacherData((prevData) => ({
-            ...prevData,
-            avatar: file,
-        }));
-    };
+        console.log("alo" + file);
+        
+        if (file) {
+            const file = e.target.files[0];
+        
+            if (file) {
+              const imageRef = ref(storage, `images/${file.name}`);
+              uploadBytes(imageRef, file).then(() => {
+                getDownloadURL(imageRef).then((url) => {
+                  console.log("Download URL:", url);
+                  setTeacherData((prevData)=>({
+                    ...prevData,
+                    avatar: url,
+                  }));
+                });
+              });
+            }
+        }
+      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -120,7 +135,7 @@ const TeacherAdd = () => {
                             </div>
                         </Form.Group><br />
 
-                        <Form.Group controlId="cvFile">
+                        <Form.Group controlId="cvFile"> 
                             <div style={{ position: "relative" }}>
                                 CV:
                                 <input type="file" accept=".pdf,.doc,.docx" style={{ display: 'none' }} id="cv-file" onChange={handleFileChange} />
@@ -139,10 +154,13 @@ const TeacherAdd = () => {
                             </div>
                             <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
                                 <Form.Control as="select" name="level" value={teacherData.level} onChange={(e) => handleChange("level", e.target.value)} style={{ marginLeft: "14px", width: "300px", border: '1px solid #000', borderRadius: "10px", color: '#000' }}>
-                                    <option value="">選択してください</option>
-                                    <option value="初級">初級</option>
-                                    <option value="中級">中級</option>
-                                    <option value="上級">上級</option>
+                                    <option value=""></option>
+                                    <option value="A1">A1</option>
+                                    <option value="A2">A2</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="C1">C1</option>
+                                    <option value="C2">C2</option>
                                 </Form.Control>
                             </div>
                         </Form.Group><br />
