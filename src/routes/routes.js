@@ -15,4 +15,4 @@ export const publicRoutes = [
     { path: '/question', element: Question, layout: DefaultLayout },
     { path: '/signin', element: SignIn, layout: DefaultLayout},
     { path: '/signup', element: SignUp, layout: DefaultLayout},
-
+]
