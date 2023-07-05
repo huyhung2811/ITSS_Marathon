@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form';
 import Tab from 'react-bootstrap/Tab';
@@ -7,6 +7,7 @@ import Nav from 'react-bootstrap/Nav';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faMapLocationDot, faFlag, faUpload } from '@fortawesome/free-solid-svg-icons';
 import PortraitIcon from '@mui/icons-material/Portrait';
+import { AuthContext } from '../context/AuthContext';
 
 const classStuding = [
     {
@@ -78,6 +79,8 @@ const Profile = () => {
     const [showInfo, setShowInfo] = useState(true);
     const [showClass, setShowClass] = useState(false);
     const [editInfo, setEditInfo] = useState(false);
+  const { logout } = useContext(AuthContext);
+
 
     const userInfo = {
         id: 10,
@@ -125,7 +128,7 @@ const Profile = () => {
                             <Card.Body>
                                 <Button variant="link" onClick={handleShowInfo}>アカウント情報</Button> <br /><br />
                                 <Button variant="link" onClick={handleShowClass}>クラス情報</Button> <br /><br />
-                                <Button >ログアウト</Button>
+                                <Button onClick={logout}>ログアウト</Button>
                             </Card.Body>
                         </Card>
                     </Col>
