@@ -7,6 +7,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Pagination from '@mui/material/Pagination';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 function Classes() {
     const [classes, setClasses] = useState([]);
@@ -32,7 +33,7 @@ function Classes() {
     return (
         <Box sx={{ width: '87vw', display: 'flex', minHeight: '92vh', alignItems: 'center', flexDirection: 'column' }}>
             <Box width={'90%'} marginTop={'40px'}>
-                <AddCircleIcon sx={{ width: '46px', height: '46px', color: '#3CBE59' }} />
+                <Link to={'/admin/create-class'}><AddCircleIcon sx={{ width: '46px', height: '46px', color: '#3CBE59' }} /></Link>
             </Box>
             <Box width={'90%'} display={'flex'} textAlign={'center'}>
                 <Box width={'22%'}>教師</Box>

@@ -15,6 +15,7 @@ import Chip from '@mui/material/Chip';
 import axios from 'axios';
 import Button from '@mui/material/Button';
 import { format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -104,7 +105,7 @@ function CreatClass() {
     const [date, setDate] = React.useState([]);
     const [time, setTime] = React.useState([]);
     const [count, setCount] = React.useState('');
-    const [start, setStart] = React.useState();
+    const [start, setStart] = React.useState(null);
     const [end, setEnd] = React.useState(null);
     const [price, setPrice] = React.useState(null);
 
@@ -150,7 +151,17 @@ function CreatClass() {
         };
 
         axios.post('http://127.0.0.1:8000/api/create-class', formData).then(() => {
-            alert('sucess')
+            setTeacher({})
+            setType('')
+            setLevel('')
+            setPurpose('')
+            setClassName('')
+            setDate([])
+            setTime([])
+            setCount('')
+            setStart(null);
+            setEnd(null)
+            setPrice('')
         });
     };
 
@@ -208,9 +219,11 @@ function CreatClass() {
 
     return (
         <div>
-            <ArrowCircleLeftIcon
-                sx={{ marginTop: '16px', marginLeft: '30px', height: '48px', width: '48px', color: '#40C03D' }}
-            />
+            <Link to={'/admin/class'}>
+                <ArrowCircleLeftIcon
+                    sx={{ marginTop: '16px', marginLeft: '30px', height: '48px', width: '48px', color: '#40C03D' }}
+                />
+            </Link>
             <Box
                 sx={{
                     display: 'flex',
@@ -456,7 +469,7 @@ function CreatClass() {
                     </Box>
                 </Box>
                 <Button variant="contained" onClick={handleCreate}>
-                    Tạo
+                    サブミット
                 </Button>
             </Box>
         </div>

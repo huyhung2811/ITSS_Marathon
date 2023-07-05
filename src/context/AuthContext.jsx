@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const AuthContext = createContext({});
 
@@ -13,19 +13,57 @@ export const AuthContext = createContext({});
  */
 export const AuthContextProvider = ({ children }) => {
     // const [userName, setUserName] = useState(null);
-    const [userId, setUserId] = useState(null);
-    const [updated, setUpdated] = useState(false);
-    const [isLogin, setIsLogin] = useState(false);
+    // const [userId, setUserId] = useState(null);
+    // const [updated, setUpdated] = useState(false);
+    // const [isLogin, setIsLogin] = useState(false);
+
+    const [isLoggedIn, setLoggedIn] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
+
+    const api = {
+        login: async (username, password) => {
+          try {
+            const response = await fetch("http://127.0.0.1:8000/api/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({ email:username, password:password })
+            });
+      
+            const data = await response.json();
+      
+            return data.user;
+          } catch (error) {
+            throw new Error("Đã xảy ra lỗi khi gọi API login.");
+          }
+        }
+      };
+      const login = async (username, password) => {
+        try {
+          // Gọi API login
+          const response = await api.login(username, password);
+          
+          if (response) {
+            setLoggedIn(true);
+            setCurrentUser(response);
+          } else {
+            console.log("Đăng nhập không thành công");
+          }
+        } catch (error) {
+          console.log("Lỗi khi gọi API login:", error);
+        }
+      };
+    
+      const logout = () => {
+        setLoggedIn(false);
+        setCurrentUser(null);
+      window.location.href = '/signin';
+      };
+
     return (
         <AuthContext.Provider
-            value={{
-                userId,
-                setUserId,
-                updated,
-                setUpdated,
-                isLogin,
-                setIsLogin,
-            }}
+            value={{ isLoggedIn, currentUser, login, logout }}
         >
             {children}
         </AuthContext.Provider>
