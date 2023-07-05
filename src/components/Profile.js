@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faEnvelope, faMapLocationDot, faFlag, faUpload } from '@fortawesome/free-solid-svg-icons';
 import PortraitIcon from '@mui/icons-material/Portrait';
+import { storage } from "../firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const classStuding = [
     {
@@ -74,12 +76,11 @@ const classStuding = [
     }
 ];
 
-const Profile = () => {
+const Profile = ({teachers,setTeachers}) => {
     const [showInfo, setShowInfo] = useState(true);
     const [showClass, setShowClass] = useState(false);
     const [editInfo, setEditInfo] = useState(false);
-
-    const userInfo = {
+    const [userInfo, setUserInfo] = useState({
         id: 10,
         name: 'Trần Huy Phúc',
         sex: 'male',
@@ -93,7 +94,8 @@ const Profile = () => {
         desired_gender: 'male',
         desired_goal: '勉強',
         desired_level: 'B2'
-    };
+    });
+    const [image, setImage]=useState(userInfo.avatar);
 
     const handleShowInfo = () => {
         setShowInfo(true);
@@ -106,10 +108,37 @@ const Profile = () => {
         setShowClass(true);
         setEditInfo(false);
     };
+    const handleAvatarChange = (e) => {
+        const file = e.target.files[0];
+        console.log("alo" + file);
+
+        if (file) {
+            const imageRef = ref(storage, `images/${file.name}`);
+            uploadBytes(imageRef, file).then(() => {
+                getDownloadURL(imageRef).then((url) => {
+                    console.log("Download URL:", url);
+                    // setUserInfo((prevData) => ({
+                    //     ...prevData,
+                    //     avatar: url,
+                    // }));
+                    setImage(url);
+                });
+            });
+        }
+    };
     const handleEditProfile = () => {
         setShowInfo(false);
         setEditInfo(true);
         console.log('Edit profile');
+    };
+    const handleChange = (name, value) => {
+        setUserInfo((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+    const handleSubmitEdit=()=>{
+
     };
 
     return (
@@ -159,13 +188,14 @@ const Profile = () => {
                                     <Form>
                                         <Form.Group controlId="avatar" >
                                             <div style={{ display: 'flex', alignItems: 'center' }}>
-                                                <input type="file" accept="image/*" style={{ display: 'none' }} id="avatar-input" />
+                                                <input type="file" accept="image/*" style={{ display: 'none' }} id="avatar-input" onChange={handleAvatarChange}/>
                                                 <label htmlFor="avatar-input" style={{ marginRight: '10px', cursor: 'pointer', border: '1px solid #000', borderRadius: "10px", background: '#d1d1d1', color: '#000', padding: '5px 10px' }}>
                                                     <PortraitIcon />プロフィール アバター <FontAwesomeIcon icon={faUpload} />
                                                 </label>
-                                                {userInfo.avatar && (
-                                                    <img src={userInfo.avatar} alt="Avatar" style={{ marginLeft: "156px", width: '120px', height: '120px', borderRadius: '20%', float: "right" }} />
+                                                {image && (
+                                                    <img src={image} alt="Avatar" style={{ marginLeft: "156px", width: '120px', height: '120px', borderRadius: '20%', float: "right" }} />
                                                 )}
+                                                
                                             </div>
                                         </Form.Group><br />
                                         <Form.Group controlId="name">
