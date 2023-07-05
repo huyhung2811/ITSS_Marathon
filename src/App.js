@@ -18,7 +18,7 @@ function App() {
     async function fetchTeacher() {
       try {
         const response = await axios.get(
-          "https://be-marathonwebsite-ruler-production-93fe.up.railway.app/api/teacher"
+          "http://127.0.0.1:8000/api/teacher"
         );
         setTeachers(response.data.data);
       } catch (error) {
@@ -39,8 +39,8 @@ function App() {
           <Route path="/list-teacher" element={<ListTeacher teachers={teachers} />}></Route>
           <Route path="/teacher/:id" element={<TeacherDetails teachers={teachers} />} />
           <Route path="/" element={<h1>hello</h1>}></Route>
-          <Route path="/profile" element={<Profile/>}></Route>
-          <Route path="/admin" element={<Sidebar/>}></Route>
+          <Route path="/profile" element={<Profile teacher={teachers} setTeachers={setTeachers}/>}></Route>
+          <Route path="/admin" element={<Sidebar teachers={teachers} setTeachers={setTeachers}/>}></Route>
         </Routes>
       </div>
       <div className="App-footer">

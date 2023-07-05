@@ -6,20 +6,23 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { DatePicker } from 'antd';
 import { storage } from "../firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
-const TeacherAdd = () => {
+
+const TeacherAdd = ({setShowForm,setShowTable}) => {
     const [teacherData, setTeacherData] = useState({
         name: '',
         phone: '',
         birthday: '',
         gender: '',
-        cvFile: null,
+        cv_url: null,
         salary: '',
         level: '',
         address: '',
         additionalInfo: '',
         avatar: null,
     });
+    const [cvName, setCvName] = useState("");
     const districts = [
         "Ba Dinh",
         "Hoan Kiem",
@@ -57,6 +60,12 @@ const TeacherAdd = () => {
     const districtOptions = districts.map((district) => (
         <option key={district} value={district}>{district}</option>
     ));
+
+    const handleBack = ()=>{
+        setShowForm(false);
+        setShowTable(true);
+    };
+
     const handleChange = (name, value) => {
         setTeacherData((prevData) => ({
             ...prevData,
@@ -66,32 +75,38 @@ const TeacherAdd = () => {
 
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setTeacherData((prevData) => ({
-            ...prevData,
-            cvFile: file,
-        }));
+        setCvName(file.name);
+        console.log(cvName);
+        if (file) {
+            const CV_Ref = ref(storage, `cv_url/${file.name}`);
+            uploadBytes(CV_Ref, file).then(() => {
+                getDownloadURL(CV_Ref).then((url) => {
+                    console.log("Download URL:", url);
+                    setTeacherData((prevData) => ({
+                        ...prevData,
+                        cv_url: url,
+                    }));
+                });
+            });
+        }
     };
     const handleAvatarChange = (e) => {
         const file = e.target.files[0];
         console.log("alo" + file);
-        
+
         if (file) {
-            const file = e.target.files[0];
-        
-            if (file) {
-              const imageRef = ref(storage, `images/${file.name}`);
-              uploadBytes(imageRef, file).then(() => {
+            const imageRef = ref(storage, `images/${file.name}`);
+            uploadBytes(imageRef, file).then(() => {
                 getDownloadURL(imageRef).then((url) => {
-                  console.log("Download URL:", url);
-                  setTeacherData((prevData)=>({
-                    ...prevData,
-                    avatar: url,
-                  }));
+                    console.log("Download URL:", url);
+                    setTeacherData((prevData) => ({
+                        ...prevData,
+                        avatar: url,
+                    }));
                 });
-              });
-            }
+            });
         }
-      };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -111,7 +126,11 @@ const TeacherAdd = () => {
     };
 
     return (
-        <div style={{ color: "#0f5204", backgroundColor: "#fff", padding: "20px" }}>
+        <div>
+            <button style={{ top: '10px', left: '10px', backgroundColor: '#40C03D', border: 'none', borderRadius:"50%",cursor: 'pointer',marginBottom:"30px" }}>
+                <FontAwesomeIcon onClick={handleBack} icon={faArrowLeft} size="lg" color="#fff" />
+            </button>
+            <div style={{ color: "#0f5204", backgroundColor: "#fff", padding: "20px" }}>
             <br />
             <Card.Title style={{ textAlign: "center", fontSize: "30px" }}>
                 <strong>新しい先生を追加する</strong>
@@ -135,15 +154,18 @@ const TeacherAdd = () => {
                             </div>
                         </Form.Group><br />
 
-                        <Form.Group controlId="cvFile"> 
+                        <Form.Group controlId="cvFile">
                             <div style={{ position: "relative" }}>
                                 CV:
                                 <input type="file" accept=".pdf,.doc,.docx" style={{ display: 'none' }} id="cv-file" onChange={handleFileChange} />
                                 <label htmlFor="cv-file" style={{ marginLeft: "53px", marginRight: '10px', cursor: 'pointer', border: '1px solid #000', borderRadius: "10px", padding: '5px 10px' }}>
                                     アップロード <FontAwesomeIcon icon={faUpload} />
                                 </label>
-                                {teacherData.cvFile && (
-                                    <span style={{ marginLeft: '5px' }}>{teacherData.cvFile.name}</span>
+                                {teacherData.cv_url && (
+                                    <div style={{ marginLeft: '75px' }}>
+                                        <a href={teacherData.cv_url} target="_blank" rel="noopener noreferrer">
+                                            {cvName}
+                                        </a></div>
                                 )}
                             </div>
                         </Form.Group><br />
@@ -174,7 +196,7 @@ const TeacherAdd = () => {
                             </div>
                         </Form.Group><br />
 
-                        <Button variant="primary" type="submit" style={{ margin: "10px", backgroundColor: "#feaf00", border: "none", color: "#fff", float: "center" }}>新規追加</Button>
+                        <Button variant="primary" type="submit" style={{ margin: "10px", backgroundColor: "#feaf00", border: "none", color: "#fff", float: "right" }}>新規追加</Button>
                     </Form>
                 </div>
 
@@ -242,7 +264,7 @@ const TeacherAdd = () => {
                         <Form.Group controlId="avatar" className="d-flex">
                             <div style={{ position: "relative", marginRight: "10px" }}>
                                 アバター:
-                            </div>
+                            </div>  
                             <div style={{ position: "relative" }}>
                                 <input type="file" accept="image/*" style={{ display: 'none' }} id="avatar-file" onChange={handleAvatarChange} />
                                 <label htmlFor="avatar-file" style={{ marginLeft: "10px", marginRight: '10px', cursor: 'pointer', border: '1px solid #000', borderRadius: "10px", padding: '5px 10px' }}>
@@ -250,13 +272,14 @@ const TeacherAdd = () => {
                                 </label>
                             </div>
                             {teacherData.avatar && (
-                                    <img src={teacherData.avatar} alt="Avatar" style={{ marginLeft: "15px", width: '120px', height: '120px', borderRadius: '20%', float: "right" }} />
-                                )}
+                                <img src={teacherData.avatar} alt="Avatar" style={{ marginLeft: "15px", width: '120px', height: '120px', border: "1px solid #000", borderRadius: '20%', float: "right" }} />
+                            )}
                         </Form.Group><br />
 
                     </Form>
                 </div>
             </div>
+        </div>
         </div>
     );
 };

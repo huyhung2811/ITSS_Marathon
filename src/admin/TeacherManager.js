@@ -1,56 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './TeacherManager.css';
 import TeacherAdd from './TeacherAdd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Pagination } from 'antd';
+import axios from "axios";
 
-
-const TeacherTable = () => {
-    const [teachers, setTeachers] = useState([
-        {
-            id: 1,
-            name: 'Teacher 1',
-            email: 'teacher1@example.com',
-            phone: '123456789',
-            cvLink: 'https://example.com/teacher1',
-            status: 'Active'
-        },
-        {
-            id: 2,
-            name: 'Teacher 2',
-            email: 'teacher2@example.com',
-            phone: '987654321',
-            cvLink: 'https://example.com/teacher2',
-            status: 'Inactive'
-        },
-        // Add more teacher data as needed
-    ]);
+const TeacherTable = ({ teachers, setTeachers }) => {
     const [showTable, setShowTable] = useState(true);
     const [showAddForm, setShowForm] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const handleStatusChange = (teacherId) => {
-        setTeachers((prevTeachers) =>
-            prevTeachers.map((teacher) =>
-                teacher.id === teacherId ? { ...teacher, status: teacher.status === 'Active' ? 'Inactive' : 'Active' } : teacher
-            )
-        );
+    useEffect(() => {
+        const fetchTeachers = async () => {
+          try {
+            const response = await axios.put('http://127.0.0.1:8000/api/update-status');
+            const data = response.data;
+            setTeachers(data);
+          } catch (error) {
+            console.error('Lỗi:', error);
+          }
+        };
+    
+        fetchTeachers();
+      }, [setTeachers]);
+
+    const handleStatusChange = async (teacherId) => {
+        try {
+            const updatedTeachers = teachers.map((teacher) => {
+              if (teacher.id === teacherId) {
+                // Thay đổi trạng thái của giáo viên
+                const newStatus = teacher.status === 'active' ? 'inactive' : 'active';
+                return { ...teacher, status: newStatus };
+              }
+              return teacher;
+            });
+        
+            await axios.put('http://127.0.0.1:8000/api/update-status', updatedTeachers);
+        
+            setTeachers(updatedTeachers);
+          } catch (error) {
+            console.error('Lỗi:', error);
+          }
     };
-    const handleDeleteTeacher = () => {
+
+    const handleDeleteTeacher = async (teacherId) => {
         
     };
-    console.log(teachers);
 
     const handleAddTeacher = () => {
         setShowTable(false);
         setShowForm(true);
-    }
+    };
+
+    const pageSize = 8;
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    const indexOfLastTeacher = currentPage * pageSize;
+    const indexOfFirstTeacher = indexOfLastTeacher - pageSize;
+    const currentTeachers = teachers.slice(indexOfFirstTeacher, indexOfLastTeacher);
+    const totalItems = teachers.length;
 
     return (
         <div>
-
-            {showTable &&
+            {showTable && (
                 <div>
-                    <button className="add-teacher" onClick={handleAddTeacher}>新しい教師を追加する</button>
+                    <button className="add-teacher" onClick={handleAddTeacher}>
+                        新しい教師を追加する
+                    </button>
                     <table className="teacher-table">
                         <thead>
                             <tr>
@@ -64,11 +83,11 @@ const TeacherTable = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {teachers.map((teacher) => (
+                            {currentTeachers.map((teacher) => (
                                 <tr key={teacher.id}>
                                     <td>
                                         <img
-                                            src="https://img6.thuthuatphanmem.vn/uploads/2022/11/18/anh-avatar-don-gian-ma-dep_081757969.jpg"
+                                            src={teacher.avatar}
                                             alt="avatar"
                                             className="img-avatar"
                                         />
@@ -77,29 +96,35 @@ const TeacherTable = () => {
                                     <td>{teacher.email}</td>
                                     <td>{teacher.phone}</td>
                                     <td>
-                                        <a href={teacher.cvLink} target="_blank" rel="noopener noreferrer">
-                                            View CV
+                                        <a href={teacher.cv_url} target="_blank" rel="noopener noreferrer">
+                                            link.url
                                         </a>
                                     </td>
                                     <td>
                                         <label className="checkbox-container">
                                             <input
                                                 type="checkbox"
-                                                checked={teacher.status === 'Active'}
+                                                checked={teacher.status === 'active'}
                                                 onChange={() => handleStatusChange(teacher.id)}
                                             />
-                                            <span class="checkmark"></span>
+                                            <span className="checkmark"></span>
                                         </label>
                                     </td>
                                     <td>
-                                        <button onClick={handleDeleteTeacher}><FontAwesomeIcon icon={faTrash} style={{color: "#FEAF00",}} /></button>
+                                        <button onClick={() => handleDeleteTeacher(teacher.id)}>
+                                            <FontAwesomeIcon icon={faTrash} style={{ color: '#FEAF00' }} />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-                </div>}
-            {showAddForm && <TeacherAdd teacher={teachers} setTeachers={setTeachers} />}
+                    <div className="paginate-numbers">
+                        <Pagination current={currentPage} pageSize={pageSize} total={totalItems} onChange={handlePageChange} />
+                    </div>
+                </div>
+            )}
+            {showAddForm && <TeacherAdd setShowForm={setShowForm} setShowTable={setShowTable} />}
         </div>
     );
 };

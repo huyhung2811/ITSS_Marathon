@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./Sidebar.css";
 import TeacherManager from './TeacherManager';
 
-const Sidebar = () => {
+const Sidebar = ({teachers, setTeachers}) => {
   const [selectedItem, setSelectedItem] = useState('teachers');
 
   const handleItemClick = (item) => {
@@ -22,11 +22,11 @@ const Sidebar = () => {
           className={`sidebar-item ${selectedItem === 'classes' ? 'active' : ''}`}
           onClick={() => handleItemClick('classes')}
         >
-          クラスを管理
+          クラスを管理  
         </div>
       </div>
       <div className="content" style={{ backgroundColor: '#f7f6f9' }}>
-        {selectedItem === 'teachers' && <div><TeacherManager/></div>}
+        {selectedItem === 'teachers' && <div><TeacherManager teachers={teachers} setTeachers={setTeachers}/></div>}
         {selectedItem === 'classes' && <div>Nội dung quản lý lớp học</div>}
       </div>
     </div>
