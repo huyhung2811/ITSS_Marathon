@@ -24,13 +24,13 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
     if (timeSlot !== "All") {
       dem = dem + 1;
     }
-    if (fee !== null) {
+    if ((fee !== null)&&(fee !== '')) {
       dem = dem + 1;
     }
     if (sex !== "All") {
       dem = dem + 1;
     }
-    if (age !== null) {
+    if ((age !== null)&&(fee !== '')) {
       dem = dem + 1;
     }
     if (goal !== "All") {
