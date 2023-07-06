@@ -373,10 +373,10 @@ function CreatClass() {
                                     >
                                         <MenuItem value={'A1'}>A1</MenuItem>
                                         <MenuItem value={'A2'}>A2</MenuItem>
-                                        <MenuItem value={'B1'}>A1</MenuItem>
-                                        <MenuItem value={'B2'}>A2</MenuItem>
-                                        <MenuItem value={'C1'}>A1</MenuItem>
-                                        <MenuItem value={'C2'}>A2</MenuItem>
+                                        <MenuItem value={'B1'}>B1</MenuItem>
+                                        <MenuItem value={'B2'}>B2</MenuItem>
+                                        <MenuItem value={'C1'}>C1</MenuItem>
+                                        <MenuItem value={'C2'}>C2</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Box>

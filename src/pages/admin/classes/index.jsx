@@ -4,32 +4,35 @@ import Avatar from '@mui/material/Avatar';
 import image from '../../../assets/img/admin.png';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import Pagination from '@mui/material/Pagination';
+import { Pagination } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 function Classes() {
     const [classes, setClasses] = useState([]);
-    const [page, setPage] = useState(0);
-    const [current, setCurrent] = useState(1);
-    const [classInPage, setClassInPage] = useState([]);
-    const [refesh, setRefesh] = useState(0);
-
+    const [currentPage, setCurrentPage] = useState(1);
+    const [classesInPage, setClassesInPage] = useState([]);
+    const pageSize = 4;
     useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/get-all-class').then((res) => {
-            setClasses(res.data);
-            setPage(Math.floor(res.data.length / 4 + 1));
-            setRefesh(refesh + 1)
-        });
+        async function fetchClasses() {
+            try {
+                const response = await axios.get('http://127.0.0.1:8000/api/get-all-class');
+                setClasses(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchClasses();
     }, []);
 
-    useEffect(() => {
-        const newData = classes.slice(current - 1, current + 3);
-        console.log(current)
-        console.log(newData)
-        setClassInPage(newData);
-    }, [refesh]);
+    const handlePageChange = (page) => {
+        setCurrentPage(page);
+    };
+
+    const currentClasses = classes.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const totalItems = classes.length;
+
     return (
         <Box sx={{ width: '87vw', display: 'flex', minHeight: '92vh', alignItems: 'center', flexDirection: 'column' }}>
             <Box width={'90%'} marginTop={'40px'}>
@@ -46,7 +49,7 @@ function Classes() {
                     <input hidden />
                 </Box>
             </Box>
-            {classInPage?.map((item, index) => (
+            {currentClasses?.map((item, index) => (
                 <Box
                     key={index}
                     marginTop={'28px'}
@@ -59,8 +62,8 @@ function Classes() {
                 >
                     <Box width={'22%'}>
                         <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                            <Avatar sx={{marginLeft: '20px'}} variant="rounded" src={image} />
-                            <span style={{marginRight: '10px'}}>{item?.teacher_name}</span>
+                            <Avatar sx={{ marginLeft: '20px' }} variant="rounded" src={image} />
+                            <span style={{ marginRight: '10px' }}>{item?.teacher_name}</span>
                         </Box>
                     </Box>
                     <Box width={'14%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
@@ -70,7 +73,7 @@ function Classes() {
                         {item?.start_date}
                     </Box>
                     <Box width={'14%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                    {item?.end_date}
+                        {item?.end_date}
                     </Box>
                     <Box width={'14%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
                         {item?.current_student}/{item?.max_student}
@@ -153,13 +156,10 @@ function Classes() {
             </Box> */}
             <Box sx={{ marginTop: 'auto', paddingBottom: '20px' }}>
                 <Pagination
-                    count={page}
-                    onChange={(e, value) => {
-                        setCurrent(value);
-                        setRefesh(refesh + 1);
-                    }}
-                    variant="outlined"
-                    shape="rounded"
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={totalItems}
+                    onChange={handlePageChange}
                 />
             </Box>
         </Box>

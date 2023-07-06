@@ -9,6 +9,7 @@ import SignUp from "../components/SignUp";
 import CreatClass from '../pages/admin/createClass';
 import adminLayout from '../layout/adminLayout/adminLayout';
 import Classes from '../pages/admin/classes';
+import BookmarkList from '../components/BookmarkList';
 
 export const publicRoutes = [
     { path: '/list-teacher', element: ListTeacher, layout: DefaultLayout },
@@ -20,4 +21,5 @@ export const publicRoutes = [
     { path: '/signup', element: SignUp, layout: DefaultLayout},
     { path: '/admin/create-class', element: CreatClass, layout: adminLayout},
     { path: '/admin/class', element: Classes, layout: adminLayout},
+    { path: '/bookmark', element: BookmarkList, layout: DefaultLayout},
 ]
