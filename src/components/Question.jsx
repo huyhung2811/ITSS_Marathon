@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './Question.css';
 import { Avatar } from 'antd';
+import image from '../assets/img/サインアップ (3) 1.png'
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -50,12 +51,13 @@ const YourComponent = () => {
                 <Box sx={{ width: '50%', marginRight: '20px', textAlign: 'center' }}>
                     <Typography
                         variant="subtitle1"
-                        sx={{ marginBottom: '10px', marginTop: '28px', fontWeight: 'bold', fontSize: '24px' }}
+                        sx={{ marginBottom: '10px',  fontWeight: 'bold', fontSize: '24px' }}
                     >
-                        マラソン教育へようこそ
+                        <span style={{fontSize: '40px', fontWeight: '800'}}><span style={{color: '#1B9820'}}>M</span>arathon </span>
+                        <span style={{color: 'rgba(0, 0, 0, 0.6)', fontSize: '30px', fontWeight: '800'}}>education</span>
                     </Typography>
                     <Avatar
-                        src="https://scontent.fhan15-2.fna.fbcdn.net/v/t1.6435-9/54521985_1061480490726726_9178721887558041600_n.jpg?_nc_cat=103&cb=99be929b-3346023f&ccb=1-7&_nc_sid=8bfeb9&_nc_ohc=52vSRRF-aysAX_LDpnu&_nc_ht=scontent.fhan15-2.fna&oh=00_AfDVc61d4u6Yg9-ymStOaSlS_fqAUwyJUNNEDoYoQygRPA&oe=64CA84F5"
+                        src={image}
                         style={{
                             width: '574px',
                             height: '372px',

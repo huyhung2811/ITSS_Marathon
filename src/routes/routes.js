@@ -6,6 +6,10 @@ import DefaultLayout from "../layout/defaultLayout/DefaultLayout"
 import Home from "../pages/home";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
+import CreatClass from '../pages/admin/createClass';
+import adminLayout from '../layout/adminLayout/adminLayout';
+import Classes from '../pages/admin/classes';
+import BookmarkList from '../components/BookmarkList';
 
 export const publicRoutes = [
     { path: '/list-teacher', element: ListTeacher, layout: DefaultLayout },
@@ -15,4 +19,7 @@ export const publicRoutes = [
     { path: '/question', element: Question, layout: DefaultLayout },
     { path: '/signin', element: SignIn, layout: DefaultLayout},
     { path: '/signup', element: SignUp, layout: DefaultLayout},
+    { path: '/admin/create-class', element: CreatClass, layout: adminLayout},
+    { path: '/admin/class', element: Classes, layout: adminLayout},
+    { path: '/bookmark', element: BookmarkList, layout: DefaultLayout},
 ]

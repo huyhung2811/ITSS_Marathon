@@ -9,6 +9,7 @@ import { faUser, faEnvelope, faMapLocationDot, faFlag, faUpload } from '@fortawe
 import PortraitIcon from '@mui/icons-material/Portrait';
 import { AuthContext } from '../context/AuthContext';
 
+
 const classStuding = [
     {
         "id": 1,
@@ -76,11 +77,10 @@ const classStuding = [
 ];
 
 const Profile = () => {
+    const { isLoggedIn, currentUser, login, logout } = useContext(AuthContext);
     const [showInfo, setShowInfo] = useState(true);
     const [showClass, setShowClass] = useState(false);
     const [editInfo, setEditInfo] = useState(false);
-  const { logout } = useContext(AuthContext);
-
 
     const userInfo = {
         id: 10,
@@ -115,6 +115,7 @@ const Profile = () => {
         console.log('Edit profile');
     };
 
+    console.log('user',     currentUser);
     return (
         <Card className="text-center mx-auto" style={{ width: "1000px" }}>
             <Card.Body>
