@@ -31,6 +31,7 @@ const YourComponent = () => {
                 // Handle error here
                 console.error(error);
             });
+        window.location.href = '/list-teacher';
     };
 
     return (
