@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { Pagination } from 'antd';
-import ShowTeacher from './ShowTeacher';
 import './ListTeacher.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
+import Bookmark from './Bookmark';
 
 function BookmarkList() {
     const id = 1;
@@ -74,7 +74,7 @@ function BookmarkList() {
                         }}
                     >
 
-                        <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
+                        <Bookmark currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
                     </div>
                     <div className="paginate-numbers">
                         <Pagination
