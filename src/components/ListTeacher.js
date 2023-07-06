@@ -18,9 +18,9 @@ function ListTeacher() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/teacher',
+                    'http://127.0.0.1:8000/api/get-teacher-by-question/1',
                 );
-                setTeachers(response.data.data);
+                setTeachers(response.data);
             } catch (error) {
                 console.log(error);
             }

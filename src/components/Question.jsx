@@ -17,7 +17,7 @@ const YourComponent = () => {
             user_id: 1,
             salary: parseFloat(salary),
             // salary: 100000,
-            address: 'Ba Dinh',
+            address: address,
             level: level,
         };
         console.log(data);

@@ -13,6 +13,7 @@ import "./ShowTeacher.css"
 
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
+import axios from "axios";
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
@@ -24,6 +25,17 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
       ...prevState,
       [teacherId]: !prevState[teacherId],
     }));
+    axios
+            .post('http://127.0.0.1:8000/api/bookmark', {
+              teacher_id: teacherId,
+              user_id: 1
+            })
+            .then((response) => {
+                console.log('thanh cong');
+            })
+            .catch((error) => {
+                console.log('loi');
+            });
   };
   return (
     <Row xs={3} md={3} className="g-4" style={{ marginTop: "5px" }}>
