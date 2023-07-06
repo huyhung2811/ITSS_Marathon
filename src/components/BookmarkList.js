@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Pagination } from 'antd';
 import ShowTeacher from './ShowTeacher';
-import FilterComponent from './FilterComponent';
 import './ListTeacher.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,9 +8,8 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
 
 function BookmarkList() {
-    const id=1;
+    const id = 1;
     const [currentPage, setCurrentPage] = useState(1);
-    const [points, setPoints] = useState(null);
     const [buttonClick, setButtonClick] = useState(false);
 
     const [teachers, setTeachers] = useState([]);
@@ -28,7 +26,7 @@ function BookmarkList() {
         }
         fetchTeacher();
     }, []);
-    console.log("hehe",teachers)
+    console.log("hehe", teachers)
     const handleShowFilter = () => {
         setButtonClick(!buttonClick);
     };
@@ -38,8 +36,8 @@ function BookmarkList() {
     const handlePageChange = (page) => {
         setCurrentPage(page);
     };
-    
-    console.log("he",teachers); 
+
+    console.log("he", teachers);
     const currentTeacher = teachers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const indexOfLastStudent = currentPage * pageSize;
@@ -75,13 +73,8 @@ function BookmarkList() {
                             width: '100%',
                         }}
                     >
-                        {points !== null ? (
-                            <ShowTeacher
-                                indexOfFirstStudent={indexOfFirstStudent}
-                            />
-                        ) : (
-                            <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
-                        )}
+
+                        <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
                     </div>
                     <div className="paginate-numbers">
                         <Pagination

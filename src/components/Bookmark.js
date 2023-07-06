@@ -6,7 +6,7 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./ListTeacher.css"
 import "./ShowTeacher.css"
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
 // currentTeacher là danh sách các giáo viên cần in
@@ -14,7 +14,7 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
     const id = 1;
     const a = "%";
     const [showHeart, setShowHeart] = useState({});
-    const [teachersBM,setTeachersBM] = useState([]);
+    const [teachersBM, setTeachersBM] = useState([]);
 
     const toggleHeart = (teacherId) => {
         setShowHeart((prevState) => ({
@@ -64,19 +64,16 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
                                     <br />
                                     <span>
                                         <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.01} readOnly style={{ backgroundColor: "#fff" }} /></span>
-                                    {showHeart[teacher.id] ? (
-                                        <FontAwesomeIcon
-                                            icon={faHeart}
-                                            style={{ marginLeft: "50px", color: "red" }}
-                                            onClick={() => toggleHeart(teacher.id)}
-                                        />
-                                    ) : (
-                                        <FontAwesomeIcon
-                                            icon={faHeart}
-                                            style={{ marginLeft: "50px", color:"red"}}
-                                            onClick={() => toggleHeart(teacher.id)}
-                                        />
-                                    )}
+                                    <FontAwesomeIcon
+                                        icon={faHeart}
+                                        style={{
+                                            marginLeft: "50px",
+                                            color: showHeart[teacher.id] ? "red" : "",
+                                            cursor: "pointer"
+                                        }}
+                                        onClick={() => toggleHeart(teacher.id)}
+                                    />
+
                                 </Card.Text>
                             </Card.Body>
                         </div>
