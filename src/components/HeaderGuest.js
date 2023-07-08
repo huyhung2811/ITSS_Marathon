@@ -45,7 +45,7 @@ function GuestHeader() {
                         </Link>
                     </div>
                     <Link to="/signup">
-                        <span><button className="profile">ログイン</button></span>
+                        <span><button className="profile">サインアップ</button></span>
                     </Link>
                 </div>
             </div>
