@@ -1,10 +1,11 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Box } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import image from '../../../assets/img/admin.png';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Pagination from '@mui/material/Pagination';
+import { Button } from 'antd';
 
 function Classes() {
     return (
@@ -23,18 +24,21 @@ function Classes() {
                     <input hidden />
                 </Box>
             </Box>
+
             <Box
                 marginTop={'28px'}
                 width={'90%'}
                 display={'flex'}
                 textAlign={'center'}
-                sx={{ backgroundColor: 'white' }}
+                sx={{ backgroundColor: 'white', cursor: 'pointer' }}
                 padding={'18px 10px'}
                 borderRadius={'8px'}
             >
                 <Box width={'22%'}>
                     <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
-                        <Avatar variant="rounded" src={image} />
+                        <Link href="/admin/class-detail">
+                            <Avatar variant="rounded" src={image} />
+                        </Link>
                         minami aizawa
                     </Box>
                 </Box>
@@ -62,13 +66,15 @@ function Classes() {
                 width={'90%'}
                 display={'flex'}
                 textAlign={'center'}
-                sx={{ backgroundColor: 'white' }}
+                sx={{ backgroundColor: 'white', cursor: 'pointer' }}
                 padding={'18px 10px'}
                 borderRadius={'8px'}
             >
                 <Box width={'22%'}>
                     <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
-                        <Avatar variant="rounded" src={image} />
+                        <Link href="/admin/class-detail">
+                            <Avatar variant="rounded" src={image} />
+                        </Link>
                         minami aizawa
                     </Box>
                 </Box>
@@ -96,13 +102,15 @@ function Classes() {
                 width={'90%'}
                 display={'flex'}
                 textAlign={'center'}
-                sx={{ backgroundColor: 'white' }}
+                sx={{ backgroundColor: 'white', cursor: 'pointer' }}
                 padding={'18px 10px'}
                 borderRadius={'8px'}
             >
                 <Box width={'22%'}>
                     <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
-                        <Avatar variant="rounded" src={image} />
+                        <Link href="/admin/class-detail">
+                            <Avatar variant="rounded" src={image} />
+                        </Link>
                         minami aizawa
                     </Box>
                 </Box>
