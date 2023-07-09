@@ -37,7 +37,7 @@ const Profile = () => {
         async function fetchClassStuding() {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/get-class-by-user/1',
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-class-by-user/1',
                 );
                 setClassStuding(response.data);
             } catch (error) {

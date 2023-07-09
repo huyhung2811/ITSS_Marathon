@@ -23,7 +23,7 @@ const YourComponent = () => {
         console.log(data);
 
         axios
-            .put('http://127.0.0.1:8000/api/question', data)
+            .put('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/question', data)
             .then((response) => {
                 // Handle the API response here
                 console.log(response.data);

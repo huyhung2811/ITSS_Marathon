@@ -26,7 +26,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
       [teacherId]: !prevState[teacherId],
     }));
     axios
-            .post('http://127.0.0.1:8000/api/bookmark', {
+            .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
               teacher_id: teacherId,
               user_id: 1
             })

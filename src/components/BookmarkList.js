@@ -17,7 +17,7 @@ function BookmarkList() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    `http://127.0.0.1:8000/api/getbookmark/${id}`,
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/getbookmark/${id}`,
                 );
                 setTeachers(response.data);
             } catch (error) {

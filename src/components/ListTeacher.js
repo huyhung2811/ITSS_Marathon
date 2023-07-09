@@ -18,9 +18,9 @@ function ListTeacher() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/get-teacher-by-question/1',
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/1',
                 );
-                setTeachers(response.data.data);
+                setTeachers(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -50,7 +50,7 @@ function ListTeacher() {
     const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
         console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
         axios
-            .post('http://127.0.0.1:8000/api/matching', {
+            .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/matching', {
                 salary: fee,
                 address: location,
                 sex: sex,

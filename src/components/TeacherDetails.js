@@ -20,7 +20,7 @@ function TeacherDetails() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/teacher',
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/teacher',
                 );
                 setTeachers(response.data.data);
             } catch (error) {
