@@ -17,7 +17,7 @@ header {
 
 .logo img {
   margin-left: 10px;
-  background-color: #fff;
+  /* background-color: #fff; */
   width: 180px;
   height: 50px;
 }
@@ -77,8 +77,8 @@ header {
 }
 
 .avatar img {
-  width: 70px;
-  height: 70px;
+  width: 44px;
+  height: 44px;
   border: 1px solid #000;
   border-radius: 50%;
   margin-right: 5px;

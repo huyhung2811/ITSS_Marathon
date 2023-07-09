@@ -213,12 +213,12 @@ function TeacherDetails() {
                                                         width: '90%',
                                                         marginRight: '10px',
                                                         backgroundColor: '#fff',
-                                                        height: '30%',
+                                                        // height: '30%',
                                                     }}
                                                 >
                                                     <Card
                                                         style={{
-                                                            height: '100px!important',
+                                                            // height: '100px!important',
                                                             marginLeft: '5%',
                                                             marginRight: '5%',
                                                             marginBottom: '10px',
@@ -241,6 +241,9 @@ function TeacherDetails() {
                                                                 <br />
                                                                 <br />
                                                             </Card.Text>
+                                                            <button style={{float: 'right', width: '92px', borderRadius: '6px', backgroundColor: 'rgba(94,239,91,0.29)', border: '1px solid black'}}>
+                                                                登録
+                                                            </button>
                                                         </Card.Body>
                                                     </Card>
                                                 </div>

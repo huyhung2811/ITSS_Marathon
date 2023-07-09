@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header1.css';
+import logo from "../assets/img/logo.png"
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 
 function Header() {
   const [activeButton, setActiveButton] = useState(null);
@@ -16,12 +18,12 @@ function Header() {
       <div className="header-container">
         <div className="logo">
           <Link to="/">
-            <img src="marathon-edu-logo.png" alt="Marathon edu Logo" />
+            <img src={logo} alt="Marathon edu Logo" />
           </Link>
         </div>
 
         <div className="navigation">
-          <ul className="list">
+          <div className="list">
             <button
               className={activeButton === 'search' ? 'active' : 'navigation-options'}
               onClick={() => handleClickedOption('search')}
@@ -34,10 +36,11 @@ function Header() {
             >
               <Link to="/bookmark">好きな先生</Link>
             </button>
-          </ul>
+          </div>
 
           <div className="notification-bell">
-            <FontAwesomeIcon icon={faBell} style={{ color: "#000000",}} className="fa-3x"/>
+            {/* <FontAwesomeIcon icon={faBell} style={{ color: "#000000",}} className="fa-3x"/> */}
+            <NotificationsNoneIcon sx={{width: '34px', height: '34px' }}/>
           </div>
           <div className="user">
             <Link to="/profile">
