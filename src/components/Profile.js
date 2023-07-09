@@ -103,12 +103,14 @@ const Profile = () => {
         axios.put('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/edit-info', userInfo)
             .then(response => {
                 // Xử lý phản hồi từ API sau khi gửi thành công
-                console.log("OK",response.data);
+                console.log("OK", response.data);
             })
             .catch(error => {
                 // Xử lý lỗi khi gửi yêu cầu
                 console.error(error);
             });
+        setShowInfo(true);
+        setEditInfo(false);
     };
 
     return (
@@ -187,10 +189,10 @@ const Profile = () => {
                                             </div><FontAwesomeIcon />
                                         </Form.Group><br />
 
-                                        <Form.Group controlId="location">
+                                        <Form.Group controlId="address">
                                             <div style={{ position: "relative" }}>
                                                 <Form.Control type="text" value={userInfo.address} style={{ paddingLeft: "30px", border: '1px solid #000', borderRadius: "10px", background: '#d1d1d1', color: '#000' }}
-                                                    onChange={(e) => handleChange("location", e.target.value)}
+                                                    onChange={(e) => handleChange("address", e.target.value)}
                                                 />
                                                 <FontAwesomeIcon icon={faMapLocationDot} style={{ position: "absolute", left: "10px", top: "50%", transform: "translateY(-50%)" }} />
                                             </div><FontAwesomeIcon />
@@ -239,7 +241,7 @@ const Profile = () => {
                                             </div>
                                         </Form.Group>
 
-                                        <Button onSubmit={handleSubmitEdit} variant="primary" style={{ margin: "10px", backgroundColor: "#da2525", border: "none", color: "#fff", float: "right" }}>アップデート</Button>
+                                        <Button onClick={handleSubmitEdit} variant="primary" style={{ margin: "10px", backgroundColor: "#da2525", border: "none", color: "#fff", float: "right" }}>アップデート</Button>
                                     </Form>
 
                                 </div>
