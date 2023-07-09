@@ -16,7 +16,6 @@ const SignUp = ({ toggleSignUpPage }) => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-  const [signUpData, setSignUpData] = useState({});
 
   function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,7 +34,7 @@ const SignUp = ({ toggleSignUpPage }) => {
       // Đăng ký thành công và gửi thông tin về database
 
       if (!validateEmail(signUpEmail)) {
-        setErrorMessage('Email không đúng. Hãy nhập lại email');
+        setErrorMessage('メールが間違っています。 メールアドレスを再入力してください!');
         setSuccessMessage('')
         setShowPopup(true);
         // Tự động ẩn popup sau 5 giây
@@ -47,18 +46,13 @@ const SignUp = ({ toggleSignUpPage }) => {
         return
       }
 
-      setSignUpData(
-        {
-          name: signUpName,
-          email: signUpEmail,
-          password: signUpPassword,
-          sex: gender,
-          avatar: avatar
-        }
-
-      );
-      console.log(signUpData);
-      axios.post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/register', signUpData)
+      axios.post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/register', {
+        name: signUpName,
+        email: signUpEmail,
+        password: signUpPassword,
+        sex: gender,
+        avatar: avatar
+      })
         .then(response => {
           // Xử lý phản hồi từ API sau khi gửi thành công
           console.log("OK", response.data);
@@ -67,24 +61,16 @@ const SignUp = ({ toggleSignUpPage }) => {
           // Xử lý lỗi khi gửi yêu cầu
           console.error(error);
         });
-      setSuccessMessage('Đăng kí thành công! Bạn sẽ được chuyển tới trang đăng nhập sau 3s');
-      setErrorMessage('')
-      setShowPopup(true);
-      // Tự động ẩn popup sau 5 giây
-      // setTimeout(() => {
-      //   setShowPopup(false);
-      //   setErrorMessage('');
-      //   setSuccessMessage('');
 
-      //   window.location.href = '/signin';
-      // }, 3000);
+        window.location.href = '/signin';
+      
 
 
       // Chuyển tới trang đăng nhập
 
 
     } else {
-      setErrorMessage('Vui lòng điền đầy đủ thông tin và xác nhận mật khẩu!');
+      setErrorMessage('情報を入力し、パスワードを確認してください!');
       setSuccessMessage('')
       setShowPopup(true);
       // Tự động ẩn popup sau 5 giây
