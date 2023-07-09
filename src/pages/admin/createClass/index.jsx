@@ -150,7 +150,7 @@ function CreatClass() {
             time_slot: timeRes,
         };
 
-        axios.post('http://127.0.0.1:8000/api/create-class', formData).then(() => {
+        axios.post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/create-class', formData).then(() => {
             setTeacher({})
             setType('')
             setLevel('')
@@ -200,7 +200,7 @@ function CreatClass() {
     };
 
     React.useEffect(() => {
-        axios.get('http://127.0.0.1:8000/api/teacher').then((res) => {
+        axios.get('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/teacher').then((res) => {
             setListTeacher(res.data.data);
         });
     }, []);

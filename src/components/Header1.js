@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header1.css';
 import {faBell} from "@fortawesome/free-regular-svg-icons"
+import logo from "../assets/img/logo.png"
 
 function Header() {
   const [activeButton, setActiveButton] = useState(null);
@@ -15,7 +16,7 @@ function Header() {
       <div className="header-container">
         <div className="logo">
           <Link to="/">
-            <img src="marathon-edu-logo.png" alt="Marathon edu Logo" />
+            <img src={logo} alt="Marathon edu Logo" />
           </Link>
         </div>
 

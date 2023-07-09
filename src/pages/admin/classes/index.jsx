@@ -17,7 +17,7 @@ function Classes() {
     useEffect(() => {
         async function fetchClasses() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/get-all-class');
+                const response = await axios.get('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-all-class');
                 setClasses(response.data);
             } catch (error) {
                 console.log(error);

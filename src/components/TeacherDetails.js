@@ -20,7 +20,7 @@ function TeacherDetails() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    'http://127.0.0.1:8000/api/teacher',
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/teacher',
                 );
                 setTeachers(response.data.data);
             } catch (error) {
@@ -213,12 +213,12 @@ function TeacherDetails() {
                                                         width: '90%',
                                                         marginRight: '10px',
                                                         backgroundColor: '#fff',
-                                                        height: '30%',
+                                                        // height: '30%',
                                                     }}
                                                 >
                                                     <Card
                                                         style={{
-                                                            height: '100px!important',
+                                                            // height: '100px!important',
                                                             marginLeft: '5%',
                                                             marginRight: '5%',
                                                             marginBottom: '10px',
