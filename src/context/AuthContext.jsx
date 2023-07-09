@@ -18,8 +18,8 @@ export const AuthContextProvider = ({ children }) => {
     // const [isLogin, setIsLogin] = useState(false);
 
     const [isLoggedIn, setLoggedIn] = useState(false);
-    const [currentUser, setCurrentUser] = useState(null);
-
+    const [currentUser, setCurrentUser] = useState({});
+    
     const api = {
         login: async (username, password) => {
           try {
@@ -32,6 +32,8 @@ export const AuthContextProvider = ({ children }) => {
             });
       
             const data = await response.json();
+            
+
       
             return data.user;
           } catch (error) {
@@ -43,10 +45,12 @@ export const AuthContextProvider = ({ children }) => {
         try {
           // Gọi API login
           const response = await api.login(username, password);
-          
           if (response) {
             setLoggedIn(true);
             setCurrentUser(response);
+            console.log(response);
+            
+            
           } else {
             console.log("Đăng nhập không thành công");
           }
@@ -55,15 +59,15 @@ export const AuthContextProvider = ({ children }) => {
         }
       };
     
-      const logout = () => {
-        setLoggedIn(false);
-        setCurrentUser(null);
-      window.location.href = '/signin';
-      };
+      // const logout = () => {
+      //   setLoggedIn(false);
+      //   setCurrentUser({});
+      // window.location.href = '/signin';
+      // };
 
     return (
         <AuthContext.Provider
-            value={{ isLoggedIn, currentUser, login, logout }}
+            value={{ isLoggedIn, currentUser,login }}
         >
             {children}
         </AuthContext.Provider>

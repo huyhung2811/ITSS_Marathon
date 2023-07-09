@@ -79,7 +79,7 @@ const Profile = () => {
     const [showInfo, setShowInfo] = useState(true);
     const [showClass, setShowClass] = useState(false);
     const [editInfo, setEditInfo] = useState(false);
-  const { logout } = useContext(AuthContext);
+  const { logout, currentUser } = useContext(AuthContext);
 
 
     const userInfo = {
