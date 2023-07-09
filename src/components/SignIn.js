@@ -1,5 +1,5 @@
-import React, { useState,  useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState } from 'react';
+
 import { Link } from 'react-router-dom';
 import './signUp.css';
 
@@ -10,16 +10,39 @@ const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const { isLoggedIn, currentUser, login, logout } = useContext(AuthContext);
+  console.log("loz",currentUser);
 
   function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   }
-  const handleSignIn = (e) => {
+
+  const api = {
+    login: async (username, password) => {
+      try {
+        const response = await fetch("http://127.0.0.1:8000/api/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email:username, password:password })
+        });
+  
+        const data = await response.json();
+        
+
+  
+        return data.user;
+      } catch (error) {
+        throw new Error("Đã xảy ra lỗi khi gọi API login.");
+      }
+    }
+  };
+  const handleSignIn = async (e) => {
     // e.preventDefault();
     if (signInEmail && signInPassword) {
       if(!validateEmail(signInEmail)){
-      setErrorMessage('Email không đúng. Hãy nhập lại email');
+      setErrorMessage('メールが間違っています。 メールアドレスを再入力してください!');
       setSuccessMessage('')
       setShowPopup(true);
         // Tự động ẩn popup sau 5 giây
@@ -30,33 +53,36 @@ const SignIn = () => {
         }, 3000);
         return
       }
-
-
-     
-      
-      // Xử lý đăng nhập tại đây, ví dụ gửi request đến server
-      login(signInEmail, signInPassword);
-      
-      // Đăng nhập thành công
-      console.log(currentUser);
-     if(isLoggedIn){
-      window.location.href = '/question';
-      // Chuyển tới trang nào đó của ứng dụng
-     }
-     else {
-      setErrorMessage('Sai tài khoản hoặc mật khẩu');
-      setSuccessMessage('')
-      setShowPopup(true);
+      else{
+        try {
+          // Gọi API login
+          const response = await api.login(signInEmail, signInPassword);
+          if (response) {
+            // Đăng nhập thành công
+        localStorage.setItem('userid', response.id);
+        window.location.href = '/question';
+        // Chuyển tới trang nào đó của ứng dụng
+          } else {
+            setErrorMessage('アカウントまたはパスワードが間違っています。 再入力してください！');
+            setSuccessMessage('')
+            setShowPopup(true);
         // Tự động ẩn popup sau 5 giây
-        setTimeout(() => {
+            setTimeout(() => {
           setShowPopup(false);
           setErrorMessage('');
           setSuccessMessage('');
         }, 3000);
-     }
-          
+          }
+        } catch (error) {
+          console.log("Lỗi khi gọi API login:", error);
+        }
+        
+        
+      }
+      // Xử lý đăng nhập tại đây, ví dụ gửi request đến server
+      
     } else {
-      setErrorMessage('Vui lòng điền đầy đủ email và  mật khẩu!');
+      setErrorMessage('メールアドレスとパスワードを入力してください!');
       setSuccessMessage('')
       setShowPopup(true);
         // Tự động ẩn popup sau 5 giây
