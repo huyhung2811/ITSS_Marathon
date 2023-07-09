@@ -530,12 +530,12 @@ function ClassDetail() {
                             <Modal
                                 open={openDelete1}
                                 onClose={handleClose1}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
+                                aria-labelledby="modal-modal-title1"
+                                aria-describedby="modal-modal-description1"
                             >
                                 <Box sx={style1}>
                                     <Typography
-                                        id="modal-modal-title"
+                                        id="modal-modal-title1"
                                         variant="h6"
                                         component="h2"
                                         sx={{ textAlign: 'center' }}
@@ -543,7 +543,7 @@ function ClassDetail() {
                                         生徒をクラスから削除することを確認する ?
                                     </Typography>
                                     <Typography
-                                        id="modal-modal-description"
+                                        id="modal-modal-description1"
                                         sx={{
                                             mt: 2,
                                             justifyContent: 'space-between',
@@ -605,12 +605,12 @@ function ClassDetail() {
                             <Modal
                                 open={openAdd}
                                 onClose={handleClose3}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
+                                aria-labelledby="modal-modal-title2"
+                                aria-describedby="modal-modal-description2"
                             >
                                 <Box sx={style3}>
                                     <Typography
-                                        id="modal-modal-title"
+                                        id="modal-modal-title2"
                                         variant="h6"
                                         component="h2"
                                         sx={{ textAlign: 'center' }}
@@ -618,7 +618,7 @@ function ClassDetail() {
                                         クラスへの生徒の追加を確認しますか ?
                                     </Typography>
                                     <Typography
-                                        id="modal-modal-description"
+                                        id="modal-modal-description2"
                                         sx={{
                                             mt: 2,
                                             justifyContent: 'space-between',
