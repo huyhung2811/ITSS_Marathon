@@ -99,12 +99,13 @@ function ClassDetail() {
     const handleOpen3 = () => setOpenAdd(true);
     const handleClose3 = () => setOpenAdd(false);
 
-    const [open1, setOpen1] = useState(false);
+    const [open1, setOpen1] = useState(true);
     const [open2, setOpen2] = useState(false);
 
     const [classes, setClasses] = useState([]);
     const [items1, setItems1] = useState([]);
     const [items2, setItems2] = useState([]);
+    const [load, setLoad] = useState(false);
 
     useEffect(() => {
         async function fetchClasses() {
@@ -138,7 +139,8 @@ function ClassDetail() {
             }
         }
         getAllMember();
-    }, []);
+        setLoad(false);
+    }, [load]);
 
     useEffect(() => {
         async function getAllMember() {
@@ -156,7 +158,34 @@ function ClassDetail() {
             }
         }
         getAllMember();
-    }, []);
+        setLoad(false);
+    }, [load]);
+
+    const handlePutMemmber = (id) => {
+        setLoad(true);
+        axios
+            .put('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/check-request', {
+                id: id,
+            })
+            .then((response) => {
+                console.log('thanh cong');
+            })
+            .catch((error) => {
+                console.log('loi');
+            });
+    };
+
+    const handleDeleteMemmber = (id) => {
+        setLoad(true);
+        axios
+            .delete(`https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/delete-request/${id}`)
+            .then((response) => {
+                console.log('thanh cong');
+            })
+            .catch((error) => {
+                console.log('loi');
+            });
+    };
 
     return (
         <Box sx={{ width: '87vw', display: 'flex', minHeight: '92vh', alignItems: 'center', flexDirection: 'column' }}>
@@ -431,11 +460,20 @@ function ClassDetail() {
                 </Button1>
                 <Button2 onClick={() => (setOpen2(true), setOpen1(false))}>承認待ち</Button2>
             </Box>
-            <Box sx={{ alignItems: 'left', marginTop: '40px', marginBottom: '20px' }}>
-                <Typography sx={{ color: '#0F5204', fontSize: '30px', fontWeight: '700', marginRight: '1000px' }}>
-                    {classe && classe.level} クラスの学生一覧
-                </Typography>
-            </Box>
+            {open1 && (
+                <Box sx={{ alignItems: 'left', marginTop: '40px', marginBottom: '20px' }}>
+                    <Typography sx={{ color: '#0F5204', fontSize: '30px', fontWeight: '700', marginRight: '1000px' }}>
+                        {classe && classe.level} クラスの学生一覧
+                    </Typography>
+                </Box>
+            )}
+            {open2 && (
+                <Box sx={{ alignItems: 'left', marginTop: '40px', marginBottom: '20px' }}>
+                    <Typography sx={{ color: '#0F5204', fontSize: '30px', fontWeight: '700', marginRight: '1000px' }}>
+                        {classe && classe.level} 承認待ち
+                    </Typography>
+                </Box>
+            )}
             <Box width={'90%'} display={'flex'} textAlign={'center'}>
                 <Box width={'20%'}>アバター </Box>
                 <Box width={'20%'}>名前</Box>
@@ -504,7 +542,12 @@ function ClassDetail() {
                                             padding: ' 0 40px',
                                         }}
                                     >
-                                        <Button variant="contained">DELETE </Button>
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => (handleDeleteMemmber(item.id), setOpenDelete1(false))}
+                                        >
+                                            DELETE
+                                        </Button>
                                         <Button variant="outlined" color="error" onClick={handleClose1}>
                                             CANCEL
                                         </Button>
@@ -574,7 +617,12 @@ function ClassDetail() {
                                             padding: ' 0 40px',
                                         }}
                                     >
-                                        <Button variant="contained">ADD</Button>
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => (handlePutMemmber(item.id), setOpenAdd(false))}
+                                        >
+                                            ADD
+                                        </Button>
                                         <Button variant="outlined" color="error" onClick={handleClose3}>
                                             CANCEL
                                         </Button>
@@ -619,7 +667,12 @@ function ClassDetail() {
                                             padding: ' 0 40px',
                                         }}
                                     >
-                                        <Button variant="contained">DELETE </Button>
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => (handleDeleteMemmber(item.id), setOpenDelete2(false))}
+                                        >
+                                            DELETE{' '}
+                                        </Button>
                                         <Button variant="outlined" color="error" onClick={handleClose2}>
                                             CANCEL
                                         </Button>
