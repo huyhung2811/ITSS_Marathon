@@ -11,20 +11,13 @@ import { Link } from "react-router-dom";
 import "./ListTeacher.css"
 import "./ShowTeacher.css"
 
-import { useState } from "react";
 import Rating from "@mui/material/Rating";
 import axios from "axios";
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
   const a = "%";
-  const [showHeart, setShowHeart] = useState({});
-
   const toggleHeart = (teacherId) => {
-    setShowHeart((prevState) => ({
-      ...prevState,
-      [teacherId]: !prevState[teacherId],
-    }));
     axios
             .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
               teacher_id: teacherId,
@@ -79,7 +72,7 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                   <br />
                   <span>
                     <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.01} readOnly style={{ backgroundColor: "#fff" }} /></span>
-                  {showHeart[teacher.id] ? (
+                  {teacher.bookmark ? (
                     <FontAwesomeIcon
                       icon={faHeart}
                       style={{ marginLeft: "50px", color: "red" }}
