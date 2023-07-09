@@ -11,6 +11,7 @@ import adminLayout from '../layout/adminLayout/adminLayout';
 import Classes from '../pages/admin/classes';
 import BookmarkList from '../components/BookmarkList';
 import GuestLayout from '../layout/guestLayout/GuestLayout';
+import ClassDetail from '../pages/admin/classDetail';
 
 export const publicRoutes = [
     { path: '/list-teacher', element: ListTeacher, layout: DefaultLayout },
@@ -18,9 +19,10 @@ export const publicRoutes = [
     { path: '/profile', element: Profile, layout: DefaultLayout },
     { path: '/', element: Home, layout: GuestLayout },
     { path: '/question', element: Question, layout: DefaultLayout },
-    { path: '/signin', element: SignIn, layout: GuestLayout},
-    { path: '/signup', element: SignUp, layout: GuestLayout},
-    { path: '/admin/create-class', element: CreatClass, layout: adminLayout},
-    { path: '/admin/class', element: Classes, layout: adminLayout},
-    { path: '/bookmark', element: BookmarkList, layout: DefaultLayout},
-]
+    { path: '/signin', element: SignIn, layout: GuestLayout },
+    { path: '/signup', element: SignUp, layout: GuestLayout },
+    { path: '/admin/create-class', element: CreatClass, layout: adminLayout },
+    { path: '/admin/class', element: Classes, layout: adminLayout },
+    { path: '/admin/classDetail/:id', element: ClassDetail, layout: adminLayout },
+    { path: '/bookmark', element: BookmarkList, layout: DefaultLayout },
+];
