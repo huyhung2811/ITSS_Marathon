@@ -1,7 +1,6 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
 import Avatar from '@mui/material/Avatar';
-import image from '../../../assets/img/admin.png';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Pagination from '@mui/material/Pagination';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
@@ -104,6 +103,8 @@ function ClassDetail() {
     const [open2, setOpen2] = useState(false);
 
     const [classes, setClasses] = useState([]);
+    const [items1, setItems1] = useState([]);
+    const [items2, setItems2] = useState([]);
 
     useEffect(() => {
         async function fetchClasses() {
@@ -121,7 +122,41 @@ function ClassDetail() {
 
     const classe = classes.find((classe) => classe.id === parseInt(id));
 
-    console.log(classe);
+    useEffect(() => {
+        async function getAllMember() {
+            try {
+                const response = await axios.post(
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-member-class',
+                    {
+                        status: 1,
+                        class_id: id,
+                    },
+                );
+                setItems1(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getAllMember();
+    }, []);
+
+    useEffect(() => {
+        async function getAllMember() {
+            try {
+                const response = await axios.post(
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-member-class',
+                    {
+                        status: 0,
+                        class_id: id,
+                    },
+                );
+                setItems2(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getAllMember();
+    }, []);
 
     return (
         <Box sx={{ width: '87vw', display: 'flex', minHeight: '92vh', alignItems: 'center', flexDirection: 'column' }}>
@@ -390,11 +425,11 @@ function ClassDetail() {
             <Box sx={{ marginTop: '20px' }}>
                 <Button1
                     sx={{ marginRight: '250px', alignItems: 'left' }}
-                    onClick={() => setOpen1(true) && setOpen2(false)}
+                    onClick={() => (setOpen1(true), setOpen2(false))}
                 >
                     見直した
                 </Button1>
-                <Button2 onClick={() => setOpen2(true) && setOpen1(false)}>承認待ち</Button2>
+                <Button2 onClick={() => (setOpen2(true), setOpen1(false))}>承認待ち</Button2>
             </Box>
             <Box sx={{ alignItems: 'left', marginTop: '40px', marginBottom: '20px' }}>
                 <Typography sx={{ color: '#0F5204', fontSize: '30px', fontWeight: '700', marginRight: '1000px' }}>
@@ -410,173 +445,193 @@ function ClassDetail() {
                 </Box>
             </Box>
 
-            {open1 && (
-                <Box
-                    marginTop={'15px'}
-                    width={'90%'}
-                    display={'flex'}
-                    textAlign={'center'}
-                    sx={{ backgroundColor: 'white' }}
-                    padding={'18px 10px'}
-                    borderRadius={'8px'}
-                    marginBottom={'30px'}
-                >
-                    <Box width={'40%'}>
-                        <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
-                            <Avatar variant="rounded" src={image} />
-                            Madam 1
+            {items1 &&
+                open1 &&
+                items1.map((item, index) => (
+                    <Box
+                        marginTop={'15px'}
+                        width={'90%'}
+                        display={'flex'}
+                        textAlign={'center'}
+                        sx={{ backgroundColor: 'white' }}
+                        padding={'18px 10px'}
+                        borderRadius={'8px'}
+                        marginBottom={'30px'}
+                    >
+                        <Box width={'40%'}>
+                            <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
+                                <Avatar variant="rounded" src={item.avatar} />
+                                {item.name}
+                            </Box>
                         </Box>
-                    </Box>
-                    <Box width={'40%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                        madam@mail.comcom
-                    </Box>
-
-                    <div>
-                        <Button
-                            width={'10%'}
-                            display={'flex'}
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                            sx={{ cursor: 'pointer' }}
-                            onClick={handleOpen1}
-                        >
-                            <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
-                        </Button>
-
-                        <Modal
-                            open={openDelete1}
-                            onClose={handleClose1}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style1}>
-                                <Typography
-                                    id="modal-modal-title"
-                                    variant="h6"
-                                    component="h2"
-                                    sx={{ textAlign: 'center' }}
-                                >
-                                    生徒をクラスから削除することを確認する ?
-                                </Typography>
-                                <Typography
-                                    id="modal-modal-description"
-                                    sx={{ mt: 2, justifyContent: 'space-between', display: 'flex', padding: ' 0 40px' }}
-                                >
-                                    <Button variant="contained">DELETE </Button>
-                                    <Button variant="outlined" color="error" onClick={handleClose1}>
-                                        CANCEL
-                                    </Button>
-                                </Typography>
-                            </Box>
-                        </Modal>
-                    </div>
-                </Box>
-            )}
-            {open2 && (
-                <Box
-                    marginTop={'15px'}
-                    width={'90%'}
-                    display={'flex'}
-                    textAlign={'center'}
-                    sx={{ backgroundColor: 'white' }}
-                    padding={'18px 10px'}
-                    borderRadius={'8px'}
-                    marginBottom={'30px'}
-                >
-                    <Box width={'40%'}>
-                        <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
-                            <Avatar variant="rounded" src={image} />
-                            Madam 2
+                        <Box width={'40%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                            {item.email}
                         </Box>
+
+                        <div>
+                            <Button
+                                width={'10%'}
+                                display={'flex'}
+                                alignItems={'center'}
+                                justifyContent={'center'}
+                                sx={{ cursor: 'pointer' }}
+                                onClick={handleOpen1}
+                            >
+                                <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
+                            </Button>
+
+                            <Modal
+                                open={openDelete1}
+                                onClose={handleClose1}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style1}>
+                                    <Typography
+                                        id="modal-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                        sx={{ textAlign: 'center' }}
+                                    >
+                                        生徒をクラスから削除することを確認する ?
+                                    </Typography>
+                                    <Typography
+                                        id="modal-modal-description"
+                                        sx={{
+                                            mt: 2,
+                                            justifyContent: 'space-between',
+                                            display: 'flex',
+                                            padding: ' 0 40px',
+                                        }}
+                                    >
+                                        <Button variant="contained">DELETE </Button>
+                                        <Button variant="outlined" color="error" onClick={handleClose1}>
+                                            CANCEL
+                                        </Button>
+                                    </Typography>
+                                </Box>
+                            </Modal>
+                        </div>
                     </Box>
-                    <Box width={'40%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                        madam@mail.comcom
+                ))}
+
+            {items2 &&
+                open2 &&
+                items2.map((item) => (
+                    <Box
+                        marginTop={'15px'}
+                        width={'90%'}
+                        display={'flex'}
+                        textAlign={'center'}
+                        sx={{ backgroundColor: 'white' }}
+                        padding={'18px 10px'}
+                        borderRadius={'8px'}
+                        marginBottom={'30px'}
+                    >
+                        <Box width={'40%'}>
+                            <Box display={'flex'} justifyContent={'space-around'} alignItems={'center'}>
+                                <Avatar variant="rounded" src={item.avatar} />
+                                {item.name}
+                            </Box>
+                        </Box>
+                        <Box width={'40%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
+                            {item.email}
+                        </Box>
+
+                        <div>
+                            <Button
+                                width={'10%'}
+                                display={'flex'}
+                                alignItems={'center'}
+                                justifyContent={'center'}
+                                sx={{ cursor: 'pointer' }}
+                                onClick={handleOpen3}
+                            >
+                                <AddCircleIcon sx={{ color: '#0276FD' }} />
+                            </Button>
+
+                            <Modal
+                                open={openAdd}
+                                onClose={handleClose3}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style3}>
+                                    <Typography
+                                        id="modal-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                        sx={{ textAlign: 'center' }}
+                                    >
+                                        クラスへの生徒の追加を確認しますか ?
+                                    </Typography>
+                                    <Typography
+                                        id="modal-modal-description"
+                                        sx={{
+                                            mt: 2,
+                                            justifyContent: 'space-between',
+                                            display: 'flex',
+                                            padding: ' 0 40px',
+                                        }}
+                                    >
+                                        <Button variant="contained">ADD</Button>
+                                        <Button variant="outlined" color="error" onClick={handleClose3}>
+                                            CANCEL
+                                        </Button>
+                                    </Typography>
+                                </Box>
+                            </Modal>
+                        </div>
+
+                        <div>
+                            <Button
+                                width={'10%'}
+                                display={'flex'}
+                                alignItems={'center'}
+                                justifyContent={'center'}
+                                sx={{ cursor: 'pointer' }}
+                                onClick={handleOpen2}
+                            >
+                                <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
+                            </Button>
+
+                            <Modal
+                                open={openDelete2}
+                                onClose={handleClose2}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style2}>
+                                    <Typography
+                                        id="modal-modal-title"
+                                        variant="h6"
+                                        component="h2"
+                                        sx={{ textAlign: 'center' }}
+                                    >
+                                        生徒をクラスから削除することを確認する ?
+                                    </Typography>
+                                    <Typography
+                                        id="modal-modal-description"
+                                        sx={{
+                                            mt: 2,
+                                            justifyContent: 'space-between',
+                                            display: 'flex',
+                                            padding: ' 0 40px',
+                                        }}
+                                    >
+                                        <Button variant="contained">DELETE </Button>
+                                        <Button variant="outlined" color="error" onClick={handleClose2}>
+                                            CANCEL
+                                        </Button>
+                                    </Typography>
+                                </Box>
+                            </Modal>
+                        </div>
                     </Box>
-
-                    <div>
-                        <Button
-                            width={'10%'}
-                            display={'flex'}
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                            sx={{ cursor: 'pointer' }}
-                            onClick={handleOpen3}
-                        >
-                            <AddCircleIcon sx={{ color: '#0276FD' }} />
-                        </Button>
-
-                        <Modal
-                            open={openAdd}
-                            onClose={handleClose3}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style3}>
-                                <Typography
-                                    id="modal-modal-title"
-                                    variant="h6"
-                                    component="h2"
-                                    sx={{ textAlign: 'center' }}
-                                >
-                                    クラスへの生徒の追加を確認しますか ?
-                                </Typography>
-                                <Typography
-                                    id="modal-modal-description"
-                                    sx={{ mt: 2, justifyContent: 'space-between', display: 'flex', padding: ' 0 40px' }}
-                                >
-                                    <Button variant="contained">ADD</Button>
-                                    <Button variant="outlined" color="error" onClick={handleClose3}>
-                                        CANCEL
-                                    </Button>
-                                </Typography>
-                            </Box>
-                        </Modal>
-                    </div>
-
-                    <div>
-                        <Button
-                            width={'10%'}
-                            display={'flex'}
-                            alignItems={'center'}
-                            justifyContent={'center'}
-                            sx={{ cursor: 'pointer' }}
-                            onClick={handleOpen2}
-                        >
-                            <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
-                        </Button>
-
-                        <Modal
-                            open={openDelete2}
-                            onClose={handleClose2}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <Box sx={style2}>
-                                <Typography
-                                    id="modal-modal-title"
-                                    variant="h6"
-                                    component="h2"
-                                    sx={{ textAlign: 'center' }}
-                                >
-                                    生徒をクラスから削除することを確認する ?
-                                </Typography>
-                                <Typography
-                                    id="modal-modal-description"
-                                    sx={{ mt: 2, justifyContent: 'space-between', display: 'flex', padding: ' 0 40px' }}
-                                >
-                                    <Button variant="contained">DELETE </Button>
-                                    <Button variant="outlined" color="error" onClick={handleClose2}>
-                                        CANCEL
-                                    </Button>
-                                </Typography>
-                            </Box>
-                        </Modal>
-                    </div>
-                </Box>
-            )}
-            <Box sx={{ marginTop: 'auto', paddingBottom: '20px' }}>
+                ))}
+            {/* <Box sx={{ marginTop: 'auto', paddingBottom: '20px' }}>
                 <Pagination count={3} variant="outlined" shape="rounded" />
-            </Box>
+            </Box> */}
         </Box>
     );
 }
