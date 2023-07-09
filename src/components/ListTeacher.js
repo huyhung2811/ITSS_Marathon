@@ -20,7 +20,7 @@ function ListTeacher() {
                 const response = await axios.get(
                     'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/1',
                 );
-                setTeachers(response.data);
+                setTeachers(response.data.data);
             } catch (error) {
                 console.log(error);
             }

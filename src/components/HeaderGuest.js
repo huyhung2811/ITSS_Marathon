@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header1.css';
 import { faBell } from "@fortawesome/free-regular-svg-icons"
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function GuestHeader() {
     const [activeButton, setActiveButton] = useState(null);
 
@@ -20,24 +20,9 @@ function GuestHeader() {
                 </div>
 
                 <div className="navigation">
-                    <ul className="list">
-                        <button
-                            className={activeButton === 'search' ? 'active' : 'navigation-options'}
-                            onClick={() => handleClickedOption('search')}
-                        >
-                            <Link to="/list-teacher">ホームページ</Link>
-                        </button>
-                        <button
-                            className={activeButton === 'prices' ? 'active' : 'navigation-options'}
-                            onClick={() => handleClickedOption('prices')}
-                        >
-                            <Link to="/bookmark">好きな先生</Link>
-                        </button>
-                    </ul>
 
                     <div className="notification-bell">
-                        <font-awesome-icon icon={faBell} />
-                        <span className="notification-count">3</span>
+                        <FontAwesomeIcon icon={faBell} style={{ color: "#000000", }} />
                     </div>
                     <div className="user">
                         <Link to="/signin">
