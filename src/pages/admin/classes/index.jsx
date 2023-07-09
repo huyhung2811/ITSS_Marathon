@@ -1,5 +1,5 @@
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import image from '../../../assets/img/admin.png';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
@@ -21,14 +21,16 @@ function Classes() {
         setIsChecked((prevState) => ({
             ...prevState,
             [classId]: !prevState[classId],
-          }));
+        }));
     };
     // const [classesInPage, setClassesInPage] = useState([]);
     const pageSize = 4;
     useEffect(() => {
         async function fetchClasses() {
             try {
-                const response = await axios.get('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-all-class');
+                const response = await axios.get(
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-all-class',
+                );
                 setClasses(response.data);
             } catch (error) {
                 console.log(error);
@@ -36,7 +38,6 @@ function Classes() {
         }
         fetchClasses();
         setLoad(false);
-
     }, [load]);
 
     const handlePageChange = (page) => {
@@ -45,14 +46,14 @@ function Classes() {
     const handleDeleteClass = (id) => {
         setLoad(true);
         axios
-        .delete(`https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/delete-class/${id}`,)
-        .then((response) => {
-            console.log('thanh cong');
-        })
-        .catch((error) => {
-            console.log('loi');
-        });
-    }
+            .delete(`https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/delete-class/${id}`)
+            .then((response) => {
+                console.log('thanh cong');
+            })
+            .catch((error) => {
+                console.log('loi');
+            });
+    };
 
     const currentClasses = classes.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     const totalItems = classes.length;
@@ -60,7 +61,9 @@ function Classes() {
     return (
         <Box sx={{ width: '87vw', display: 'flex', minHeight: '92vh', alignItems: 'center', flexDirection: 'column' }}>
             <Box width={'90%'} marginTop={'40px'}>
-                <Link to={'/admin/create-class'}><AddCircleIcon sx={{ width: '46px', height: '46px', color: '#3CBE59' }} /></Link>
+                <Link to={'/admin/create-class'}>
+                    <AddCircleIcon sx={{ width: '46px', height: '46px', color: '#3CBE59' }} />
+                </Link>
             </Box>
             <Box width={'90%'} display={'flex'} textAlign={'center'}>
                 <Box width={'22%'}>教師</Box>
@@ -86,7 +89,9 @@ function Classes() {
                 >
                     <Box width={'22%'}>
                         <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
-                            <Avatar sx={{ marginLeft: '20px' }} variant="rounded" src={image} />
+                            <Button href={`/admin/classDetail/${item.id}`}>
+                                <Avatar sx={{ marginLeft: '20px' }} variant="rounded" src={image} />
+                            </Button>
                             <span style={{ marginRight: '10px' }}>{item?.teacher_name}</span>
                         </Box>
                     </Box>
@@ -108,22 +113,17 @@ function Classes() {
                         alignItems={'center'}
                         justifyContent={'center'}
                         onClick={() => handleCheckboxClick(item.id)}
-                        >
+                    >
                         {!isChecked[item.id] ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
                     </Box>
                     <Box width={'8%'} display={'flex'} alignItems={'center'} justifyContent={'center'}>
-                        <DeleteOutlineIcon sx={{ color: '#FEAF00' }}  onClick={()=>handleDeleteClass(item.id)}/>
+                        <DeleteOutlineIcon sx={{ color: '#FEAF00' }} onClick={() => handleDeleteClass(item.id)} />
                     </Box>
                 </Box>
             ))}
-            
+
             <Box sx={{ marginTop: 'auto', paddingBottom: '20px' }}>
-                <Pagination
-                    current={currentPage}
-                    pageSize={pageSize}
-                    total={totalItems}
-                    onChange={handlePageChange}
-                />
+                <Pagination current={currentPage} pageSize={pageSize} total={totalItems} onChange={handlePageChange} />
             </Box>
         </Box>
     );
