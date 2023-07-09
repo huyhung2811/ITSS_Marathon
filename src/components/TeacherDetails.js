@@ -36,7 +36,7 @@ function TeacherDetails() {
         async function fetchComment() {
             try {
                 const response = await axios.get(
-                    `https://be-marathonwebsite-ruler-production-93fe.up.railway.app/api/comment/${id}`,
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/comment/${id}`,
                 );
                 setComments(response.data);
             } catch (error) {
@@ -109,7 +109,7 @@ function TeacherDetails() {
         };
         try {
             const response = await axios.post(
-                'https://be-marathonwebsite-ruler-production-93fe.up.railway.app/api/review',
+                'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/review',
                 formData,
             );
             // Handle the response as needed

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header1.css';
-import {faBell} from "@fortawesome/free-regular-svg-icons"
+import { faBell } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function Header() {
   const [activeButton, setActiveButton] = useState(null);
@@ -36,16 +37,15 @@ function Header() {
           </ul>
 
           <div className="notification-bell">
-              <font-awesome-icon icon={faBell} />
-              <span className="notification-count">3</span>
-            </div>
+            <FontAwesomeIcon icon={faBell} style={{ color: "#000000",}} className="fa-3x"/>
+          </div>
           <div className="user">
             <Link to="/profile">
               <div className="avatar">
                 <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/avatar-fb/avatar-fb-1.jpg" alt="avatar" />
               </div>
-             
-            </Link> 
+
+            </Link>
           </div>
           <span><button className="profile">プロフィール</button></span>
         </div>
