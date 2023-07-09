@@ -22,7 +22,7 @@ const SignIn = () => {
   const api = {
     login: async (username, password) => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/login", {
+        const response = await fetch("https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -59,10 +59,16 @@ const SignIn = () => {
         try {
           // Gọi API login
           const response = await api.login(signInEmail, signInPassword);
+          console.log(response)
           if (response) {
             // Đăng nhập thành công
         localStorage.setItem('userid', response.id);
-        window.location.href = '/question';
+        if(response.role === 'user'){
+          window.location.href = '/question';
+        }
+        else {
+          window.location.href = '/admin';
+        }
         // Chuyển tới trang nào đó của ứng dụng
           } else {
             setErrorMessage('アカウントまたはパスワードが間違っています。 再入力してください！');
