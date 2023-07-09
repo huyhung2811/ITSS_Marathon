@@ -14,6 +14,43 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import Modal from '@mui/material/Modal';
+
+const style1 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+const style2 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
+const style3 = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
+
 const Button1 = styled(Button)({
     boxShadow: 'none',
     textTransform: 'none',
@@ -51,6 +88,18 @@ const Button2 = styled(Button)({
 
 function ClassDetail() {
     const { id } = useParams();
+    const [openDelete1, setOpenDelete1] = React.useState(false);
+    const [openDelete2, setOpenDelete2] = React.useState(false);
+    const [openAdd, setOpenAdd] = React.useState(false);
+    const handleOpen1 = () => setOpenDelete1(true);
+    const handleClose1 = () => setOpenDelete1(false);
+
+    const handleOpen2 = () => setOpenDelete2(true);
+    const handleClose2 = () => setOpenDelete2(false);
+
+    const handleOpen3 = () => setOpenAdd(true);
+    const handleClose3 = () => setOpenAdd(false);
+
     const [open1, setOpen1] = useState(false);
     const [open2, setOpen2] = useState(false);
 
@@ -382,15 +431,45 @@ function ClassDetail() {
                         madam@mail.comcom
                     </Box>
 
-                    <Box
-                        width={'10%'}
-                        display={'flex'}
-                        alignItems={'center'}
-                        justifyContent={'center'}
-                        sx={{ cursor: 'pointer' }}
-                    >
-                        <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
-                    </Box>
+                    <div>
+                        <Button
+                            width={'10%'}
+                            display={'flex'}
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                            sx={{ cursor: 'pointer' }}
+                            onClick={handleOpen1}
+                        >
+                            <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
+                        </Button>
+
+                        <Modal
+                            open={openDelete1}
+                            onClose={handleClose1}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style1}>
+                                <Typography
+                                    id="modal-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                    sx={{ textAlign: 'center' }}
+                                >
+                                    生徒をクラスから削除することを確認する ?
+                                </Typography>
+                                <Typography
+                                    id="modal-modal-description"
+                                    sx={{ mt: 2, justifyContent: 'space-between', display: 'flex', padding: ' 0 40px' }}
+                                >
+                                    <Button variant="contained">DELETE </Button>
+                                    <Button variant="outlined" color="error" onClick={handleClose1}>
+                                        CANCEL
+                                    </Button>
+                                </Typography>
+                            </Box>
+                        </Modal>
+                    </div>
                 </Box>
             )}
             {open2 && (
@@ -414,25 +493,85 @@ function ClassDetail() {
                         madam@mail.comcom
                     </Box>
 
-                    <Box
-                        width={'10%'}
-                        display={'flex'}
-                        alignItems={'center'}
-                        justifyContent={'center'}
-                        sx={{ cursor: 'pointer' }}
-                    >
-                        <AddCircleIcon sx={{ color: '#0276FD' }} />
-                    </Box>
+                    <div>
+                        <Button
+                            width={'10%'}
+                            display={'flex'}
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                            sx={{ cursor: 'pointer' }}
+                            onClick={handleOpen3}
+                        >
+                            <AddCircleIcon sx={{ color: '#0276FD' }} />
+                        </Button>
 
-                    <Box
-                        width={'10%'}
-                        display={'flex'}
-                        alignItems={'center'}
-                        justifyContent={'center'}
-                        sx={{ cursor: 'pointer' }}
-                    >
-                        <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
-                    </Box>
+                        <Modal
+                            open={openAdd}
+                            onClose={handleClose3}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style3}>
+                                <Typography
+                                    id="modal-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                    sx={{ textAlign: 'center' }}
+                                >
+                                    クラスへの生徒の追加を確認しますか ?
+                                </Typography>
+                                <Typography
+                                    id="modal-modal-description"
+                                    sx={{ mt: 2, justifyContent: 'space-between', display: 'flex', padding: ' 0 40px' }}
+                                >
+                                    <Button variant="contained">ADD</Button>
+                                    <Button variant="outlined" color="error" onClick={handleClose3}>
+                                        CANCEL
+                                    </Button>
+                                </Typography>
+                            </Box>
+                        </Modal>
+                    </div>
+
+                    <div>
+                        <Button
+                            width={'10%'}
+                            display={'flex'}
+                            alignItems={'center'}
+                            justifyContent={'center'}
+                            sx={{ cursor: 'pointer' }}
+                            onClick={handleOpen2}
+                        >
+                            <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
+                        </Button>
+
+                        <Modal
+                            open={openDelete2}
+                            onClose={handleClose2}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <Box sx={style2}>
+                                <Typography
+                                    id="modal-modal-title"
+                                    variant="h6"
+                                    component="h2"
+                                    sx={{ textAlign: 'center' }}
+                                >
+                                    生徒をクラスから削除することを確認する ?
+                                </Typography>
+                                <Typography
+                                    id="modal-modal-description"
+                                    sx={{ mt: 2, justifyContent: 'space-between', display: 'flex', padding: ' 0 40px' }}
+                                >
+                                    <Button variant="contained">DELETE </Button>
+                                    <Button variant="outlined" color="error" onClick={handleClose2}>
+                                        CANCEL
+                                    </Button>
+                                </Typography>
+                            </Box>
+                        </Modal>
+                    </div>
                 </Box>
             )}
             <Box sx={{ marginTop: 'auto', paddingBottom: '20px' }}>
