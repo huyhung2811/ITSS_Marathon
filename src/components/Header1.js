@@ -31,7 +31,7 @@ function Header() {
               className={activeButton === 'prices' ? 'active' : 'navigation-options'}
               onClick={() => handleClickedOption('prices')}
             >
-              <Link to="/prices">好きな先生</Link>
+              <Link to="/bookmark">好きな先生</Link>
             </button>
           </ul>
 
@@ -47,7 +47,7 @@ function Header() {
              
             </Link> 
           </div>
-          <button className="profile">プロフィール</button>
+          <span><button className="profile">プロフィール</button></span>
         </div>
       </div>
     </header>

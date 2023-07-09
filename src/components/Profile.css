@@ -2,3 +2,14 @@
     color: red;
     background-color: yellow;
   }
+
+  .transparent-button {
+    background-color: #fff;
+    opacity: 1;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .transparent-button.clicked {
+    background-color: rgba(239, 233, 255, 0.8);
+  }
+  

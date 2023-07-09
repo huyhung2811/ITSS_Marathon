@@ -9,17 +9,18 @@ import SignUp from '../components/SignUp';
 import CreatClass from '../pages/admin/createClass';
 import adminLayout from '../layout/adminLayout/adminLayout';
 import Classes from '../pages/admin/classes';
-import ClassDetail from '../pages/admin/classDetail';
+import BookmarkList from '../components/BookmarkList';
+import GuestLayout from '../layout/guestLayout/GuestLayout';
 
 export const publicRoutes = [
     { path: '/list-teacher', element: ListTeacher, layout: DefaultLayout },
     { path: '/teacher/:id', element: TeacherDetails, layout: DefaultLayout },
     { path: '/profile', element: Profile, layout: DefaultLayout },
-    { path: '/', element: Home, layout: DefaultLayout },
+    { path: '/', element: Home, layout: GuestLayout },
     { path: '/question', element: Question, layout: DefaultLayout },
-    { path: '/signin', element: SignIn, layout: DefaultLayout },
-    { path: '/signup', element: SignUp, layout: DefaultLayout },
-    { path: '/admin/create-class', element: CreatClass, layout: adminLayout },
-    { path: '/admin/class', element: Classes, layout: adminLayout },
-    { path: '/admin/class-detail', element: ClassDetail, layout: adminLayout },
-];
+    { path: '/signin', element: SignIn, layout: GuestLayout},
+    { path: '/signup', element: SignUp, layout: GuestLayout},
+    { path: '/admin/create-class', element: CreatClass, layout: adminLayout},
+    { path: '/admin/class', element: Classes, layout: adminLayout},
+    { path: '/bookmark', element: BookmarkList, layout: DefaultLayout},
+]

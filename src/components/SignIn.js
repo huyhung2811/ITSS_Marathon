@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState,  useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { Link } from 'react-router-dom';
 import './signUp.css';
 
@@ -7,18 +8,19 @@ const SignIn = () => {
   const [signInPassword, setSignInPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [signInData, setSignInData] = useState({});
   const [showPopup, setShowPopup] = useState(false);
+  const { isLoggedIn, currentUser, login, logout } = useContext(AuthContext);
+  console.log("loz",currentUser);
 
   function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   }
-  const handleSignIn = () => {
-   
+  const handleSignIn = (e) => {
+    // e.preventDefault();
     if (signInEmail && signInPassword) {
       if(!validateEmail(signInEmail)){
-        setErrorMessage('Email không đúng. Hãy nhập lại email');
+      setErrorMessage('Email không đúng. Hãy nhập lại email');
       setSuccessMessage('')
       setShowPopup(true);
         // Tự động ẩn popup sau 5 giây
@@ -31,17 +33,29 @@ const SignIn = () => {
       }
 
 
-      setSignInData({
-        email: signInEmail,
-        password: signInPassword
-      })
-      console.log({signInData})
-      // Xử lý đăng nhập tại đây, ví dụ gửi request đến server
-
-      // Đăng nhập thành công
      
-          window.location.href = '/';
+      
+      // Xử lý đăng nhập tại đây, ví dụ gửi request đến server
+      login(signInEmail, signInPassword);
+      
+      // Đăng nhập thành công
+      console.log(currentUser);
+     if(isLoggedIn){
+      window.location.href = '/question';
       // Chuyển tới trang nào đó của ứng dụng
+     }
+     else {
+      setErrorMessage('Sai tài khoản hoặc mật khẩu');
+      setSuccessMessage('')
+      setShowPopup(true);
+        // Tự động ẩn popup sau 5 giây
+        setTimeout(() => {
+          setShowPopup(false);
+          setErrorMessage('');
+          setSuccessMessage('');
+        }, 3000);
+     }
+          
     } else {
       setErrorMessage('Vui lòng điền đầy đủ email và  mật khẩu!');
       setSuccessMessage('')

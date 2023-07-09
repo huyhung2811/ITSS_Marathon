@@ -3,7 +3,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart} from "@fortawesome/free-regular-svg-icons";
+import { faHeart} from "@fortawesome/free-solid-svg-icons";
 
 import { Link } from "react-router-dom";
 
@@ -13,14 +13,29 @@ import "./ShowTeacher.css"
 
 import { useState } from "react";
 import Rating from "@mui/material/Rating";
+import axios from "axios";
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
   const a = "%";
-  console.log(currentTeacher);
-  const [clickHeart, setClickHeart] = useState(false);
-  const handleClick = () => {
-    setClickHeart(!clickHeart);
+  const [showHeart, setShowHeart] = useState({});
+
+  const toggleHeart = (teacherId) => {
+    setShowHeart((prevState) => ({
+      ...prevState,
+      [teacherId]: !prevState[teacherId],
+    }));
+    axios
+            .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
+              teacher_id: teacherId,
+              user_id: 1
+            })
+            .then((response) => {
+                console.log('thanh cong');
+            })
+            .catch((error) => {
+                console.log('loi');
+            });
   };
   return (
     <Row xs={3} md={3} className="g-4" style={{ marginTop: "5px" }}>
@@ -64,17 +79,17 @@ function ShowTeacher({ currentTeacher, indexOfFirstStudent }) {
                   <br />
                   <span>
                     <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.01} readOnly style={{ backgroundColor: "#fff" }} /></span>
-                  {clickHeart ? (
+                  {showHeart[teacher.id] ? (
                     <FontAwesomeIcon
                       icon={faHeart}
                       style={{ marginLeft: "50px", color: "red" }}
-                      onClick={handleClick}
+                      onClick={() => toggleHeart(teacher.id)}
                     />
                   ) : (
                     <FontAwesomeIcon
                       icon={faHeart}
                       style={{ marginLeft: "50px" }}
-                      onClick={handleClick}
+                      onClick={() => toggleHeart(teacher.id)}
                     />
                   )}
                 </Card.Text>

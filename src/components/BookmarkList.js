@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { Pagination } from 'antd';
-import ShowTeacher from './ShowTeacher';
-import FilterComponent from './FilterComponent';
 import './ListTeacher.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
+import Bookmark from './Bookmark';
 
-function ListTeacher() {
+function BookmarkList() {
+    const id = 1;
     const [currentPage, setCurrentPage] = useState(1);
-    const [points, setPoints] = useState(null);
     const [buttonClick, setButtonClick] = useState(false);
 
     const [teachers, setTeachers] = useState([]);
@@ -18,7 +17,7 @@ function ListTeacher() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/1',
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/getbookmark/${id}`,
                 );
                 setTeachers(response.data);
             } catch (error) {
@@ -27,6 +26,7 @@ function ListTeacher() {
         }
         fetchTeacher();
     }, []);
+    console.log("hehe", teachers)
     const handleShowFilter = () => {
         setButtonClick(!buttonClick);
     };
@@ -37,40 +37,12 @@ function ListTeacher() {
         setCurrentPage(page);
     };
 
+    console.log("he", teachers);
     const currentTeacher = teachers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-
-    if (points !== null) {
-        var currentTeacherPoint = points.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-    }
 
     const indexOfLastStudent = currentPage * pageSize;
     const indexOfFirstStudent = indexOfLastStudent - pageSize;
     const totalItems = teachers.length;
-
-    const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
-        console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
-        axios
-            .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/matching', {
-                salary: fee,
-                address: location,
-                sex: sex,
-                age: age,
-                goal: goal,
-                level: level,
-                day_of_week: day,
-                time_slot: timeSlot,
-                dem: dem,
-            })
-            .then((response) => {
-                setPoints(response.data);
-
-                console.log('thanh cong');
-            })
-            .catch((error) => {
-                console.log('loi');
-            });
-        setCurrentPage(1);
-    };
 
     return (
         <div style={{ alignContent: 'center' }}>
@@ -89,11 +61,7 @@ function ListTeacher() {
                 </p>
             </div>
             <div className="listTeacher-container">
-                {buttonClick && (
-                    <div className="filter-container">
-                        <FilterComponent onSubmit={handleFilterSubmit} handleShowFilter={handleShowFilter} />
-                    </div>
-                )}
+
 
                 <div className="list-paginate">
                     <div
@@ -105,14 +73,8 @@ function ListTeacher() {
                             width: '100%',
                         }}
                     >
-                        {points !== null ? (
-                            <ShowTeacher
-                                currentTeacher={currentTeacherPoint}
-                                indexOfFirstStudent={indexOfFirstStudent}
-                            />
-                        ) : (
-                            <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
-                        )}
+
+                        <Bookmark currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
                     </div>
                     <div className="paginate-numbers">
                         <Pagination
@@ -128,4 +90,4 @@ function ListTeacher() {
     );
 }
 
-export default ListTeacher;
+export default BookmarkList;
