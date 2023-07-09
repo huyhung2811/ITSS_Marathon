@@ -188,7 +188,16 @@ function ClassDetail() {
     };
 
     return (
-        <Box sx={{ width: '87vw', display: 'flex', minHeight: '92vh', alignItems: 'center', flexDirection: 'column' }}>
+        <Box
+            sx={{
+                width: '87vw',
+                display: 'flex',
+                minHeight: '120vh',
+                alignItems: 'center',
+                flexDirection: 'column',
+                backgroundColor: 'rgb(247, 246, 249)',
+            }}
+        >
             <Button
                 href="/admin/class"
                 width={'90%'}
