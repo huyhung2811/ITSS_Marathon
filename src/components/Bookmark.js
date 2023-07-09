@@ -8,6 +8,7 @@ import './ListTeacher.css';
 import './ShowTeacher.css';
 import { useState } from 'react';
 import Rating from '@mui/material/Rating';
+import axios from 'axios';
 // currentTeacher là danh sách các giáo viên cần in
 function Bookmark({ currentTeacher, indexOfFirstStudent }) {
     const a = '%';
@@ -18,6 +19,17 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
             ...prevState,
             [teacherId]: !prevState[teacherId],
         }));
+        axios
+            .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
+              teacher_id: teacherId,
+              user_id: 1
+            })
+            .then((response) => {
+                console.log('thanh cong');
+            })
+            .catch((error) => {
+                console.log('loi');
+            });
     };
     return (
         <Row xs={3} md={3} className="g-4" style={{ marginTop: '5px' }}>

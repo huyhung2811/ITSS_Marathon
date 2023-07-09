@@ -1,13 +1,13 @@
 header {
   justify-content: center;
-  height: 6%;
+  height: 10%;
 }
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: #e7e7e7;
-  height: 6%;
+  height: 70px;
 }
 
 .logo {
@@ -16,9 +16,10 @@ header {
 }
 
 .logo img {
+  margin-left: 10px;
   /* background-color: #fff; */
-  width: 200px;
-  height: 60px;
+  width: 180px;
+  height: 50px;
 }
 
 .navigation {
@@ -76,8 +77,8 @@ header {
 }
 
 .avatar img {
-  width: 70px;
-  height: 70px;
+  width: 44px;
+  height: 44px;
   border: 1px solid #000;
   border-radius: 50%;
   margin-right: 5px;
@@ -97,7 +98,7 @@ header {
 }
 
 .notification-bell i {
-  font-size: 18px;
+  font-size: 30px;
   position: absolute;
   left: -10px;
 }

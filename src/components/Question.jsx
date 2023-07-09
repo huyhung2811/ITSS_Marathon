@@ -17,13 +17,13 @@ const YourComponent = () => {
             user_id: 1,
             salary: parseFloat(salary),
             // salary: 100000,
-            address: 'Ba Dinh',
+            address: address,
             level: level,
         };
         console.log(data);
 
         axios
-            .put('http://127.0.0.1:8000/api/question', data)
+            .put('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/question', data)
             .then((response) => {
                 // Handle the API response here
                 console.log(response.data);
@@ -32,6 +32,7 @@ const YourComponent = () => {
                 // Handle error here
                 console.error(error);
             });
+        window.location.href = '/list-teacher';
     };
 
     return (

@@ -23,7 +23,7 @@ export const AuthContextProvider = ({ children }) => {
     const api = {
         login: async (username, password) => {
           try {
-            const response = await fetch("http://127.0.0.1:8000/api/login", {
+            const response = await fetch("https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/login", {
               method: "POST",
               headers: {
                 "Content-Type": "application/json"
