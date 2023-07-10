@@ -527,51 +527,49 @@ function ClassDetail() {
                                 <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
                             </Button>
 
-                            {index === 0 && (
-                                <Modal
-                                    open={openDelete1}
-                                    onClose={handleClose1}
-                                    aria-labelledby="modal-modal-title1"
-                                    aria-describedby="modal-modal-description1"
-                                >
-                                    <Box sx={style1}>
-                                        <Typography
-                                            id="modal-modal-title1"
-                                            variant="h6"
-                                            component="h2"
-                                            sx={{ textAlign: 'center' }}
+                            <Modal
+                                open={openDelete1}
+                                onClose={handleClose1}
+                                aria-labelledby="modal-modal-title1"
+                                aria-describedby="modal-modal-description1"
+                            >
+                                <Box sx={style1}>
+                                    <Typography
+                                        id="modal-modal-title1"
+                                        variant="h6"
+                                        component="h2"
+                                        sx={{ textAlign: 'center' }}
+                                    >
+                                        生徒をクラスから削除することを確認する ?
+                                    </Typography>
+                                    <Typography
+                                        id="modal-modal-description1"
+                                        sx={{
+                                            mt: 2,
+                                            justifyContent: 'space-between',
+                                            display: 'flex',
+                                            padding: ' 0 40px',
+                                        }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => (handleDeleteMemmber(item.id), setOpenDelete1(false))}
                                         >
-                                            生徒をクラスから削除することを確認する ?
-                                        </Typography>
-                                        <Typography
-                                            id="modal-modal-description1"
-                                            sx={{
-                                                mt: 2,
-                                                justifyContent: 'space-between',
-                                                display: 'flex',
-                                                padding: ' 0 40px',
-                                            }}
-                                        >
-                                            <Button
-                                                variant="contained"
-                                                onClick={() => (handleDeleteMemmber(item.id), setOpenDelete1(false))}
-                                            >
-                                                DELETE
-                                            </Button>
-                                            <Button variant="outlined" color="error" onClick={handleClose1}>
-                                                CANCEL
-                                            </Button>
-                                        </Typography>
-                                    </Box>
-                                </Modal>
-                            )}
+                                            DELETE
+                                        </Button>
+                                        <Button variant="outlined" color="error" onClick={handleClose1}>
+                                            CANCEL
+                                        </Button>
+                                    </Typography>
+                                </Box>
+                            </Modal>
                         </div>
                     </Box>
                 ))}
 
             {items2 &&
                 open2 &&
-                items2.map((item, index) => (
+                items2.map((item) => (
                     <Box
                         marginTop={'15px'}
                         width={'90%'}
@@ -604,44 +602,42 @@ function ClassDetail() {
                                 <AddCircleIcon sx={{ color: '#0276FD' }} />
                             </Button>
 
-                            {index === 0 && (
-                                <Modal
-                                    open={openAdd}
-                                    onClose={handleClose3}
-                                    aria-labelledby="modal-modal-title2"
-                                    aria-describedby="modal-modal-description2"
-                                >
-                                    <Box sx={style3}>
-                                        <Typography
-                                            id="modal-modal-title2"
-                                            variant="h6"
-                                            component="h2"
-                                            sx={{ textAlign: 'center' }}
+                            <Modal
+                                open={openAdd}
+                                onClose={handleClose3}
+                                aria-labelledby="modal-modal-title2"
+                                aria-describedby="modal-modal-description2"
+                            >
+                                <Box sx={style3}>
+                                    <Typography
+                                        id="modal-modal-title2"
+                                        variant="h6"
+                                        component="h2"
+                                        sx={{ textAlign: 'center' }}
+                                    >
+                                        クラスへの生徒の追加を確認しますか ?
+                                    </Typography>
+                                    <Typography
+                                        id="modal-modal-description2"
+                                        sx={{
+                                            mt: 2,
+                                            justifyContent: 'space-between',
+                                            display: 'flex',
+                                            padding: ' 0 40px',
+                                        }}
+                                    >
+                                        <Button
+                                            variant="contained"
+                                            onClick={() => (handlePutMemmber(item.id), setOpenAdd(false))}
                                         >
-                                            クラスへの生徒の追加を確認しますか ?
-                                        </Typography>
-                                        <Typography
-                                            id="modal-modal-description2"
-                                            sx={{
-                                                mt: 2,
-                                                justifyContent: 'space-between',
-                                                display: 'flex',
-                                                padding: ' 0 40px',
-                                            }}
-                                        >
-                                            <Button
-                                                variant="contained"
-                                                onClick={() => (handlePutMemmber(item.id), setOpenAdd(false))}
-                                            >
-                                                ADD
-                                            </Button>
-                                            <Button variant="outlined" color="error" onClick={handleClose3}>
-                                                CANCEL
-                                            </Button>
-                                        </Typography>
-                                    </Box>
-                                </Modal>
-                            )}
+                                            ADD
+                                        </Button>
+                                        <Button variant="outlined" color="error" onClick={handleClose3}>
+                                            CANCEL
+                                        </Button>
+                                    </Typography>
+                                </Box>
+                            </Modal>
                         </div>
 
                         <div>
