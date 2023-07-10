@@ -87,6 +87,8 @@ const Button2 = styled(Button)({
 
 function ClassDetail() {
     const { id } = useParams();
+    const [numberID, setNumberID] = useState(0);
+
     const [openDelete1, setOpenDelete1] = React.useState(false);
     const [openDelete2, setOpenDelete2] = React.useState(false);
     const [openAdd, setOpenAdd] = React.useState(false);
@@ -522,50 +524,106 @@ function ClassDetail() {
                                 alignItems={'center'}
                                 justifyContent={'center'}
                                 sx={{ cursor: 'pointer' }}
-                                onClick={handleOpen1}
+                                onClick={() => (setNumberID(item.id), setOpenDelete1(true))}
                             >
                                 <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
                             </Button>
-
-                            <Modal
-                                open={openDelete1}
-                                onClose={handleClose1}
-                                aria-labelledby="modal-modal-title1"
-                                aria-describedby="modal-modal-description1"
-                            >
-                                <Box sx={style1}>
-                                    <Typography
-                                        id="modal-modal-title1"
-                                        variant="h6"
-                                        component="h2"
-                                        sx={{ textAlign: 'center' }}
-                                    >
-                                        生徒をクラスから削除することを確認する ?
-                                    </Typography>
-                                    <Typography
-                                        id="modal-modal-description1"
-                                        sx={{
-                                            mt: 2,
-                                            justifyContent: 'space-between',
-                                            display: 'flex',
-                                            padding: ' 0 40px',
-                                        }}
-                                    >
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => (handleDeleteMemmber(item.id), setOpenDelete1(false))}
-                                        >
-                                            DELETE
-                                        </Button>
-                                        <Button variant="outlined" color="error" onClick={handleClose1}>
-                                            CANCEL
-                                        </Button>
-                                    </Typography>
-                                </Box>
-                            </Modal>
                         </div>
                     </Box>
                 ))}
+
+            <Modal
+                open={openDelete1}
+                onClose={handleClose1}
+                aria-labelledby="modal-modal-title1"
+                aria-describedby="modal-modal-description1"
+            >
+                <Box sx={style1}>
+                    <Typography id="modal-modal-title1" variant="h6" component="h2" sx={{ textAlign: 'center' }}>
+                        生徒をクラスから削除することを確認する ?
+                    </Typography>
+                    <Typography
+                        id="modal-modal-description1"
+                        sx={{
+                            mt: 2,
+                            justifyContent: 'space-between',
+                            display: 'flex',
+                            padding: ' 0 40px',
+                        }}
+                    >
+                        <Button
+                            variant="contained"
+                            onClick={() => (handleDeleteMemmber(numberID), setOpenDelete1(false))}
+                        >
+                            DELETE
+                        </Button>
+                        <Button variant="outlined" color="error" onClick={handleClose1}>
+                            CANCEL
+                        </Button>
+                    </Typography>
+                </Box>
+            </Modal>
+
+            <Modal
+                open={openAdd}
+                onClose={handleClose3}
+                aria-labelledby="modal-modal-title2"
+                aria-describedby="modal-modal-description2"
+            >
+                <Box sx={style3}>
+                    <Typography id="modal-modal-title2" variant="h6" component="h2" sx={{ textAlign: 'center' }}>
+                        クラスへの生徒の追加を確認しますか ?
+                    </Typography>
+                    <Typography
+                        id="modal-modal-description2"
+                        sx={{
+                            mt: 2,
+                            justifyContent: 'space-between',
+                            display: 'flex',
+                            padding: ' 0 40px',
+                        }}
+                    >
+                        <Button variant="contained" onClick={() => (handlePutMemmber(numberID), setOpenAdd(false))}>
+                            ADD
+                        </Button>
+                        <Button variant="outlined" color="error" onClick={handleClose3}>
+                            CANCEL
+                        </Button>
+                    </Typography>
+                </Box>
+            </Modal>
+
+            <Modal
+                open={openDelete2}
+                onClose={handleClose2}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style2}>
+                    <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: 'center' }}>
+                        生徒をクラスから削除することを確認する ?
+                    </Typography>
+                    <Typography
+                        id="modal-modal-description"
+                        sx={{
+                            mt: 2,
+                            justifyContent: 'space-between',
+                            display: 'flex',
+                            padding: ' 0 40px',
+                        }}
+                    >
+                        <Button
+                            variant="contained"
+                            onClick={() => (handleDeleteMemmber(numberID), setOpenDelete2(false))}
+                        >
+                            DELETE{' '}
+                        </Button>
+                        <Button variant="outlined" color="error" onClick={handleClose2}>
+                            CANCEL
+                        </Button>
+                    </Typography>
+                </Box>
+            </Modal>
 
             {items2 &&
                 open2 &&
@@ -597,47 +655,10 @@ function ClassDetail() {
                                 alignItems={'center'}
                                 justifyContent={'center'}
                                 sx={{ cursor: 'pointer' }}
-                                onClick={handleOpen3}
+                                onClick={() => (setNumberID(item.id), setOpenAdd(true))}
                             >
                                 <AddCircleIcon sx={{ color: '#0276FD' }} />
                             </Button>
-
-                            <Modal
-                                open={openAdd}
-                                onClose={handleClose3}
-                                aria-labelledby="modal-modal-title2"
-                                aria-describedby="modal-modal-description2"
-                            >
-                                <Box sx={style3}>
-                                    <Typography
-                                        id="modal-modal-title2"
-                                        variant="h6"
-                                        component="h2"
-                                        sx={{ textAlign: 'center' }}
-                                    >
-                                        クラスへの生徒の追加を確認しますか ?
-                                    </Typography>
-                                    <Typography
-                                        id="modal-modal-description2"
-                                        sx={{
-                                            mt: 2,
-                                            justifyContent: 'space-between',
-                                            display: 'flex',
-                                            padding: ' 0 40px',
-                                        }}
-                                    >
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => (handlePutMemmber(item.id), setOpenAdd(false))}
-                                        >
-                                            ADD
-                                        </Button>
-                                        <Button variant="outlined" color="error" onClick={handleClose3}>
-                                            CANCEL
-                                        </Button>
-                                    </Typography>
-                                </Box>
-                            </Modal>
                         </div>
 
                         <div>
@@ -647,47 +668,10 @@ function ClassDetail() {
                                 alignItems={'center'}
                                 justifyContent={'center'}
                                 sx={{ cursor: 'pointer' }}
-                                onClick={handleOpen2}
+                                onClick={() => (setNumberID(item.id), setOpenDelete2(true))}
                             >
                                 <DeleteOutlineIcon sx={{ color: '#FEAF00' }} />
                             </Button>
-
-                            <Modal
-                                open={openDelete2}
-                                onClose={handleClose2}
-                                aria-labelledby="modal-modal-title"
-                                aria-describedby="modal-modal-description"
-                            >
-                                <Box sx={style2}>
-                                    <Typography
-                                        id="modal-modal-title"
-                                        variant="h6"
-                                        component="h2"
-                                        sx={{ textAlign: 'center' }}
-                                    >
-                                        生徒をクラスから削除することを確認する ?
-                                    </Typography>
-                                    <Typography
-                                        id="modal-modal-description"
-                                        sx={{
-                                            mt: 2,
-                                            justifyContent: 'space-between',
-                                            display: 'flex',
-                                            padding: ' 0 40px',
-                                        }}
-                                    >
-                                        <Button
-                                            variant="contained"
-                                            onClick={() => (handleDeleteMemmber(item.id), setOpenDelete2(false))}
-                                        >
-                                            DELETE{' '}
-                                        </Button>
-                                        <Button variant="outlined" color="error" onClick={handleClose2}>
-                                            CANCEL
-                                        </Button>
-                                    </Typography>
-                                </Box>
-                            </Modal>
                         </div>
                     </Box>
                 ))}
