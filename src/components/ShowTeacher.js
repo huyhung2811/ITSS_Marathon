@@ -32,7 +32,7 @@ function ShowTeacher({ currentTeacher }) {
 
   return (
     <Row xs={3} md={3} className="g-4" style={{ marginTop: "5px" }}>
-      {currentTeacher.map((teacher, idx) => (
+      {currentTeacher?.map((teacher, idx) => (
 
         <Col key={idx}>
           <Card style={{ border: "1px solid #000" }}>

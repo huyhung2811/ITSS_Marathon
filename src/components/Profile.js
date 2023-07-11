@@ -10,6 +10,7 @@ import PortraitIcon from '@mui/icons-material/Portrait';
 import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { storage } from '../firebase';
 
 const Profile = () => {
@@ -21,7 +22,8 @@ const Profile = () => {
     const [userInfo, setUserInfo] = useState({});
     const [image, setImage] = useState(userInfo.avatar);
 
-
+    const userId = localStorage.getItem('userid');
+    console.log(userId)
     useEffect(() => {
         async function fetchClassStuding() {
             try {
@@ -39,8 +41,9 @@ const Profile = () => {
     useEffect(() => {
         async function fetchUserInfo() {
             try {
+                const userId = localStorage.getItem('userid');
                 const response = await axios.get(
-                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/1',
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/${userId}`,
                 );
                 setUserInfo(response.data);
             } catch (error) {
@@ -164,7 +167,8 @@ const Profile = () => {
                                                 <label htmlFor="avatar-input" style={{ marginRight: '10px', cursor: 'pointer', border: '1px solid #000', borderRadius: "10px", background: '#d1d1d1', color: '#000', padding: '5px 10px' }}>
                                                     <PortraitIcon />プロフィール アバター <FontAwesomeIcon icon={faUpload} />
                                                 </label>
-                                                {image && (
+                                                {console.log(image)}
+                                                {!image ? <CloudUploadIcon sx={{width: '100px', height: '100px'}}/> : (
                                                     <img src={image} alt="Avatar" style={{ marginLeft: "156px", width: '120px', height: '120px', borderRadius: '20%', float: "right", border: "1px solid #000" }} />
                                                 )}
 

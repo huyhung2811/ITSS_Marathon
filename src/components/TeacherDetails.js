@@ -13,6 +13,7 @@ function TeacherDetails() {
     const [commentText, setCommentText] = useState('');
     const [rating, setRating] = useState(0);
     const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState({});
     const { id } = useParams();
     const [teachers, setTeachers] = useState([]);
 
@@ -22,6 +23,7 @@ function TeacherDetails() {
                 const response = await axios.get(
                     'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/teacher',
                 );
+                console.log(response.data)
                 setTeachers(response.data.data);
             } catch (error) {
                 console.log(error);
@@ -39,6 +41,15 @@ function TeacherDetails() {
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/comment/${id}`,
                 );
                 setComments(response.data);
+                console.log(response.data)
+                // const user_id = localStorage.getItem('userid');
+                const user_id = 1;
+                if(user_id){
+                    const data = response.data?.find((item) => item?.user_id === user_id)
+                    setComment(data)
+                    setRating(data?.rating)
+                    setCommentText(data?.comment)
+                }
             } catch (error) {
                 console.log(error);
             }
@@ -298,6 +309,48 @@ function TeacherDetails() {
                                 </div>
 
                                 <Card.Body>
+                                    {
+                                    comment ? 
+                                    <Form className="mt-3">
+                                        <Form.Group controlId="rating">
+                                            <Form.Label className="mr-2">
+                                                <strong>評価</strong>
+                                            </Form.Label>
+                                            <br />
+                                            <Rating
+                                                name="rating"
+                                                value={parseFloat(rating)}
+                                                precision={1}
+                                                onChange={(event, value) => setRating(value)}
+                                            />
+                                        </Form.Group>
+                                        <br />
+                                        <Form.Group controlId="commentText">
+                                            <Form.Label>
+                                                <strong>コメント</strong>
+                                            </Form.Label>
+                                            <Form.Control
+                                                as="textarea"
+                                                rows={3}
+                                                value={commentText}
+                                                onChange={(e) => setCommentText(e.target.value)}
+                                            />
+                                        </Form.Group>
+                                        <br />
+                                        <Button
+                                            style={{
+                                                backgroundColor: '#99CC99',
+                                                border: 'none',
+                                                color: '#000',
+                                                float: 'right',
+                                            }}
+                                            variant="primary"
+                                            onClick={handleCommentSubmit}
+                                        >
+                                            アップデート
+                                        </Button>
+                                    </Form>
+                                    :
                                     <Form className="mt-3">
                                         <Form.Group controlId="rating">
                                             <Form.Label className="mr-2">
@@ -338,6 +391,7 @@ function TeacherDetails() {
                                             送信
                                         </Button>
                                     </Form>
+                                    }
                                 </Card.Body>
                             </Card>
                         </Col>
