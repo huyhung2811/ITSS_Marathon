@@ -23,6 +23,8 @@ function TeacherDetails() {
     const { id } = useParams();
     const [teachers, setTeachers] = useState([]);
     const [open, setOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
+    const [mesage, setMesage] = useState('');
     const [refesh, setRefesh] = useState(0);
 
     useEffect(() => {
@@ -120,6 +122,7 @@ function TeacherDetails() {
             );
             // Handle the response as needed
             console.log(response.data);
+            setMesage('更新に成功')
             handleClickMessage();
             setRefesh(refesh + 1);
             // Clear the form fields
@@ -139,6 +142,28 @@ function TeacherDetails() {
         setOpen(false);
     };
 
+    const handleClickMessage1 = () => {
+        setOpen1(true)
+    }
+
+    const handleCloseMessage1 = () => {
+        setOpen1(false)
+    }
+
+    const handleRegister = (e) => {
+        console.log(e)
+        axios.post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/register-class', 
+        {
+            "user_id": localStorage.getItem('userid'),
+            "class_id": e?.id
+        }).then(() => {
+            setMesage('クラスへの登録が完了しました')
+            handleClickMessage();
+        }).catch(() => {
+            handleClickMessage1();
+        })
+    }
+
     return (
         <div className="modal show" style={{ display: 'block', position: 'initial' }}>
             <Snackbar
@@ -148,7 +173,16 @@ function TeacherDetails() {
                 onClose={handleCloseMessage}
                 // message="I love snacks"
             >
-                <Alert severity="success">更新に成功</Alert>
+                <Alert severity="success">{mesage}</Alert>
+            </Snackbar>
+            <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={open1}
+                onClose={handleCloseMessage1}
+                // message="I love snacks"
+            >
+                <Alert severity="error">このクラスに登録しました</Alert>
             </Snackbar>
             <Modal.Dialog className="modal-xl">
                 <Modal.Header closeButton onClick={handleClose} />
@@ -267,15 +301,7 @@ function TeacherDetails() {
                                                                 <br />
                                                                 <br />
                                                             </Card.Text>
-                                                            <button
-                                                                style={{
-                                                                    float: 'right',
-                                                                    width: '92px',
-                                                                    borderRadius: '6px',
-                                                                    backgroundColor: 'rgba(94,239,91,0.29)',
-                                                                    border: '1px solid black',
-                                                                }}
-                                                            >
+                                                            <button onClick={() => handleRegister(classItem)} style={{float: 'right', width: '92px', borderRadius: '6px', backgroundColor: 'rgba(94,239,91,0.29)', border: '1px solid black'}}>
                                                                 登録
                                                             </button>
                                                         </Card.Body>
