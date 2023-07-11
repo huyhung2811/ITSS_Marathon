@@ -13,8 +13,9 @@ const YourComponent = () => {
     const [level, setLevel] = useState('A1');
     const [salary, setSalary] = useState('');
     const handleSave = () => {
+        const user_id = localStorage.getItem('userid');
         const data = {
-            user_id: 1,
+            user_id: user_id,
             salary: parseFloat(salary),
             // salary: 100000,
             address: address,

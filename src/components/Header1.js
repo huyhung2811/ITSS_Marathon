@@ -4,6 +4,7 @@ import './Header1.css';
 import logo from '../assets/img/logo.png';
 import { faBell } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import axios from 'axios';
 
 function Header() {
@@ -54,7 +55,8 @@ function Header() {
                     </div>
 
                     <div className="notification-bell">
-                        <FontAwesomeIcon icon={faBell} style={{ color: '#000000' }} className="fa-3x" />
+                        {/* <FontAwesomeIcon icon={faBell} style={{ color: '#000000' }} className="fa-3x" /> */}
+                        <NotificationsNoneIcon sx={{width: '40px', height: '40px', marginLeft: '10px'}}/>
                     </div>
                     <div className="user">
                         <Link to="/profile">

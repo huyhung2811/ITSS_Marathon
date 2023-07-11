@@ -10,6 +10,8 @@ import axios from 'axios';
 import Snackbar from '@mui/material/Snackbar';
 import Slider from 'react-slick';
 import MuiAlert from '@mui/material/Alert';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -67,7 +69,9 @@ function TeacherDetails() {
         fetchComment();
     }, [refesh]);
     if (!teacher) {
-        return <p>Teacher not found</p>;
+        return <Box sx={{ display: 'flex', width: '100vw', height: 'calc(100vh - 140px)', alignItems: 'center', justifyContent: 'center' }}>
+        <CircularProgress />
+      </Box>;
     }
     const handleClose = () => {
         window.history.back();
