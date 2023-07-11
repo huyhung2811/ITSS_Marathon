@@ -59,7 +59,14 @@ function Header() {
                     <div className="user">
                         <Link to="/profile">
                             <div className="avatar">
-                                <img src={userInfo.avatar} alt="avatar" />
+                                {userInfo.avatar ? (
+                                    <img src={userInfo.avatar} alt="avatar" />
+                                ) : (
+                                    <img
+                                        src="https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png"
+                                        alt="avatar"
+                                    />
+                                )}
                             </div>
                         </Link>
                     </div>
