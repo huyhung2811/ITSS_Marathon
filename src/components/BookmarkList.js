@@ -26,7 +26,7 @@ function BookmarkList() {
         }
         fetchTeacher();
     }, []);
-    console.log("hehe", teachers)
+    console.log('hehe', teachers);
     const handleShowFilter = () => {
         setButtonClick(!buttonClick);
     };
@@ -37,8 +37,8 @@ function BookmarkList() {
         setCurrentPage(page);
     };
 
-    console.log("he", teachers);
-    const currentTeacher = teachers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    console.log('he', teachers);
+    const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     const indexOfLastStudent = currentPage * pageSize;
     const indexOfFirstStudent = indexOfLastStudent - pageSize;
@@ -61,8 +61,6 @@ function BookmarkList() {
                 </p>
             </div>
             <div className="listTeacher-container">
-
-
                 <div className="list-paginate">
                     <div
                         className="filter-results"
@@ -73,7 +71,6 @@ function BookmarkList() {
                             width: '100%',
                         }}
                     >
-
                         <Bookmark currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
                     </div>
                     <div className="paginate-numbers">

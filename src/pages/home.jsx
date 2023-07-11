@@ -38,7 +38,7 @@ function ListTeacher() {
         setCurrentPage(page);
     };
 
-    const currentTeacher = teachers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     if (points !== null) {
         var currentTeacherPoint = points.slice((currentPage - 1) * pageSize, currentPage * pageSize);
