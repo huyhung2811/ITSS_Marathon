@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Pagination } from 'antd';
+
 import '../components/ListTeacher.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
 import FilterComponent from '../components/FilterComponent';
-import ShowTeacher from '../components/ShowTeacher';
+import ShowTeacherHome from '../components/ShowTeacherHome';
 
-function Home() {
+function ListTeacher() {
     const [currentPage, setCurrentPage] = useState(1);
     const [points, setPoints] = useState(null);
     const [buttonClick, setButtonClick] = useState(false);
@@ -18,7 +19,7 @@ function Home() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/${user_id}`,
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/1`,
                 );
                 setTeachers(response.data.data);
             } catch (error) {
@@ -37,7 +38,7 @@ function Home() {
         setCurrentPage(page);
     };
 
-    const currentTeacher = teachers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     if (points !== null) {
         var currentTeacherPoint = points.slice((currentPage - 1) * pageSize, currentPage * pageSize);
@@ -45,7 +46,7 @@ function Home() {
 
     const indexOfLastStudent = currentPage * pageSize;
     const indexOfFirstStudent = indexOfLastStudent - pageSize;
-    const totalItems = teachers.length;
+    const totalItems = teachers?.length;
 
     const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
         console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
@@ -106,12 +107,15 @@ function Home() {
                         }}
                     >
                         {points !== null ? (
-                            <ShowTeacher
+                            <ShowTeacherHome
                                 currentTeacher={currentTeacherPoint}
                                 indexOfFirstStudent={indexOfFirstStudent}
                             />
                         ) : (
-                            <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
+                            <ShowTeacherHome
+                                currentTeacher={currentTeacher}
+                                indexOfFirstStudent={indexOfFirstStudent}
+                            />
                         )}
                     </div>
                     <div className="paginate-numbers">
@@ -128,4 +132,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default ListTeacher;

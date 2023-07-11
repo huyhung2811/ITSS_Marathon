@@ -4,7 +4,7 @@ import TeacherAdd from './TeacherAdd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Pagination } from 'antd';
-import axios from "axios";
+import axios from 'axios';
 
 const TeacherTable = ({ teachers, setTeachers }) => {
     const [showTable, setShowTable] = useState(true);
@@ -13,40 +13,38 @@ const TeacherTable = ({ teachers, setTeachers }) => {
 
     useEffect(() => {
         const fetchTeachers = async () => {
-          try {
-            const response = await axios.put('http://127.0.0.1:8000/api/update-status');
-            const data = response.data;
-            setTeachers(data);
-          } catch (error) {
-            console.error('Lỗi:', error);
-          }
+            try {
+                const response = await axios.put('http://127.0.0.1:8000/api/update-status');
+                const data = response.data;
+                setTeachers(data);
+            } catch (error) {
+                console.error('Lỗi:', error);
+            }
         };
-    
+
         fetchTeachers();
-      }, [setTeachers]);
+    }, [setTeachers]);
 
     const handleStatusChange = async (teacherId) => {
         try {
             const updatedTeachers = teachers.map((teacher) => {
-              if (teacher.id === teacherId) {
-                // Thay đổi trạng thái của giáo viên
-                const newStatus = teacher.status === 'active' ? 'inactive' : 'active';
-                return { ...teacher, status: newStatus };
-              }
-              return teacher;
+                if (teacher.id === teacherId) {
+                    // Thay đổi trạng thái của giáo viên
+                    const newStatus = teacher.status === 'active' ? 'inactive' : 'active';
+                    return { ...teacher, status: newStatus };
+                }
+                return teacher;
             });
-        
+
             await axios.put('http://127.0.0.1:8000/api/update-status', updatedTeachers);
-        
+
             setTeachers(updatedTeachers);
-          } catch (error) {
+        } catch (error) {
             console.error('Lỗi:', error);
-          }
+        }
     };
 
-    const handleDeleteTeacher = async (teacherId) => {
-        
-    };
+    const handleDeleteTeacher = async (teacherId) => {};
 
     const handleAddTeacher = () => {
         setShowTable(false);
@@ -60,7 +58,7 @@ const TeacherTable = ({ teachers, setTeachers }) => {
 
     const indexOfLastTeacher = currentPage * pageSize;
     const indexOfFirstTeacher = indexOfLastTeacher - pageSize;
-    const currentTeachers = teachers.slice(indexOfFirstTeacher, indexOfLastTeacher);
+    const currentTeachers = teachers?.slice(indexOfFirstTeacher, indexOfLastTeacher);
     const totalItems = teachers.length;
 
     return (
@@ -86,11 +84,7 @@ const TeacherTable = ({ teachers, setTeachers }) => {
                             {currentTeachers.map((teacher) => (
                                 <tr key={teacher.id}>
                                     <td>
-                                        <img
-                                            src={teacher.avatar}
-                                            alt="avatar"
-                                            className="img-avatar"
-                                        />
+                                        <img src={teacher.avatar} alt="avatar" className="img-avatar" />
                                     </td>
                                     <td>{teacher.name}</td>
                                     <td>{teacher.email}</td>
@@ -120,7 +114,12 @@ const TeacherTable = ({ teachers, setTeachers }) => {
                         </tbody>
                     </table>
                     <div className="paginate-numbers">
-                        <Pagination current={currentPage} pageSize={pageSize} total={totalItems} onChange={handlePageChange} />
+                        <Pagination
+                            current={currentPage}
+                            pageSize={pageSize}
+                            total={totalItems}
+                            onChange={handlePageChange}
+                        />
                     </div>
                 </div>
             )}

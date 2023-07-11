@@ -16,6 +16,7 @@ import ClassDetail from '../pages/admin/classDetail';
 export const publicRoutes = [
     { path: '/list-teacher', element: ListTeacher, layout: DefaultLayout },
     { path: '/teacher/:id', element: TeacherDetails, layout: DefaultLayout },
+    { path: '/teacherHome/:id', element: TeacherDetails, layout: GuestLayout },
     { path: '/profile', element: Profile, layout: DefaultLayout },
     { path: '/', element: Home, layout: GuestLayout },
     { path: '/question', element: Question, layout: DefaultLayout },

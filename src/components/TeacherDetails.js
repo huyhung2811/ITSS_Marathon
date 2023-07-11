@@ -12,7 +12,7 @@ import Slider from 'react-slick';
 import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 function TeacherDetails() {
@@ -33,7 +33,7 @@ function TeacherDetails() {
                 const response = await axios.get(
                     'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/teacher',
                 );
-                console.log(response.data)
+                console.log(response.data);
                 setTeachers(response.data.data);
             } catch (error) {
                 console.log(error);
@@ -51,14 +51,14 @@ function TeacherDetails() {
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/comment/${id}`,
                 );
                 setComments(response.data);
-                console.log(response.data)
+                console.log(response.data);
                 // const user_id = localStorage.getItem('userid');
                 const user_id = 1;
-                if(user_id){
-                    const data = response.data?.find((item) => item?.user_id === user_id)
-                    setComment(data)
-                    setRating(data?.rating)
-                    setCommentText(data?.comment)
+                if (user_id) {
+                    const data = response.data?.find((item) => item?.user_id === user_id);
+                    setComment(data);
+                    setRating(data?.rating);
+                    setCommentText(data?.comment);
                 }
             } catch (error) {
                 console.log(error);
@@ -124,7 +124,7 @@ function TeacherDetails() {
             console.log(response.data);
             setMesage('更新に成功')
             handleClickMessage();
-            setRefesh(refesh + 1)
+            setRefesh(refesh + 1);
             // Clear the form fields
             // setCommentText('');
             // setRating(0);
@@ -135,12 +135,12 @@ function TeacherDetails() {
     };
 
     const handleClickMessage = () => {
-        setOpen(true)
-    }
+        setOpen(true);
+    };
 
     const handleCloseMessage = () => {
-        setOpen(false)
-    }
+        setOpen(false);
+    };
 
     const handleClickMessage1 = () => {
         setOpen1(true)
@@ -168,7 +168,7 @@ function TeacherDetails() {
         <div className="modal show" style={{ display: 'block', position: 'initial' }}>
             <Snackbar
                 autoHideDuration={3000}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={open}
                 onClose={handleCloseMessage}
                 // message="I love snacks"
@@ -237,7 +237,7 @@ function TeacherDetails() {
                                         <strong style={{ marginLeft: '4%' }}>
                                             クラス <span style={{ margin: '0 50px 0 80px' }}>: </span>
                                         </strong>
-                                        {teacher.classes.length}
+                                        {teacher.classes?.length}
                                     </span>
                                     <br />
                                     <br />
@@ -357,89 +357,88 @@ function TeacherDetails() {
                                 </div>
 
                                 <Card.Body>
-                                    {
-                                    comment ? 
-                                    <Form className="mt-3">
-                                        <Form.Group controlId="rating">
-                                            <Form.Label className="mr-2">
-                                                <strong>評価</strong>
-                                            </Form.Label>
+                                    {comment ? (
+                                        <Form className="mt-3">
+                                            <Form.Group controlId="rating">
+                                                <Form.Label className="mr-2">
+                                                    <strong>評価</strong>
+                                                </Form.Label>
+                                                <br />
+                                                <Rating
+                                                    name="rating"
+                                                    value={parseFloat(rating)}
+                                                    precision={1}
+                                                    onChange={(event, value) => setRating(value)}
+                                                />
+                                            </Form.Group>
                                             <br />
-                                            <Rating
-                                                name="rating"
-                                                value={parseFloat(rating)}
-                                                precision={1}
-                                                onChange={(event, value) => setRating(value)}
-                                            />
-                                        </Form.Group>
-                                        <br />
-                                        <Form.Group controlId="commentText">
-                                            <Form.Label>
-                                                <strong>コメント</strong>
-                                            </Form.Label>
-                                            <Form.Control
-                                                as="textarea"
-                                                rows={3}
-                                                value={commentText}
-                                                onChange={(e) => setCommentText(e.target.value)}
-                                            />
-                                        </Form.Group>
-                                        <br />
-                                        <Button
-                                            style={{
-                                                backgroundColor: '#99CC99',
-                                                border: 'none',
-                                                color: '#000',
-                                                float: 'right',
-                                            }}
-                                            variant="primary"
-                                            onClick={handleCommentSubmit}
-                                        >
-                                            アップデート
-                                        </Button>
-                                    </Form>
-                                    :
-                                    <Form className="mt-3">
-                                        <Form.Group controlId="rating">
-                                            <Form.Label className="mr-2">
-                                                <strong>評価</strong>
-                                            </Form.Label>
+                                            <Form.Group controlId="commentText">
+                                                <Form.Label>
+                                                    <strong>コメント</strong>
+                                                </Form.Label>
+                                                <Form.Control
+                                                    as="textarea"
+                                                    rows={3}
+                                                    value={commentText}
+                                                    onChange={(e) => setCommentText(e.target.value)}
+                                                />
+                                            </Form.Group>
                                             <br />
-                                            <Rating
-                                                name="rating"
-                                                value={parseFloat(rating)}
-                                                precision={1}
-                                                onChange={(event, value) => setRating(value)}
-                                            />
-                                        </Form.Group>
-                                        <br />
-                                        <Form.Group controlId="commentText">
-                                            <Form.Label>
-                                                <strong>コメント</strong>
-                                            </Form.Label>
-                                            <Form.Control
-                                                as="textarea"
-                                                rows={3}
-                                                value={commentText}
-                                                placeholder="コメント..."
-                                                onChange={(e) => setCommentText(e.target.value)}
-                                            />
-                                        </Form.Group>
-                                        <br />
-                                        <Button
-                                            style={{
-                                                backgroundColor: '#99CC99',
-                                                border: 'none',
-                                                color: '#000',
-                                                float: 'right',
-                                            }}
-                                            variant="primary"
-                                            onClick={handleCommentSubmit}
-                                        >
-                                            送信
-                                        </Button>
-                                    </Form>
-                                    }
+                                            <Button
+                                                style={{
+                                                    backgroundColor: '#99CC99',
+                                                    border: 'none',
+                                                    color: '#000',
+                                                    float: 'right',
+                                                }}
+                                                variant="primary"
+                                                onClick={handleCommentSubmit}
+                                            >
+                                                アップデート
+                                            </Button>
+                                        </Form>
+                                    ) : (
+                                        <Form className="mt-3">
+                                            <Form.Group controlId="rating">
+                                                <Form.Label className="mr-2">
+                                                    <strong>評価</strong>
+                                                </Form.Label>
+                                                <br />
+                                                <Rating
+                                                    name="rating"
+                                                    value={parseFloat(rating)}
+                                                    precision={1}
+                                                    onChange={(event, value) => setRating(value)}
+                                                />
+                                            </Form.Group>
+                                            <br />
+                                            <Form.Group controlId="commentText">
+                                                <Form.Label>
+                                                    <strong>コメント</strong>
+                                                </Form.Label>
+                                                <Form.Control
+                                                    as="textarea"
+                                                    rows={3}
+                                                    value={commentText}
+                                                    placeholder="コメント..."
+                                                    onChange={(e) => setCommentText(e.target.value)}
+                                                />
+                                            </Form.Group>
+                                            <br />
+                                            <Button
+                                                style={{
+                                                    backgroundColor: '#99CC99',
+                                                    border: 'none',
+                                                    color: '#000',
+                                                    float: 'right',
+                                                }}
+                                                variant="primary"
+                                                onClick={handleCommentSubmit}
+                                            >
+                                                送信
+                                            </Button>
+                                        </Form>
+                                    )}
                                 </Card.Body>
                             </Card>
                         </Col>

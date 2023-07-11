@@ -1,6 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './FilterCss.css';
+import axios from 'axios';
 const FilterComponent = ({ onSubmit, handleShowFilter }) => {
+    const user_id = localStorage.getItem('userid');
+    const [profile, setProfile] = useState({});
+
+    useEffect(() => {
+        async function fetchTeacher() {
+            try {
+                const response = await axios.get(
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/${user_id}`,
+                );
+                console.log(response.data);
+                setProfile(response.data);
+                setLocation(response.data.address || 'All');
+                setFee(response.data.desired_price || null);
+                setSex(response.data.sex || 'All');
+                setLevel(response.data.desired_level || 'All');
+
+                const level = response.data.level;
+                if (level === 'A1') {
+                    setLevel('1');
+                }
+                if (level === 'A2') {
+                    setLevel('2');
+                }
+                if (level === 'B1') {
+                    setLevel('3');
+                }
+                if (level === 'B2') {
+                    setLevel('4');
+                }
+                if (level === 'C1') {
+                    setLevel('5');
+                }
+                if (level === 'C2') {
+                    setLevel('6');
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchTeacher();
+    }, []);
+
     const [location, setLocation] = useState('All');
     const [level, setLevel] = useState('All');
     const [day, setDay] = useState('All');
@@ -115,7 +158,7 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                             <select
                                 style={{ height: '40px' }}
                                 className="w-75 rounded"
-                                value={location}
+                                value={location || profile.address}
                                 onChange={(e) => setLocation(e.target.value)}
                             >
                                 <option value="All">全て</option>

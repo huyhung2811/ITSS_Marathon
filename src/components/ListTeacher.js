@@ -69,7 +69,7 @@ function ListTeacher() {
             })
             .then((response) => {
                 setPoints(response.data);
-                console.log("point:",points);
+                console.log('point:', points);
                 console.log('thanh cong');
             })
             .catch((error) => {
