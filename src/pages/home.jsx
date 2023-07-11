@@ -46,7 +46,7 @@ function ListTeacher() {
 
     const indexOfLastStudent = currentPage * pageSize;
     const indexOfFirstStudent = indexOfLastStudent - pageSize;
-    const totalItems = teachers.length;
+    const totalItems = teachers?.length;
 
     const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
         console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);
