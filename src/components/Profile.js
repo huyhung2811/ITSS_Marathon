@@ -167,9 +167,9 @@ const Profile = () => {
                                                     <PortraitIcon />プロフィール アバター <FontAwesomeIcon icon={faUpload} />
                                                 </label>
                                                 {console.log(image)}
-                                                {!image ? <CloudUploadIcon sx={{width: '100px', height: '100px'}}/> : (
+                                                {image &&
                                                     <img src={image} alt="Avatar" style={{ marginLeft: "156px", width: '120px', height: '120px', borderRadius: '20%', float: "right", border: "1px solid #000" }} />
-                                                )}
+                                                }
 
                                             </div>
                                         </Form.Group><br />

@@ -7,7 +7,13 @@ import { Col, Row } from 'antd';
 import Rating from '@mui/material/Rating';
 import { ListGroup, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import Snackbar from '@mui/material/Snackbar';
 import Slider from 'react-slick';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function TeacherDetails() {
     const [commentText, setCommentText] = useState('');
@@ -16,6 +22,8 @@ function TeacherDetails() {
     const [comment, setComment] = useState({});
     const { id } = useParams();
     const [teachers, setTeachers] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [refesh, setRefesh] = useState(0);
 
     useEffect(() => {
         async function fetchTeacher() {
@@ -55,7 +63,7 @@ function TeacherDetails() {
             }
         }
         fetchComment();
-    }, [id]);
+    }, [refesh]);
     if (!teacher) {
         return <p>Teacher not found</p>;
     }
@@ -97,19 +105,6 @@ function TeacherDetails() {
         ],
     };
 
-    const users = [
-        { user_id: 1, name: 'John' },
-        { user_id: 2, name: 'Jane' },
-        { user_id: 3, name: 'David' },
-        { user_id: 4, name: 'Sarah' },
-        { user_id: 5, name: 'Michael' },
-        { user_id: 6, name: 'Emily' },
-        { user_id: 7, name: 'James' },
-        { user_id: 8, name: 'Olivia' },
-        { user_id: 9, name: 'Daniel' },
-        { user_id: 10, name: 'Sophia' },
-    ];
-
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         const formData = {
@@ -125,16 +120,36 @@ function TeacherDetails() {
             );
             // Handle the response as needed
             console.log(response.data);
+            handleClickMessage();
+            setRefesh(refesh + 1)
             // Clear the form fields
             // setCommentText('');
             // setRating(0);
-            setComments([...comments, formData]);
+            // setComments([...comments, formData]);
         } catch (error) {
             console.log(error);
         }
     };
+
+    const handleClickMessage = () => {
+        setOpen(true)
+    }
+
+    const handleCloseMessage = () => {
+        setOpen(false)
+    }
+
     return (
         <div className="modal show" style={{ display: 'block', position: 'initial' }}>
+            <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={open}
+                onClose={handleCloseMessage}
+                // message="I love snacks"
+            >
+                <Alert severity="success">更新に成功</Alert>
+            </Snackbar>
             <Modal.Dialog className="modal-xl">
                 <Modal.Header closeButton onClick={handleClose} />
                 <Modal.Body>
@@ -286,11 +301,10 @@ function TeacherDetails() {
                                     <div className="scrollable" style={{ maxHeight: '268px', overflowX: 'auto' }}>
                                         <ListGroup variant="flush">
                                             {comments.map((comment) => {
-                                                const user = users.find((user) => user.user_id === comment.user_id);
                                                 return (
                                                     <ListGroup.Item key={comment.id} style={{ borderColor: '#000' }}>
                                                         <span style={{ marginBottom: '10px' }}>
-                                                            <strong>{user.name}:</strong>{' '}
+                                                            <strong>{comment?.user_name}:</strong>{' '}
                                                         </span>
                                                         <Rating
                                                             name="half-rating-read"
