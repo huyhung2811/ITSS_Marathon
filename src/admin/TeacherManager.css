@@ -1,0 +1,99 @@
+.add-teacher {
+    background-color: #feaf00;
+    border: 2px solid #feaf00;
+    color: #fff;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.teacher-table {
+    border-collapse: separate;
+    border-spacing: 0 5px;  
+    width: 100%;
+  }
+
+  .teacher-table th{
+    padding: 10px;
+    color: #b7b7b8;
+    text-align: center;
+  }
+  .teacher-table td {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .teacher-table th {
+    background-color: #f7f6f9;
+  }
+  
+  .teacher-table tbody tr{
+    background-color: #fff;
+  }
+
+  .img-avatar {
+    width:70px;
+    height:70px;
+    text-align:center!important;
+  }
+  
+  .teacher-table a {
+    text-decoration: none;
+    color: blue;
+  }
+ 
+  
+  
+  .teacher-table button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+  }
+  
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .checkmark {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #a4a4a4;
+    border-radius: 4px;
+    background-color: #ffffff; /* Màu nền trắng */
+    margin-right: 5px; /* Khoảng cách giữa checkbox và text */
+  }
+  
+  .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .checkbox-container input:checked ~ .checkmark::after {
+    display: block;
+  }
+  
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #2ab514; /* Màu nền xanh lá cây khi checkbox được chọn */
+  }
+  
+  .checkbox-container input:checked ~ .checkmark::after {
+    /* content: ""; */
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    border: solid #fff;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    left: 5px;
+    top: 0px;
+  }
+  
+  .checkbox-container input[type="checkbox"] {
+    display: none;
+  }
+  

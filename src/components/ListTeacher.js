@@ -12,7 +12,7 @@ function ListTeacher() {
     const [currentPage, setCurrentPage] = useState(1);
     const [points, setPoints] = useState(null);
     const [buttonClick, setButtonClick] = useState(false);
-
+    const user_id = localStorage.getItem('userid');
     const [teachers, setTeachers] = useState([]);
     // const fetchMatchingInfor = async() => {
     //     const userId = localStorage.getItem('userid');
@@ -22,7 +22,7 @@ function ListTeacher() {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
-                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/1',
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/${user_id}`,
                 );
                 console.log(response.data)
                 setTeachers(response.data);
@@ -69,7 +69,7 @@ function ListTeacher() {
             })
             .then((response) => {
                 setPoints(response.data);
-
+                console.log("point:",points);
                 console.log('thanh cong');
             })
             .catch((error) => {

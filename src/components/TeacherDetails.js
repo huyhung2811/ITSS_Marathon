@@ -126,8 +126,8 @@ function TeacherDetails() {
             // Handle the response as needed
             console.log(response.data);
             // Clear the form fields
-            setCommentText('');
-            setRating(0);
+            // setCommentText('');
+            // setRating(0);
             setComments([...comments, formData]);
         } catch (error) {
             console.log(error);

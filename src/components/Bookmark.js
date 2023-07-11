@@ -9,6 +9,7 @@ import './ShowTeacher.css';
 import { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import axios from 'axios';
+import { Typography } from '@mui/material';
 // currentTeacher là danh sách các giáo viên cần in
 function Bookmark({ currentTeacher, indexOfFirstStudent }) {
     const a = '%';
@@ -21,8 +22,8 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
         }));
         axios
             .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
-              teacher_id: teacherId,
-              user_id: 1
+                teacher_id: teacherId,
+                user_id: 1,
             })
             .then((response) => {
                 console.log('thanh cong');
@@ -84,13 +85,13 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
                                     {showHeart[teacher.id] ? (
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            style={{ marginLeft: '50px'}}
+                                            style={{ marginLeft: '50px' }}
                                             onClick={() => toggleHeart(teacher.id)}
                                         />
                                     ) : (
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            style={{ marginLeft: '50px', color: 'red'  }}
+                                            style={{ marginLeft: '50px', color: 'red' }}
                                             onClick={() => toggleHeart(teacher.id)}
                                         />
                                     )}

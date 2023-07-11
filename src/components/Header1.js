@@ -1,60 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header1.css';
-import logo from "../assets/img/logo.png"
-import { faBell } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import logo from '../assets/img/logo.png';
+import { faBell } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from 'axios';
 
 function Header() {
-  const [activeButton, setActiveButton] = useState(null);
+    const [activeButton, setActiveButton] = useState(null);
+    const [userInfo, setUserInfo] = useState({});
+    const user_id = localStorage.getItem('userid');
+    console.log('user_id', user_id);
+    const handleClickedOption = (buttonName) => {
+        setActiveButton(buttonName);
+    };
+    useEffect(() => {
+        async function fetchUserInfo() {
+            try {
+                const response = await axios.get(
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/${user_id}`,
+                );
+                setUserInfo(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetchUserInfo();
+    }, [user_id]);
 
-  const handleClickedOption = (buttonName) => {
-    setActiveButton(buttonName);
-  };
+    return (
+        <header>
+            <div className="header-container">
+                <div className="logo">
+                    <Link to="/list-teacher">
+                        <img src={logo} alt="Marathon edu Logo" />
+                    </Link>
+                </div>
 
-  return (
-    <header>
-      <div className="header-container">
-        <div className="logo">
-          <Link to="/">
-            <img src={logo} alt="Marathon edu Logo" />
-          </Link>
-        </div>
+                <div className="navigation">
+                    <div className="list">
+                        <button
+                            className={activeButton === 'search' ? 'active' : 'navigation-options'}
+                            onClick={() => handleClickedOption('search')}
+                        >
+                            <Link to="/list-teacher">ホームページ</Link>
+                        </button>
+                        <button
+                            className={activeButton === 'prices' ? 'active' : 'navigation-options'}
+                            onClick={() => handleClickedOption('prices')}
+                        >
+                            <Link to="/bookmark">好きな先生</Link>
+                        </button>
+                    </div>
 
-        <div className="navigation">
-          <div className="list">
-            <button
-              className={activeButton === 'search' ? 'active' : 'navigation-options'}
-              onClick={() => handleClickedOption('search')}
-            >
-              <Link to="/list-teacher">ホームページ</Link>
-            </button>
-            <button
-              className={activeButton === 'prices' ? 'active' : 'navigation-options'}
-              onClick={() => handleClickedOption('prices')}
-            >
-              <Link to="/bookmark">好きな先生</Link>
-            </button>
-          </div>
-
-          <div className="notification-bell">
-            {/* <FontAwesomeIcon icon={faBell} style={{ color: "#000000",}} className="fa-3x"/> */}
-            <NotificationsNoneIcon sx={{width: '34px', height: '34px' }}/>
-          </div>
-          <div className="user">
-            <Link to="/profile">
-              <div className="avatar">
-                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/avatar-fb/avatar-fb-1.jpg" alt="avatar" />
-              </div>
-
-            </Link>
-          </div>
-          <span><button className="profile">プロフィール</button></span>
-        </div>
-      </div>
-    </header>
-  );
+                    <div className="notification-bell">
+                        <FontAwesomeIcon icon={faBell} style={{ color: '#000000' }} className="fa-3x" />
+                    </div>
+                    <div className="user">
+                        <Link to="/profile">
+                            <div className="avatar">
+                                <img src={userInfo.avatar} alt="avatar" />
+                            </div>
+                        </Link>
+                    </div>
+                    <span>
+                        <button className="profile">プロフィール</button>
+                    </span>
+                </div>
+            </div>
+        </header>
+    );
 }
 
 export default Header;
