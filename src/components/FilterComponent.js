@@ -13,10 +13,10 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                 );
                 console.log(response.data);
                 setProfile(response.data);
-                setLocation(response.data.address);
-                setFee(response.data.desired_price);
-                setSex(response.data.sex);
-                setLevel(response.data.desired_level);
+                setLocation(response.data.address || 'All');
+                setFee(response.data.desired_price || null);
+                setSex(response.data.sex || 'All');
+                setLevel(response.data.desired_level || 'All');
 
                 const level = response.data.level;
                 if (level === 'A1') {
