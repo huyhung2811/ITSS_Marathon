@@ -14,13 +14,18 @@ function ListTeacher() {
     const [buttonClick, setButtonClick] = useState(false);
     const user_id = localStorage.getItem('userid');
     const [teachers, setTeachers] = useState([]);
+    // const fetchMatchingInfor = async() => {
+    //     const userId = localStorage.getItem('userid');
+    //     axios.get()
+    // }
     useEffect(() => {
         async function fetchTeacher() {
             try {
                 const response = await axios.get(
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/${user_id}`,
                 );
-                setTeachers(response.data.data);
+                console.log(response.data)
+                setTeachers(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -37,15 +42,16 @@ function ListTeacher() {
         setCurrentPage(page);
     };
 
-    const currentTeacher = teachers.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    console.log(teachers)
 
     if (points !== null) {
-        var currentTeacherPoint = points.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+        var currentTeacherPoint = points?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     }
 
     const indexOfLastStudent = currentPage * pageSize;
     const indexOfFirstStudent = indexOfLastStudent - pageSize;
-    const totalItems = teachers.length;
+    const totalItems = teachers?.length;
 
     const handleFilterSubmit = (location, level, day, timeSlot, fee, sex, age, goal, dem) => {
         console.log(location, level, day, timeSlot, fee, sex, age, goal, dem);

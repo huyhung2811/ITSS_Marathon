@@ -7,15 +7,23 @@ import { Col, Row } from 'antd';
 import Rating from '@mui/material/Rating';
 import { ListGroup, Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import Snackbar from '@mui/material/Snackbar';
 import Slider from 'react-slick';
+import MuiAlert from '@mui/material/Alert';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 function TeacherDetails() {
     const [commentText, setCommentText] = useState('');
     const [rating, setRating] = useState(0);
     const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState({});
     const { id } = useParams();
     const [teachers, setTeachers] = useState([]);
-    const user_id = localStorage.getItem('userid');
+    const [open, setOpen] = useState(false);
+    const [refesh, setRefesh] = useState(0);
 
     useEffect(() => {
         async function fetchTeacher() {
@@ -23,6 +31,7 @@ function TeacherDetails() {
                 const response = await axios.get(
                     'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/teacher',
                 );
+                console.log(response.data)
                 setTeachers(response.data.data);
             } catch (error) {
                 console.log(error);
@@ -31,6 +40,7 @@ function TeacherDetails() {
         fetchTeacher();
     }, []);
     console.log(id);
+    const user_id = 1;
     const teacher = teachers.find((teacher) => teacher.id === parseInt(id));
     useEffect(() => {
         async function fetchComment() {
@@ -39,12 +49,21 @@ function TeacherDetails() {
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/comment/${id}`,
                 );
                 setComments(response.data);
+                console.log(response.data)
+                // const user_id = localStorage.getItem('userid');
+                const user_id = 1;
+                if(user_id){
+                    const data = response.data?.find((item) => item?.user_id === user_id)
+                    setComment(data)
+                    setRating(data?.rating)
+                    setCommentText(data?.comment)
+                }
             } catch (error) {
                 console.log(error);
             }
         }
         fetchComment();
-    }, [id]);
+    }, [refesh]);
     if (!teacher) {
         return <p>Teacher not found</p>;
     }
@@ -101,16 +120,36 @@ function TeacherDetails() {
             );
             // Handle the response as needed
             console.log(response.data);
+            handleClickMessage();
+            setRefesh(refesh + 1)
             // Clear the form fields
-            setCommentText('');
-            setRating(0);
-            setComments([...comments, formData]);
+            // setCommentText('');
+            // setRating(0);
+            // setComments([...comments, formData]);
         } catch (error) {
             console.log(error);
         }
     };
+
+    const handleClickMessage = () => {
+        setOpen(true)
+    }
+
+    const handleCloseMessage = () => {
+        setOpen(false)
+    }
+
     return (
         <div className="modal show" style={{ display: 'block', position: 'initial' }}>
+            <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={open}
+                onClose={handleCloseMessage}
+                // message="I love snacks"
+            >
+                <Alert severity="success">更新に成功</Alert>
+            </Snackbar>
             <Modal.Dialog className="modal-xl">
                 <Modal.Header closeButton onClick={handleClose} />
                 <Modal.Body>
@@ -265,7 +304,7 @@ function TeacherDetails() {
                                                 return (
                                                     <ListGroup.Item key={comment.id} style={{ borderColor: '#000' }}>
                                                         <span style={{ marginBottom: '10px' }}>
-                                                            <strong>{comment.user_name}:</strong>{' '}
+                                                            <strong>{comment?.user_name}:</strong>{' '}
                                                         </span>
                                                         <Rating
                                                             name="half-rating-read"
@@ -284,6 +323,48 @@ function TeacherDetails() {
                                 </div>
 
                                 <Card.Body>
+                                    {
+                                    comment ? 
+                                    <Form className="mt-3">
+                                        <Form.Group controlId="rating">
+                                            <Form.Label className="mr-2">
+                                                <strong>評価</strong>
+                                            </Form.Label>
+                                            <br />
+                                            <Rating
+                                                name="rating"
+                                                value={parseFloat(rating)}
+                                                precision={1}
+                                                onChange={(event, value) => setRating(value)}
+                                            />
+                                        </Form.Group>
+                                        <br />
+                                        <Form.Group controlId="commentText">
+                                            <Form.Label>
+                                                <strong>コメント</strong>
+                                            </Form.Label>
+                                            <Form.Control
+                                                as="textarea"
+                                                rows={3}
+                                                value={commentText}
+                                                onChange={(e) => setCommentText(e.target.value)}
+                                            />
+                                        </Form.Group>
+                                        <br />
+                                        <Button
+                                            style={{
+                                                backgroundColor: '#99CC99',
+                                                border: 'none',
+                                                color: '#000',
+                                                float: 'right',
+                                            }}
+                                            variant="primary"
+                                            onClick={handleCommentSubmit}
+                                        >
+                                            アップデート
+                                        </Button>
+                                    </Form>
+                                    :
                                     <Form className="mt-3">
                                         <Form.Group controlId="rating">
                                             <Form.Label className="mr-2">
@@ -324,6 +405,7 @@ function TeacherDetails() {
                                             送信
                                         </Button>
                                     </Form>
+                                    }
                                 </Card.Body>
                             </Card>
                         </Col>
