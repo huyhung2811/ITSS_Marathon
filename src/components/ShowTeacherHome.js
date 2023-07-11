@@ -14,7 +14,7 @@ import Rating from '@mui/material/Rating';
 import axios from 'axios';
 
 // currentTeacher là danh sách các giáo viên cần in
-function ShowTeacher({ currentTeacher }) {
+function ShowTeacherHome({ currentTeacher }) {
     const a = '%';
     const toggleHeart = (teacherId) => {
         axios
@@ -36,7 +36,7 @@ function ShowTeacher({ currentTeacher }) {
                     <Card style={{ border: '1px solid #000' }}>
                         <div className="card">
                             <div className="avatar-background"></div>
-                            <Link to={`/teacher/${teacher.id}`} className="link-no-underline">
+                            <Link to={`/teacherHome/${teacher.id}`} className="link-no-underline">
                                 <div className="avatar-wrapper">
                                     <Card.Img
                                         variant="top"
@@ -111,4 +111,4 @@ function ShowTeacher({ currentTeacher }) {
     );
 }
 
-export default ShowTeacher;
+export default ShowTeacherHome;

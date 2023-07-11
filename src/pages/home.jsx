@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Pagination } from 'antd';
+
 import '../components/ListTeacher.css';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
 import FilterComponent from '../components/FilterComponent';
-import ShowTeacher from '../components/ShowTeacher';
+import ShowTeacherHome from '../components/ShowTeacherHome';
 
-function Home() {
+function ListTeacher() {
     const [currentPage, setCurrentPage] = useState(1);
     const [points, setPoints] = useState(null);
     const [buttonClick, setButtonClick] = useState(false);
@@ -106,12 +107,15 @@ function Home() {
                         }}
                     >
                         {points !== null ? (
-                            <ShowTeacher
+                            <ShowTeacherHome
                                 currentTeacher={currentTeacherPoint}
                                 indexOfFirstStudent={indexOfFirstStudent}
                             />
                         ) : (
-                            <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
+                            <ShowTeacherHome
+                                currentTeacher={currentTeacher}
+                                indexOfFirstStudent={indexOfFirstStudent}
+                            />
                         )}
                     </div>
                     <div className="paginate-numbers">
@@ -128,4 +132,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default ListTeacher;
