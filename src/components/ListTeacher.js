@@ -25,7 +25,7 @@ function ListTeacher() {
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/${user_id}`,
                 );
                 console.log(response.data)
-                setTeachers(response.data);
+                setTeachers(response.data.data);
             } catch (error) {
                 console.log(error);
             }
@@ -42,8 +42,8 @@ function ListTeacher() {
         setCurrentPage(page);
     };
 
-    const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     console.log(teachers)
+    const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
     if (points !== null) {
         var currentTeacherPoint = points?.slice((currentPage - 1) * pageSize, currentPage * pageSize);

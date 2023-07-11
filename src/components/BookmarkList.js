@@ -19,6 +19,7 @@ function BookmarkList() {
                 const response = await axios.get(
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/getbookmark/${id}`,
                 );
+                console.log(response.data)
                 setTeachers(response.data);
             } catch (error) {
                 console.log(error);
