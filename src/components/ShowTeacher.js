@@ -80,7 +80,7 @@ function ShowTeacher({ currentTeacher }) {
                   {teacher.address + ", Ha Noi"}
                   <br />
                   <span>
-                    <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.01} readOnly style={{ backgroundColor: "#fff" }} /></span>
+                    <Rating name="half-rating-read" defaultValue={parseFloat(teacher.vote)} precision={0.1} readOnly style={{ backgroundColor: "#fff" }} /></span>
                   {teacher.bookmark ? (
                     <FontAwesomeIcon
                       icon={faHeart}

@@ -26,7 +26,7 @@ function Header() {
         }
     }
     fetchUserInfo();
-}, []);
+}, [user_id]);
 
   return (
     <header>
