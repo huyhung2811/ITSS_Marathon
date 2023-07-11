@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Header1.css';
 import { faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from 'axios';
 
 function Header() {
   const [activeButton, setActiveButton] = useState(null);
-
+  const [userInfo, setUserInfo] = useState({});
+  const user_id = localStorage.getItem('userid');
+  console.log("user_id", user_id);
   const handleClickedOption = (buttonName) => {
     setActiveButton(buttonName);
   };
+  useEffect(() => {
+    async function fetchUserInfo() {
+        try {
+            const response = await axios.get(
+                `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/${user_id}`,
+            );
+            setUserInfo(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    fetchUserInfo();
+}, []);
 
   return (
     <header>
@@ -37,12 +53,12 @@ function Header() {
           </ul>
 
           <div className="notification-bell">
-            <FontAwesomeIcon icon={faBell} style={{ color: "#000000",}} className="fa-3x"/>
+            <FontAwesomeIcon icon={faBell} style={{ color: "#000000",}} className="fa-2x"/>
           </div>
           <div className="user">
             <Link to="/profile">
               <div className="avatar">
-                <img src="https://kiemtientuweb.com/ckfinder/userfiles/images/avatar-fb/avatar-fb-1.jpg" alt="avatar" />
+                <img src={userInfo.avatar} alt="avatar" />
               </div>
 
             </Link>

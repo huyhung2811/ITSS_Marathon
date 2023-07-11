@@ -20,13 +20,13 @@ const Profile = () => {
     const [classStuding, setClassStuding] = useState({});
     const [userInfo, setUserInfo] = useState({});
     const [image, setImage] = useState(userInfo.avatar);
-
+    const user_id = localStorage.getItem('userid');
 
     useEffect(() => {
         async function fetchClassStuding() {
             try {
                 const response = await axios.get(
-                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-class-by-user/1',
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-class-by-user/${user_id}`,
                 );
                 setClassStuding(response.data);
             } catch (error) {
@@ -40,7 +40,7 @@ const Profile = () => {
         async function fetchUserInfo() {
             try {
                 const response = await axios.get(
-                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/1',
+                    `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/users/${user_id}`,
                 );
                 setUserInfo(response.data);
             } catch (error) {

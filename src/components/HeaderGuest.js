@@ -22,7 +22,7 @@ function GuestHeader() {
                 <div className="navigation">
 
                     <div className="notification-bell">
-                        <FontAwesomeIcon icon={faBell} style={{ color: "#000000", }} />
+                        <FontAwesomeIcon icon={faBell} style={{ color: "#000000", }} className="fa-2x" />
                     </div>
                     <div className="user">
                         <Link to="/signin">

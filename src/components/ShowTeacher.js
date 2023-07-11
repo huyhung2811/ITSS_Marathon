@@ -16,6 +16,7 @@ import axios from "axios";
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacher({ currentTeacher }) {
+  const a = "%";
   const toggleHeart = (teacherId) => {
     axios
       .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
@@ -29,7 +30,6 @@ function ShowTeacher({ currentTeacher }) {
         console.log('loi');
       });
   };
-
   return (
     <Row xs={3} md={3} className="g-4" style={{ marginTop: "5px" }}>
       {currentTeacher.map((teacher, idx) => (
@@ -64,16 +64,16 @@ function ShowTeacher({ currentTeacher }) {
               >
                 <Card.Title>{teacher.name}{teacher.age}</Card.Title>
                 <Card.Text>
-                  {/* {teacher.point &&<div style={{alignItems:"center"}}>{Math.round(teacher.point * 100)}%</div>} */}
-                  <div style={{ alignItems: "center" }}>
-                    {Math.round(teacher.point * 100) >= 80 ? (
-                      <div style={{ color: "green" }}>{Math.round(teacher.point * 100)}%</div>
-                    ) : Math.round(teacher.point * 100) >= 50 ? (
-                      <div style={{ color: "yellow" }}>{Math.round(teacher.point * 100)}%</div>
+                  {teacher.point && Math.round(teacher.point * 100) + a}
+                  {/* <div style={{ alignItems: "center" }}>
+                    {teacher.point&&teacher.point >= 0.8 ? (
+                      <div style={{ color: "green" }}>Math.round(teacher.point * 100) + a</div>
+                    ) : teacher.point >= 0.5 && teacher.point<=0.8 ? (
+                      <div style={{ color: "yellow" }}>{Math.round(teacher.point * 100) + a}</div>
                     ) : (
-                      <div style={{ color: "red" }}>{Math.round(teacher.point * 100)}%</div>
+                      <div style={{ color: "red" }}>{Math.round(teacher.point * 100) + a}</div>
                     )}
-                  </div>
+                  </div> */}
                   <br />
                   <strong>レベル:</strong> {teacher.level}
                   <br />

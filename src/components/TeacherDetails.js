@@ -15,6 +15,7 @@ function TeacherDetails() {
     const [comments, setComments] = useState([]);
     const { id } = useParams();
     const [teachers, setTeachers] = useState([]);
+    const user_id = localStorage.getItem('userid');
 
     useEffect(() => {
         async function fetchTeacher() {
@@ -30,7 +31,6 @@ function TeacherDetails() {
         fetchTeacher();
     }, []);
     console.log(id);
-    const user_id = 1;
     const teacher = teachers.find((teacher) => teacher.id === parseInt(id));
     useEffect(() => {
         async function fetchComment() {
@@ -85,19 +85,6 @@ function TeacherDetails() {
             },
         ],
     };
-
-    const users = [
-        { user_id: 1, name: 'John' },
-        { user_id: 2, name: 'Jane' },
-        { user_id: 3, name: 'David' },
-        { user_id: 4, name: 'Sarah' },
-        { user_id: 5, name: 'Michael' },
-        { user_id: 6, name: 'Emily' },
-        { user_id: 7, name: 'James' },
-        { user_id: 8, name: 'Olivia' },
-        { user_id: 9, name: 'Daniel' },
-        { user_id: 10, name: 'Sophia' },
-    ];
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
@@ -272,11 +259,10 @@ function TeacherDetails() {
                                     <div className="scrollable" style={{ maxHeight: '268px', overflowX: 'auto' }}>
                                         <ListGroup variant="flush">
                                             {comments.map((comment) => {
-                                                const user = users.find((user) => user.user_id === comment.user_id);
                                                 return (
                                                     <ListGroup.Item key={comment.id} style={{ borderColor: '#000' }}>
                                                         <span style={{ marginBottom: '10px' }}>
-                                                            <strong>{user.name}:</strong>{' '}
+                                                            <strong>{comment.user_name}:</strong>{' '}
                                                         </span>
                                                         <Rating
                                                             name="half-rating-read"

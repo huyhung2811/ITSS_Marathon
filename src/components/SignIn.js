@@ -12,7 +12,6 @@ const SignIn = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
   const { isLoggedIn, currentUser, login, logout } = useContext(AuthContext);
-  console.log("loz",currentUser);
 
   function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
