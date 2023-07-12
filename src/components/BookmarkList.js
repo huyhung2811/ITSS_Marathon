@@ -6,11 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
 import Bookmark from './Bookmark';
+import Skeleton from '@mui/material/Skeleton';
 
 function BookmarkList() {
     const id = localStorage.getItem('userid');
     const [currentPage, setCurrentPage] = useState(1);
     const [buttonClick, setButtonClick] = useState(false);
+    const [active1, setActive1] = useState(true);
 
     const [teachers, setTeachers] = useState([]);
     useEffect(() => {
@@ -19,7 +21,8 @@ function BookmarkList() {
                 const response = await axios.get(
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/getbookmark/${id}`,
                 );
-                console.log(response.data)
+                console.log(response.data);
+                setActive1(false)
                 setTeachers(response.data);
             } catch (error) {
                 console.log(error);
@@ -72,10 +75,19 @@ function BookmarkList() {
                             width: '100%',
                         }}
                     >
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <Skeleton
+                                sx={{ display: active1 ? 'block' : 'none' }}
+                                variant="rounded"
+                                width={'248px'}
+                                height={'395px'}
+                            />
+                        </div>
                         <Bookmark currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
                     </div>
                     <div className="paginate-numbers">
                         <Pagination
+                            style={{ display: 'flex', justifyContent: 'center' }}
                             current={currentPage}
                             pageSize={pageSize}
                             total={totalItems}

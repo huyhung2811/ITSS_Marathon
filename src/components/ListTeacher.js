@@ -7,6 +7,8 @@ import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+import Skeleton from '@mui/material/Skeleton';
 
 function ListTeacher() {
     const [currentPage, setCurrentPage] = useState(1);
@@ -15,6 +17,7 @@ function ListTeacher() {
     const user_id = localStorage.getItem('userid');
     const [teachers, setTeachers] = useState([]);
     const [refesh, setRefesh] = useState(0);
+    const [active, setActive] = useState(true);
     // const fetchMatchingInfor = async() => {
     //     const userId = localStorage.getItem('userid');
     //     axios.get()
@@ -26,6 +29,7 @@ function ListTeacher() {
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/${user_id}`,
                 );
                 console.log(response.data)
+                setActive(false)
                 setTeachers(response.data);
             } catch (error) {
                 console.log(error);
@@ -96,6 +100,7 @@ function ListTeacher() {
                 </p>
             </div>
             <div className="listTeacher-container">
+                
                 {buttonClick && (
                     <div className="filter-container">
                         <FilterComponent onSubmit={handleFilterSubmit} handleShowFilter={handleShowFilter} />
@@ -103,6 +108,9 @@ function ListTeacher() {
                 )}
 
                 <div className="list-paginate">
+                    <div style={{display: 'flex', justifyContent: "center"}}>
+                        <Skeleton sx={{display: active ? 'block' : 'none'}} variant="rounded" width={"248px"} height={"395px"} />
+                    </div>
                     <div
                         className="filter-results"
                         style={{
@@ -123,6 +131,7 @@ function ListTeacher() {
                     </div>
                     <div className="paginate-numbers">
                         <Pagination
+                            style={{display: 'flex', justifyContent: 'center'}}
                             current={currentPage}
                             pageSize={pageSize}
                             total={totalItems}

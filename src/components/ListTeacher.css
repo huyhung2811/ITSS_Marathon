@@ -44,8 +44,10 @@ select {
 }
 
 .paginate-numbers {
-    padding-top: 20px;
+    /* width: 100%;
+    justify-content: center; */
+    margin-top: 20px;
     /* padding-left: 42%;
     padding-right: 42%; */
-    margin-left: 33%;
+    /* margin-left: 33%; */
 }
