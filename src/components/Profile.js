@@ -13,6 +13,34 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { storage } from '../firebase';
 
+const time = [
+    { key: '1', value: '6:45 - 7:30'},
+    { key: '2', value: '7:30 - 8:15'},
+    { key: '3', value: '8:25 - 9:10'},
+    { key: '4', value: '9:20 - 10:05'},
+    { key: '5', value: '10:15 - 11:00'},
+    { key: '6', value: '11:00 - 11:45'},
+    { key: '7', value: '12:30 - 13:15'},
+    { key: '8', value: '13:15 - 14:00'},
+    { key: '9', value: '14:10 - 14:55'},
+    { key: '10', value: '15:05 - 15:50'},
+    { key: '11', value: '16:00 - 16:45'},
+    { key: '12', value: '16:45 - 17:30'},
+    { key: '13', value: '17:45 - 18:30'},
+    { key: '14', value: '18:45 - 19:30'},
+    { key: '15', value: '19:45 - 20:30'},
+    { key: '16', value: '20:45 - 21:30'},
+    { key: '17', value: '21:45 - 22:30'},
+]
+
+const displayValueByKey = (key) => {
+    if(key){
+        console.log(key)
+        const t = time.find(item => item.key === key);
+        return t?.value
+    }
+};
+
 const Profile = () => {
     const { currentUser, logout } = useContext(AuthContext);
     const [showInfo, setShowInfo] = useState(true);
@@ -317,7 +345,7 @@ const Profile = () => {
                                                                                             <td><strong style={{ display: "inline-block" }}>曜日 :</strong>
                                                                                                 <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.timeslot.day_of_week}</span></td>
                                                                                             <td style={{ padding: "0px" }}><strong style={{ display: "inline-block" }}>時間 :</strong>
-                                                                                                <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.timeslot.time_slot}</span></td>
+                                                                                                <span style={{ marginLeft: "10px", color: "#000" }}>{displayValueByKey(classStuding?.timeslot?.time_slot)}</span></td>
                                                                                         </tr>
                                                                                     </table>
                                                                                 </Card.Text>
@@ -336,8 +364,8 @@ const Profile = () => {
                                                                         return (
                                                                             <ListGroup.Item key={classStuding.id} style={{ color: "#000", backgroundColor: "#d0facf", border: "1px solid #dce7dc", borderRadius: "5px", marginBottom: "10px" }}>
                                                                                 <Card.Text style={{ marginLeft: "10px" }}>
-                                                                                    <strong>クラス:<span style={{ margin: '0 50px 0 30px', color: "#000" }}></span></strong> {classStuding.name}<br />
-                                                                                    <strong>教師:<span style={{ margin: '0 50px 0 50px', color: "#000" }}> </span></strong> {classStuding.name}<br />
+                                                                                    <strong>クラス:<span style={{ margin: '0 50px 0 30px', color: "#000" }}></span></strong> {classStuding.name_class}<br />
+                                                                                    <strong>教師:<span style={{ margin: '0 50px 0 50px', color: "#000" }}> </span></strong> {classStuding.teacher}<br />
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td><strong style={{ display: "inline-block" }}>レベル :</strong>
@@ -362,7 +390,7 @@ const Profile = () => {
                                                                                             <td><strong style={{ display: "inline-block" }}>曜日 :</strong>
                                                                                                 <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.timeslot.day_of_week}</span></td>
                                                                                             <td><strong style={{ display: "inline-block" }}>時間 :</strong>
-                                                                                                <span style={{ marginLeft: "10px", color: "#000" }}>{classStuding.timeslot.time_slot}</span></td>
+                                                                                                <span style={{ marginLeft: "10px", color: "#000" }}>{displayValueByKey(classStuding?.timeslot?.time_slot)}</span></td>
                                                                                         </tr>
                                                                                     </table>
 
