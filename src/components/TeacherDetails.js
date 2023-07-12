@@ -12,6 +12,7 @@ import Slider from 'react-slick';
 import MuiAlert from '@mui/material/Alert';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
+import {Button as ButtonMui} from '@mui/material';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -27,7 +28,9 @@ function TeacherDetails() {
     const [open, setOpen] = useState(false);
     const [open1, setOpen1] = useState(false);
     const [mesage, setMesage] = useState('');
+    const [classes, setClasses] = useState([]);
     const [refesh, setRefesh] = useState(0);
+    const [refeshClass, setRefeshClass] = useState(0);
 
     useEffect(() => {
         async function fetchTeacher() {
@@ -42,10 +45,17 @@ function TeacherDetails() {
             }
         }
         fetchTeacher();
-    }, []);
+    }, [refesh]);
+
+    const user_id = localStorage.getItem("userid");
+    console.log(user_id)
+    useEffect(() => {
+        axios.get(`https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-class-by-user/${user_id}`)
+        .then((res) => {setClasses(res?.data)})
+    }, [refeshClass])
     console.log(id);
-    const user_id = 1;
     const teacher = teachers.find((teacher) => teacher.id === parseInt(id));
+    console.log(teacher);
     useEffect(() => {
         async function fetchComment() {
             try {
@@ -55,9 +65,10 @@ function TeacherDetails() {
                 setComments(response.data);
                 console.log(response.data);
                 // const user_id = localStorage.getItem('userid');
-                const user_id = 1;
+                // const user_id = 1;
                 if (user_id) {
-                    const data = response.data?.find((item) => item?.user_id === user_id);
+                    const data = response.data?.find((item) => item?.user_id === parseFloat(user_id));
+                    console.log(data, user_id)
                     setComment(data);
                     setRating(data?.rating);
                     setCommentText(data?.comment);
@@ -162,6 +173,7 @@ function TeacherDetails() {
             "class_id": e?.id
         }).then(() => {
             setMesage('クラスへの登録が完了しました')
+            setRefeshClass(refeshClass + 1);
             handleClickMessage();
         }).catch(() => {
             handleClickMessage1();
@@ -251,7 +263,7 @@ function TeacherDetails() {
                                         </strong>
                                         <Rating
                                             name="half-rating-read"
-                                            defaultValue={parseFloat(teacher.vote)}
+                                            value={parseFloat(teacher.vote)}
                                             precision={0.01}
                                             readOnly
                                             style={{ backgroundColor: '#fff' }}
@@ -305,9 +317,14 @@ function TeacherDetails() {
                                                                 <br />
                                                                 <br />
                                                             </Card.Text>
-                                                            <button onClick={() => handleRegister(classItem)} style={{float: 'right', width: '92px', borderRadius: '6px', backgroundColor: 'rgba(94,239,91,0.29)', border: '1px solid black'}}>
-                                                                登録
-                                                            </button>
+                                                            {
+                                                                classes.some(item => item.class_id === classItem.id) ? 
+                                                                <ButtonMui variant="text">登録済み</ButtonMui> 
+                                                                :
+                                                                <button onClick={() => handleRegister(classItem)} style={{float: 'right', width: '92px', borderRadius: '6px', backgroundColor: 'rgba(94,239,91,0.29)', border: '1px solid black'}}>
+                                                                    登録
+                                                                </button>
+                                                            }
                                                         </Card.Body>
                                                     </Card>
                                                 </div>

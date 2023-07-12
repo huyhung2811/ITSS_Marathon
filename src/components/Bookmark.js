@@ -76,7 +76,7 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
                                     <span>
                                         <Rating
                                             name="half-rating-read"
-                                            defaultValue={parseFloat(teacher.vote)}
+                                            defaultValue={parseFloat(teacher.rating)}
                                             precision={0.01}
                                             readOnly
                                             style={{ backgroundColor: '#fff' }}
