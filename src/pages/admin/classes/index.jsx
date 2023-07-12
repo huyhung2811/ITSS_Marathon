@@ -31,6 +31,7 @@ function Classes() {
                 const response = await axios.get(
                     'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-all-class',
                 );
+                console.log(response.data)
                 setClasses(response.data);
             } catch (error) {
                 console.log(error);

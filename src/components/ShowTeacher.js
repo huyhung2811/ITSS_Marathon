@@ -22,8 +22,18 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 // currentTeacher là danh sách các giáo viên cần in
-function ShowTeacher({ currentTeacher }) {
+function ShowTeacher({ currentTeacher, onRefesh, count }) {
     const [open, setOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
+
+    const handleClickMessage1 = () => {
+        setOpen1(true)
+    }
+
+    const handleCloseMessage1 = () => {
+        setOpen1(false)
+    }
+
 
     const handleClickMessage = () => {
         setOpen(true);
@@ -35,18 +45,27 @@ function ShowTeacher({ currentTeacher }) {
 
     const a = '%';
     const toggleHeart = (teacherId) => {
-        axios
-            .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
-                teacher_id: teacherId,
-                user_id: localStorage.getItem('userid'),
-            })
-            .then((response) => {
-                console.log('thanh cong');
-                handleClickMessage();
-            })
-            .catch((error) => {
-                console.log('loi');
-            });
+        const user_id = localStorage.getItem('userid');
+        console.log(user_id)
+        if(user_id)
+        {
+            axios
+                .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
+                    teacher_id: teacherId,
+                    user_id: user_id,
+                })
+                .then((response) => {
+                    console.log('thanh cong');
+                    handleClickMessage();
+                    onRefesh(count + 1);
+                })
+                .catch((error) => {
+                    console.log('loi');
+                });
+        }
+        else{
+            handleClickMessage1();
+        }
     };
     console.log(currentTeacher)
     return (
@@ -59,6 +78,15 @@ function ShowTeacher({ currentTeacher }) {
                 // message="I love snacks"
             >
                 <Alert severity="success">成功を愛する教師が増えました</Alert>
+            </Snackbar>
+            <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={open1}
+                onClose={handleCloseMessage1}
+                // message="I love snacks"
+            >
+                <Alert severity="error">ログインする必要があります</Alert>
             </Snackbar>
             {currentTeacher.map((teacher, idx) => (
                 <Col key={idx}>

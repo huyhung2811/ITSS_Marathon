@@ -12,11 +12,28 @@ import './ShowTeacher.css';
 
 import Rating from '@mui/material/Rating';
 import axios from 'axios';
+import React, { useState } from 'react';
+import MuiAlert from '@mui/material/Alert';
+import { Snackbar } from '@mui/material';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacherHome({ currentTeacher }) {
+    const [open1, setOpen1] = useState(false);
+
+    const handleClickMessage1 = () => {
+        setOpen1(true)
+    }
+
+    const handleCloseMessage1 = () => {
+        setOpen1(false)
+    }
     const a = '%';
     const toggleHeart = (teacherId) => {
+        if(localStorage.getItem("userid"))
         axios
             .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
                 teacher_id: teacherId,
@@ -28,9 +45,20 @@ function ShowTeacherHome({ currentTeacher }) {
             .catch((error) => {
                 console.log('loi');
             });
+        else
+            handleClickMessage1();
     };
     return (
         <Row xs={3} md={3} className="g-4" style={{ marginTop: '5px' }}>
+            <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                open={open1}
+                onClose={handleCloseMessage1}
+                // message="I love snacks"
+            >
+                <Alert severity="error">ログインする必要があります</Alert>
+            </Snackbar>
             {currentTeacher.map((teacher, idx) => (
                 <Col key={idx}>
                     <Card style={{ border: '1px solid #000' }}>

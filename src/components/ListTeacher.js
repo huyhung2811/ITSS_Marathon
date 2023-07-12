@@ -14,6 +14,7 @@ function ListTeacher() {
     const [buttonClick, setButtonClick] = useState(false);
     const user_id = localStorage.getItem('userid');
     const [teachers, setTeachers] = useState([]);
+    const [refesh, setRefesh] = useState(0);
     // const fetchMatchingInfor = async() => {
     //     const userId = localStorage.getItem('userid');
     //     axios.get()
@@ -25,13 +26,13 @@ function ListTeacher() {
                     `https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-teacher-by-question/${user_id}`,
                 );
                 console.log(response.data)
-                setTeachers(response.data.data);
+                setTeachers(response.data);
             } catch (error) {
                 console.log(error);
             }
         }
         fetchTeacher();
-    }, []);
+    }, [refesh]);
     const handleShowFilter = () => {
         setButtonClick(!buttonClick);
     };
@@ -44,7 +45,7 @@ function ListTeacher() {
 
     console.log(teachers)
     const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-
+    console.log(currentTeacher)
     if (points !== null) {
         var currentTeacherPoint = points?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     }
@@ -117,7 +118,7 @@ function ListTeacher() {
                                 indexOfFirstStudent={indexOfFirstStudent}
                             />
                         ) : (
-                            <ShowTeacher currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
+                            <ShowTeacher onRefesh={setRefesh} count={refesh} currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
                         )}
                     </div>
                     <div className="paginate-numbers">

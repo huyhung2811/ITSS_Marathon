@@ -66,6 +66,10 @@ const time_lots = [
     { name: 'シフト12', value: '12' },
     { name: 'シフト13', value: '13' },
     { name: 'シフト14', value: '14' },
+    { name: 'シフト15', value: '15' },
+    { name: 'シフト16', value: '16' },
+    { name: 'シフト17', value: '17' },
+    { name: 'シフト18', value: '18' },
 ];
 
 function convertStringToArray(str, dateArray) {
