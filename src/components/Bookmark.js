@@ -23,7 +23,7 @@ function Bookmark({ currentTeacher, indexOfFirstStudent }) {
         axios
             .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
                 teacher_id: teacherId,
-                user_id: 1,
+                user_id: localStorage.getItem('userid') || 1,
             })
             .then((response) => {
                 console.log('thanh cong');
