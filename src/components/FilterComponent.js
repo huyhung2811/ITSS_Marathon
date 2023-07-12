@@ -18,7 +18,7 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                 setSex(response.data.sex || 'All');
                 setLevel(response.data.desired_level || 'All');
 
-                const level = response.data.level;
+                const level = response.data.desired_level;
                 if (level === 'A1') {
                     setLevel('1');
                 }

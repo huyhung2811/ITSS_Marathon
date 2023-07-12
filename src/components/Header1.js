@@ -72,9 +72,9 @@ function Header() {
                             </div>
                         </Link>
                     </div>
-                    <span>
+                    {/* <span>
                         <button className="profile">プロフィール</button>
-                    </span>
+                    </span> */}
                 </div>
             </div>
         </header>
