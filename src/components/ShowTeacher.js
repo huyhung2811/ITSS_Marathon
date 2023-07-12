@@ -12,25 +12,54 @@ import './ShowTeacher.css';
 
 import Rating from '@mui/material/Rating';
 import axios from 'axios';
+import { ConstructionOutlined } from '@mui/icons-material';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import React, { useState } from 'react';
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 // currentTeacher là danh sách các giáo viên cần in
 function ShowTeacher({ currentTeacher }) {
+    const [open, setOpen] = useState(false);
+
+    const handleClickMessage = () => {
+        setOpen(true);
+    };
+
+    const handleCloseMessage = () => {
+        setOpen(false);
+    };
+
     const a = '%';
     const toggleHeart = (teacherId) => {
         axios
             .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
                 teacher_id: teacherId,
-                user_id: 1,
+                user_id: localStorage.getItem('userid'),
             })
             .then((response) => {
                 console.log('thanh cong');
+                handleClickMessage();
             })
             .catch((error) => {
                 console.log('loi');
             });
     };
+    console.log(currentTeacher)
     return (
         <Row xs={3} md={3} className="g-4" style={{ marginTop: '5px' }}>
+            <Snackbar
+                autoHideDuration={3000}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={open}
+                onClose={handleCloseMessage}
+                // message="I love snacks"
+            >
+                <Alert severity="success">成功を愛する教師が増えました</Alert>
+            </Snackbar>
             {currentTeacher.map((teacher, idx) => (
                 <Col key={idx}>
                     <Card style={{ border: '1px solid #000' }}>
@@ -61,7 +90,7 @@ function ShowTeacher({ currentTeacher }) {
                                 }}
                             >
                                 <Card.Title>
-                                    {teacher.name}' , {teacher.age}
+                                    {teacher.name} , {teacher.age}
                                 </Card.Title>
                                 <Card.Text>
                                     {teacher.point && Math.round(teacher.point * 100) + a}
@@ -91,13 +120,13 @@ function ShowTeacher({ currentTeacher }) {
                                     {teacher.bookmark ? (
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            style={{ marginLeft: '50px', color: 'red' }}
+                                            style={{ marginLeft: '50px', color: 'red', cursor: 'pointer'}}
                                             onClick={() => toggleHeart(teacher.id)}
                                         />
                                     ) : (
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            style={{ marginLeft: '50px' }}
+                                            style={{ marginLeft: '50px', cursor: 'pointer' }}
                                             onClick={() => toggleHeart(teacher.id)}
                                         />
                                     )}

@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import Bookmark from './Bookmark';
 
 function BookmarkList() {
-    const id = 1;
+    const id = localStorage.getItem('userid');
     const [currentPage, setCurrentPage] = useState(1);
     const [buttonClick, setButtonClick] = useState(false);
 
