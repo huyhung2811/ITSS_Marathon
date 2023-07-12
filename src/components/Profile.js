@@ -315,6 +315,7 @@ const Profile = () => {
                                                             <div className="scrollable" style={{ maxHeight: "450px", overflowX: "auto" }}>
                                                                 <ListGroup variant="flush">
                                                                     {classStuding && classStuding.map((classStuding) => {
+                                                                        if(classStuding.status === 1)
                                                                         return (
                                                                             <ListGroup.Item key={classStuding.id} style={{ padding: "0px", color: "#000", backgroundColor: "#d0facf", border: "1px solid #dce7dc", borderRadius: "5px", marginBottom: "10px" }}>
                                                                                 <Card.Text style={{ marginLeft: "10px" }}>
@@ -361,6 +362,7 @@ const Profile = () => {
                                                             <div className="scrollable" style={{ maxHeight: "300px", overflowX: "auto" }}>
                                                                 <ListGroup variant="flush">
                                                                     {classStuding && classStuding.map((classStuding) => {
+                                                                        if(classStuding.status === 0)
                                                                         return (
                                                                             <ListGroup.Item key={classStuding.id} style={{ color: "#000", backgroundColor: "#d0facf", border: "1px solid #dce7dc", borderRadius: "5px", marginBottom: "10px" }}>
                                                                                 <Card.Text style={{ marginLeft: "10px" }}>
