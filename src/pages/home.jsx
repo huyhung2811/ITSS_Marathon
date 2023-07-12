@@ -120,6 +120,7 @@ function ListTeacher() {
                     </div>
                     <div className="paginate-numbers">
                         <Pagination
+                            style={{ display: 'flex', justifyContent: 'center' }}
                             current={currentPage}
                             pageSize={pageSize}
                             total={totalItems}
