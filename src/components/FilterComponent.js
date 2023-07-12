@@ -119,24 +119,23 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                                 onChange={(e) => setTimeSlot(e.target.value)}
                             >
                                 <option value="All">全て</option>
-                                <option value="1">タイムスロット 1</option>
-                                <option value="2">タイムスロット 2</option>
-                                <option value="3">タイムスロット 3</option>
-                                <option value="4">タイムスロット 4</option>
-                                <option value="5">タイムスロット 5</option>
-                                <option value="6">タイムスロット 6</option>
-                                <option value="7">タイムスロット 7</option>
-                                <option value="8">タイムスロット 8</option>
-                                <option value="9">タイムスロット 9</option>
-                                <option value="10">タイムスロット 10</option>
-                                <option value="11">タイムスロット 11</option>
-                                <option value="12">タイムスロット 12</option>
-                                <option value="13">タイムスロット 13</option>
-                                <option value="14">タイムスロット 14</option>
-                                <option value="15">タイムスロット 15</option>
-                                <option value="16">タイムスロット 16</option>
-                                <option value="17">タイムスロット 17</option>
-                                <option value="18">タイムスロット 18</option>
+                                <option value="1">6:45 - 7:30</option>
+                                <option value="2">7:30 - 8:15</option>
+                                <option value="3">8:25 - 9:10</option>
+                                <option value="4">9:20 - 10:05</option>
+                                <option value="5">10:15 - 11:00</option>
+                                <option value="6">11:00 - 11:45</option>
+                                <option value="7">12:30 - 13:15</option>
+                                <option value="8">13:15 - 14:00</option>
+                                <option value="9">14:10 - 14:55</option>
+                                <option value="10">15:05 - 15:50</option>
+                                <option value="11">16:00 - 16:45</option>
+                                <option value="12">16:45 - 17:30</option>
+                                <option value="13">17:45 - 18:30</option>
+                                <option value="14">18:45 - 19:30</option>
+                                <option value="15">19:45 - 20:30</option>
+                                <option value="16">20:45 - 21:30</option>
+                                <option value="17">21:45 - 22:30</option>
                             </select>
                         </div>
                     </div>
