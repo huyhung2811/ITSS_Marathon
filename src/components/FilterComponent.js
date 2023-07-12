@@ -13,10 +13,12 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                 );
                 console.log(response.data);
                 setProfile(response.data);
-                setLocation(response.data.address || 'All');
+                setLocation(response.data.desired_place || 'All');
                 setFee(response.data.desired_price || null);
-                setSex(response.data.sex || 'All');
-                setLevel(response.data.desired_level || 'All');
+                setSex(response.data.desired_gender || 'All');
+                setTimeSlot(response.data.desired_time || 'All');
+                setGoal(response.data.desired_goal || 'All');
+                // setDay(response.data.desired_day || 'All');
 
                 const level = response.data.desired_level;
                 if (level === 'A1') {
@@ -37,6 +39,22 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                 if (level === 'C2') {
                     setLevel('6');
                 }
+
+                const day = response.data.desired_day;
+                if(day === 'Monday')
+                    setDay(1)
+                if(day === 'Tuesday')
+                    setDay(2)
+                if(day === 'Wednesday')
+                    setDay(3)
+                if(day === 'Thursday')
+                    setDay(4)
+                if(day === 'Friday')
+                    setDay(5)
+                if(day === 'Saturday')
+                    setDay(6)
+                if(day === 'Sundayy')
+                    setDay(7)
             } catch (error) {
                 console.log(error);
             }
@@ -54,6 +72,34 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
     const [goal, setGoal] = useState('All');
 
     const handleSubmit = () => {
+        const formData = {
+            id: user_id,
+            desired_day: day,
+            desired_time: timeSlot,
+            desired_price: fee,
+            desired_place: location,
+            desired_gender: sex,
+            desired_goal: goal,
+            desired_level: level,
+        }
+        if(day === "All")
+            delete formData.desired_day
+        if(timeSlot === "All")
+            delete formData.desired_time
+        if(fee === null)
+            delete formData.desired_price
+        if(location === "All")
+            delete formData.desired_place
+        if(sex === "All")
+            delete formData.desired_gender
+        if(goal === "All")
+            delete formData.desired_goal
+        if(level === "All")
+            delete formData.desired_level
+        
+        axios.put('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/edit-desired-info', formData).then(() =>{
+            console.log("sucess")
+        })
         var dem = 0;
         if (location !== 'All') {
             dem = dem + 1;
@@ -97,13 +143,13 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                                 onChange={(e) => setDay(e.target.value)}
                             >
                                 <option value="All">全て</option>
-                                <option value="2">月曜日</option>
-                                <option value="3">火曜日</option>
-                                <option value="4">水曜日</option>
-                                <option value="5">木曜日</option>
-                                <option value="6">金曜日</option>
-                                <option value="7">土曜日</option>
-                                <option value="8">日曜日</option>
+                                <option value="1">月曜日</option>
+                                <option value="2">火曜日</option>
+                                <option value="3">水曜日</option>
+                                <option value="4">木曜日</option>
+                                <option value="5">金曜日</option>
+                                <option value="6">土曜日</option>
+                                <option value="7">日曜日</option>
                             </select>
                         </div>
                     </div>
