@@ -50,8 +50,9 @@ function TeacherDetails() {
     const user_id = localStorage.getItem("userid");
     console.log(user_id)
     useEffect(() => {
-        axios.get(`https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-class-by-user/${user_id}`)
-        .then((res) => {setClasses(res?.data)})
+        if(user_id)
+            axios.get(`https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/get-class-by-user/${user_id}`)
+            .then((res) => {setClasses(res?.data)})
     }, [refeshClass])
     console.log(id);
     const teacher = teachers.find((teacher) => teacher.id === parseInt(id));
@@ -124,28 +125,31 @@ function TeacherDetails() {
 
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
-        const formData = {
-            user_id: user_id,
-            teacher_id: id,
-            rating: rating,
-            comment: commentText,
-        };
-        try {
-            const response = await axios.post(
-                'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/review',
-                formData,
-            );
-            // Handle the response as needed
-            console.log(response.data);
-            setMesage('更新に成功')
-            handleClickMessage();
-            setRefesh(refesh + 1);
-            // Clear the form fields
-            // setCommentText('');
-            // setRating(0);
-            // setComments([...comments, formData]);
-        } catch (error) {
-            console.log(error);
+        if(user_id)
+        {
+            const formData = {
+                user_id: user_id,
+                teacher_id: id,
+                rating: rating,
+                comment: commentText,
+            };
+            try {
+                const response = await axios.post(
+                    'https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/review',
+                    formData,
+                );
+                // Handle the response as needed
+                console.log(response.data);
+                setMesage('更新に成功')
+                handleClickMessage();
+                setRefesh(refesh + 1);
+                // Clear the form fields
+                // setCommentText('');
+                // setRating(0);
+                // setComments([...comments, formData]);
+            } catch (error) {
+                console.log(error);
+            }
         }
     };
 
@@ -198,7 +202,7 @@ function TeacherDetails() {
                 onClose={handleCloseMessage1}
                 // message="I love snacks"
             >
-                <Alert severity="error">このクラスに登録しました</Alert>
+                <Alert severity="error">ログインする必要があります</Alert>
             </Snackbar>
             <Modal.Dialog className="modal-xl">
                 <Modal.Header closeButton onClick={handleClose} />
@@ -376,7 +380,7 @@ function TeacherDetails() {
                                         </ListGroup>
                                     </div>
                                 </div>
-
+                                {!user_id ? '' : 
                                 <Card.Body>
                                     {comment ? (
                                         <Form className="mt-3">
@@ -461,6 +465,7 @@ function TeacherDetails() {
                                         </Form>
                                     )}
                                 </Card.Body>
+                                }
                             </Card>
                         </Col>
                     </Row>

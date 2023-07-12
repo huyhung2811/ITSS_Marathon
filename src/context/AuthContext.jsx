@@ -56,6 +56,7 @@ export const AuthContextProvider = ({ children }) => {
       };
     
       const logout = () => {
+        localStorage.removeItem("userid")
         setLoggedIn(false);
         setCurrentUser(null);
       window.location.href = '/signin';

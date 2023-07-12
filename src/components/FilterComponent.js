@@ -133,6 +133,10 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
                                 <option value="12">タイムスロット 12</option>
                                 <option value="13">タイムスロット 13</option>
                                 <option value="14">タイムスロット 14</option>
+                                <option value="15">タイムスロット 15</option>
+                                <option value="16">タイムスロット 16</option>
+                                <option value="17">タイムスロット 17</option>
+                                <option value="18">タイムスロット 18</option>
                             </select>
                         </div>
                     </div>
