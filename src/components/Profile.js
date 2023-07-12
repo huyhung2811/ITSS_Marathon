@@ -122,8 +122,14 @@ const Profile = () => {
                     <Col style={{ marginLeft: "50px", width: "400px" }}>
                         <Card style={{ width: "400px", justifyContent: "center", backgroundColor: "#75593e" }}>
                             <br />
-                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                <Card.Img src={userInfo.avatar} alt="Avatar" style={{ width: '200px', height: '200px', borderRadius: '20%', marginRight: '20px' }} /> <br /><br /> <br />
+                            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: 'center' }}>
+                                {userInfo.avatar ? 
+                                <Card.Img src={userInfo.avatar} alt="Avatar" style={{ width: '180px', height: '180px', borderRadius: '20%' }} />
+                                : 
+                                <Card.Img src={"https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png"} alt="Avatar" style={{ width: '180px', height: '180px', borderRadius: '20%' }} />
+                                }
+                                 <br /><br /> <br />
+                                {/* https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png */}
                             </div>
                             <Card.Body>
                                 <Button variant="link" onClick={handleShowInfo}>アカウント情報</Button> <br /><br />
@@ -140,8 +146,14 @@ const Profile = () => {
                                     <Card.Title style={{ textAlign: "center", fontSize: "30px" }}>
                                         <strong>アカウント情報</strong>
                                     </Card.Title><br />
-                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                                        <Card.Img src={userInfo.avatar} alt="Avatar" style={{ width: '100px', height: '100px', borderRadius: '20%', marginRight: '20px' }} /> <br />
+                                    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: 'center' }}>
+                                        {userInfo.avatar ? 
+                                        <Card.Img src={userInfo.avatar} alt="Avatar" style={{ width: '100px', height: '100px', borderRadius: '20%' }} />
+                                        : 
+                                        <Card.Img src={"https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png"} alt="Avatar" style={{ width: '100px', height: '100px', borderRadius: '20%' }} />
+                                        }
+                                        <br /><br /> <br />
+                                    {/* https://ss-images.saostar.vn/wp700/pc/1613810558698/Facebook-Avatar_3.png */}
                                     </div>
                                     <Card.Text style={{ marginLeft: "70px" }}>
                                         <strong>名前<span style={{ margin: '0 50px 0 100px' }}>: </span></strong> {userInfo.name}<br /><br />
