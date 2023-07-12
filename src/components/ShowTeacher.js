@@ -77,7 +77,7 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
                 onClose={handleCloseMessage}
                 // message="I love snacks"
             >
-                <Alert severity="success">成功を愛する教師が増えました</Alert>
+                <Alert severity="success">成功</Alert>
             </Snackbar>
             <Snackbar
                 autoHideDuration={3000}
