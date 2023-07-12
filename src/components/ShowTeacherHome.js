@@ -89,7 +89,7 @@ function ShowTeacherHome({ currentTeacher }) {
                                 }}
                             >
                                 <Card.Title>
-                                    {teacher.name}' , {teacher.age}
+                                    {teacher.name} , {teacher.age}
                                 </Card.Title>
                                 <Card.Text>
                                     {teacher.point && Math.round(teacher.point * 100) + a}

@@ -16,7 +16,7 @@ const YourComponent = () => {
         const user_id = localStorage.getItem('userid');
         const data = {
             user_id: user_id,
-            salary: parseFloat(salary),
+            salary: salary.toString(),
             // salary: 100000,
             address: address,
             level: level,
@@ -28,12 +28,14 @@ const YourComponent = () => {
             .then((response) => {
                 // Handle the API response here
                 console.log(response.data);
+                window.location.href = '/list-teacher';
             })
             .catch((error) => {
                 // Handle error here
                 console.error(error);
+                window.location.href = '/list-teacher';
             });
-        window.location.href = '/list-teacher';
+        // window.location.href = '/list-teacher';
     };
 
     return (
@@ -117,7 +119,7 @@ const YourComponent = () => {
                         className="inputField"
                         placeholder="希望料金を入力"
                         value={salary}
-                        onChange={(e) => setSalary(e.target.value)}
+                        onChange={(e) => {setSalary(e.target.value); console.log(e.target.value)}}
                     />
                     <Button
                         sx={{
