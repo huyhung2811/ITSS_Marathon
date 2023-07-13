@@ -83,19 +83,19 @@ const FilterComponent = ({ onSubmit, handleShowFilter }) => {
             desired_level: level,
         }
         if(day === "All")
-            delete formData.desired_day
+            formData.desired_day = null;
         if(timeSlot === "All")
-            delete formData.desired_time
+            formData.desired_time = null;
         if(fee === null)
-            delete formData.desired_price
+            formData.desired_price = null;
         if(location === "All")
-            delete formData.desired_place
+            formData.desired_place = null;
         if(sex === "All")
-            delete formData.desired_gender
+            formData.desired_gender = null;
         if(goal === "All")
-            delete formData.desired_goal
+            formData.desired_goal = null;
         if(level === "All")
-            delete formData.desired_level
+            formData.desired_level = null;
         
         axios.put('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/edit-desired-info', formData).then(() =>{
             console.log("sucess")
