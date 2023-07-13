@@ -50,9 +50,9 @@ function ListTeacher() {
         setCurrentPage(page);
     };
 
-    console.log(teachers)
+    console.log(teachers);
     const currentTeacher = teachers?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
-    console.log(currentTeacher)
+    console.log(currentTeacher);
     if (points !== null) {
         var currentTeacherPoint = points?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
     }
@@ -103,7 +103,6 @@ function ListTeacher() {
                 </p>
             </div>
             <div className="listTeacher-container">
-                
                 {buttonClick && (
                     <div className="filter-container">
                         <FilterComponent onSubmit={handleFilterSubmit} handleShowFilter={handleShowFilter} />
@@ -111,8 +110,13 @@ function ListTeacher() {
                 )}
 
                 <div className="list-paginate">
-                    <div style={{display: 'flex', justifyContent: "center"}}>
-                        <Skeleton sx={{display: active ? 'block' : 'none'}} variant="rounded" width={"248px"} height={"395px"} />
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Skeleton
+                            sx={{ display: active ? 'block' : 'none' }}
+                            variant="rounded"
+                            width={'248px'}
+                            height={'395px'}
+                        />
                     </div>
                     <div
                         className="filter-results"
@@ -129,12 +133,17 @@ function ListTeacher() {
                                 indexOfFirstStudent={indexOfFirstStudent}
                             />
                         ) : (
-                            <ShowTeacher onRefesh={setRefesh} count={refesh} currentTeacher={currentTeacher} indexOfFirstStudent={indexOfFirstStudent} />
+                            <ShowTeacher
+                                onRefesh={setRefesh}
+                                count={refesh}
+                                currentTeacher={currentTeacher}
+                                indexOfFirstStudent={indexOfFirstStudent}
+                            />
                         )}
                     </div>
                     <div className="paginate-numbers">
                         <Pagination
-                            style={{display: 'flex', justifyContent: 'center'}}
+                            style={{ display: 'flex', justifyContent: 'center' }}
                             current={currentPage}
                             pageSize={pageSize}
                             total={totalItems}

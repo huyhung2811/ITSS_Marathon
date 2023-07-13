@@ -16,6 +16,8 @@ import { ConstructionOutlined } from '@mui/icons-material';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import React, { useState } from 'react';
+import { Box, Typography } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -27,13 +29,12 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
     const [open1, setOpen1] = useState(false);
 
     const handleClickMessage1 = () => {
-        setOpen1(true)
-    }
+        setOpen1(true);
+    };
 
     const handleCloseMessage1 = () => {
-        setOpen1(false)
-    }
-
+        setOpen1(false);
+    };
 
     const handleClickMessage = () => {
         setOpen(true);
@@ -46,9 +47,8 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
     const a = '%';
     const toggleHeart = (teacherId) => {
         const user_id = localStorage.getItem('userid');
-        console.log(user_id)
-        if(user_id)
-        {
+        console.log(user_id);
+        if (user_id) {
             axios
                 .post('https://be-marathonwebsite-ruler-production-6ad6.up.railway.app/api/bookmark', {
                     teacher_id: teacherId,
@@ -62,12 +62,11 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
                 .catch((error) => {
                     console.log('loi');
                 });
-        }
-        else{
+        } else {
             handleClickMessage1();
         }
     };
-    console.log(currentTeacher)
+    console.log(currentTeacher);
     return (
         <Row xs={3} md={3} className="g-4" style={{ marginTop: '5px' }}>
             <Snackbar
@@ -81,7 +80,7 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
             </Snackbar>
             <Snackbar
                 autoHideDuration={3000}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={open1}
                 onClose={handleCloseMessage1}
                 // message="I love snacks"
@@ -121,7 +120,7 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
                                     {teacher.name} , {teacher.age}
                                 </Card.Title>
                                 <Card.Text>
-                                    {teacher.point && Math.round(teacher.point * 100) + a}
+                                    {/* {teacher.point && Math.round(teacher.point * 100) + a} */}
                                     {/* <div style={{ alignItems: "center" }}>
                     {teacher.point&&teacher.point >= 0.8 ? (
                       <div style={{ color: "green" }}>Math.round(teacher.point * 100) + a</div>
@@ -131,6 +130,56 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
                       <div style={{ color: "red" }}>{Math.round(teacher.point * 100) + a}</div>
                     )}
                   </div> */}
+                                    {teacher.point && (
+                                        <Box
+                                            sx={{
+                                                position: 'relative',
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                textAlign: 'center',
+                                                justifyContent: 'center',
+                                            }}
+                                        >
+                                            <CircularProgress
+                                                variant="determinate"
+                                                // value={20}
+                                                // value={
+                                                //     isNaN(parseFloat(teacher.point * 100))
+                                                //         ? 0
+                                                //         : parseFloat(teacher.point * 100)
+                                                // }
+                                                value={parseFloat(teacher.point * 100)}
+                                                sx={{ color: 'red' }}
+                                            />
+                                            <Box
+                                                sx={{
+                                                    top: 0,
+                                                    left: 0,
+                                                    bottom: 0,
+                                                    right: 0,
+                                                    position: 'absolute',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                }}
+                                            >
+                                                <Typography
+                                                    variant="caption"
+                                                    component="div"
+                                                    color="black"
+                                                    fontWeight="bold"
+                                                >
+                                                    {`${Math.round(
+                                                        parseFloat(
+                                                            isNaN(parseFloat(teacher.point * 100))
+                                                                ? 0
+                                                                : parseFloat(teacher.point * 100),
+                                                        ),
+                                                    )}%`}
+                                                </Typography>
+                                            </Box>
+                                        </Box>
+                                    )}
                                     <br />
                                     <strong>レベル:</strong> {teacher.level}
                                     <br />
@@ -148,7 +197,7 @@ function ShowTeacher({ currentTeacher, onRefesh, count }) {
                                     {teacher.bookmark ? (
                                         <FontAwesomeIcon
                                             icon={faHeart}
-                                            style={{ marginLeft: '50px', color: 'red', cursor: 'pointer'}}
+                                            style={{ marginLeft: '50px', color: 'red', cursor: 'pointer' }}
                                             onClick={() => toggleHeart(teacher.id)}
                                         />
                                     ) : (
