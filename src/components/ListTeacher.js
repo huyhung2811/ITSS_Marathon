@@ -30,7 +30,10 @@ function ListTeacher() {
                 );
                 console.log(response.data)
                 setActive(false)
-                setTeachers(response.data);
+                if(response.data.data)
+                    setTeachers(response.data.data);
+                else
+                    setTeachers(response.data)
             } catch (error) {
                 console.log(error);
             }
